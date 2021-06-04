@@ -16,7 +16,17 @@ setup(
         install_requires=[
             "matrix-nio >= 0.18.2"
         ],
-        keywords=['python', 'matrix','bot'],
+        keywords=[
+            'python',
+            'matrix',
+            'bot',
+            'simple', 
+            'library', 
+            'simplepythonbotlibrary',
+            'simplepythonbotlib',
+            'simple-python-bot-library',
+            'simple-python-bot-lib'
+            ],
         classifiers= [
             "Programming Language :: Python :: 3",
             "Operating System :: OS Independent",
