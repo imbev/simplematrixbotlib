@@ -9,9 +9,9 @@ Installation from pip:
 ```
 python -m pip install simplematrixbotlib
 ```
-Installation from github:
+Download from github:
 ```
-git clone https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
+git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
 ```
 
 # Example Usage
