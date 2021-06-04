@@ -14,7 +14,7 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
-            matrix-nio
+            "matrix-nio >= 0.18.2"
         ],
         keywords=['python', 'matrix','bot'],
         classifiers= [
