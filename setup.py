@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-VERSION = '1.0.0' 
+VERSION = '1.0.1' 
 DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
 with open(path.join(os.path.abspath(path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
