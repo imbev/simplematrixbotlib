@@ -1,1 +1,2 @@
-from simplematrixbotlib import api
+from simplematrixbotlib.api import Api
+from simplematrixbotlib.auth import Creds
