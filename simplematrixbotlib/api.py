@@ -8,13 +8,14 @@ class Api:
     def __init__(self, creds):
         self.creds = creds
 
-    def login(self):
+    async def login(self):
         """
         Login the client to the homeserver
         """
-        self.client = AsyncClient(
+        self.async_client = AsyncClient(
             self.creds.homeserver,
             self.creds.username
         )
-        response = await async_client.login(creds.password)
+        
+        response = await self.async_client.login(self.creds.password)
         print(response)
