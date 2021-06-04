@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
+import os
 
 VERSION = '1.0.0' 
-DESCRIPTION = 'A simple matrix bot library.'
-LONG_DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
+DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
+with open(path.join(os.path.abspath(path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
+    LONG_DESCRIPTION = f.read()
 
 setup(
        # the name must match the folder name 'verysimplemodule'
@@ -12,6 +14,7 @@ setup(
         author_email="krazykirby99999@gmail.com",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
+        long_description_content_type='text/markdown'
         packages=find_packages(),
         install_requires=[
             "matrix-nio >= 0.18.2"
