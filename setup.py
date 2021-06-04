@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1' 
+VERSION = '0.0.2' 
 DESCRIPTION = 'A simple matrix bot library.'
 LONG_DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
 
