@@ -1,0 +1,2 @@
+- name: YAPF Formatter
+  uses: diegovalenzuelaiturra/yapf-action@v0.0.4
