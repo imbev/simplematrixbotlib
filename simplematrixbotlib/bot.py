@@ -1,5 +1,5 @@
 import asyncio
-from simplematrixbotlib import API
+import simplematrixbotlib as botlib
 
 class Bot:
     """
@@ -15,7 +15,7 @@ class Bot:
     
     def __init__(self, creds):
         self.creds = creds
-        self.api = API(self.creds)
+        self.api = botlib.API(self.creds)
 
     async def main(self):
         await self.api.login()
