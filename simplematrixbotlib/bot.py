@@ -19,11 +19,15 @@ class Bot:
 
     async def main(self):
         await self.api.login()
-        while True:
-            pass
+        self.async_client = self.api.async_client
+
+        self.callbacks = botlib.Callbacks(self.async_client)
+        await self.callbacks.setup_callbacks()
+
+        await self.async_client.sync_forever(timeout=3000, full_state=True)
 
     def run(self):
-        asyncio.run(self.main())
+        asyncio.get_event_loop().run_until_complete(self.main())
 
 
 
