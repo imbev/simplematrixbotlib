@@ -1,4 +1,3 @@
-
 class Creds:
     """
     A class to store and handle login credentials

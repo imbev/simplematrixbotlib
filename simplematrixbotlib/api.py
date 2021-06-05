@@ -1,6 +1,7 @@
 import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText)
 
+
 class API:
     """
     A class to interact with the matrix-nio library.
@@ -12,10 +13,8 @@ class API:
         """
         Login the client to the homeserver
         """
-        self.async_client = AsyncClient(
-            self.creds.homeserver,
-            self.creds.username
-        )
-        
+        self.async_client = AsyncClient(self.creds.homeserver,
+                                        self.creds.username)
+
         response = await self.async_client.login(self.creds.password)
         print(response)
