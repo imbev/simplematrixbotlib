@@ -33,7 +33,7 @@ bot.run()
     bot = botlib.Bot(creds)
     bot.run() #Logs in during the execution of this line
     ```
-- ### Join room on invite - Bots automatically join rooms that the bot is invited to upon execution of bot.run()
+- ### Join room on invite - Bots automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
 
 ## In Progress:
 - ### N/A
