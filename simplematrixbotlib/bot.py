@@ -3,7 +3,7 @@ import simplematrixbotlib as botlib
 
 class Bot:
     """
-    A class for the bot developer to primarily interact with
+    A class for the bot library user to interact with
     Example Usage:
 
     import simplematrixbotlib as bl
