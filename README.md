@@ -25,7 +25,7 @@ bot.run()
 
 # Features
 ## Complete:
-- ### Login to Matrix - Bots automatically login to matrix upon the execution of bot.run() 
+- ### Login to homeserver - Bots automatically login upon the execution of bot.run() 
     ```python
     import simplematrixbotlib as botlib
     
