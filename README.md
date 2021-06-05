@@ -35,10 +35,9 @@ bot.run()
     ```
 
 ## In Progress:
-- ### N/A
+- ### Join room on invite
 
 ## Planned:
-- ### Join room on invite
 - ### Execute action if messages meet criteria
 - ### Send message
 - ### More
