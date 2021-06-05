@@ -1,5 +1,5 @@
 # Simple-Matrix-Bot-Lib
-(Version 1.0.x)
+(Version 1.1.x)
 
 simplematrixbotlib is a Python 3 library for quickly building Matrix bots. It uses [matrix-nio](https://github.com/poljar/matrix-nio) as its Matrix client library.
 [View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/)
@@ -25,7 +25,7 @@ bot.run()
 
 # Features
 ## Complete:
-- ### Login to Matrix - Bots automatically login to matrix upon the execution of bot.run() 
+- ### Login to homeserver - Bots automatically login upon the execution of bot.run() 
     ```python
     import simplematrixbotlib as botlib
     
@@ -33,12 +33,12 @@ bot.run()
     bot = botlib.Bot(creds)
     bot.run() #Logs in during the execution of this line
     ```
+- ### Join room on invite - Bots automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
 
 ## In Progress:
 - ### N/A
 
 ## Planned:
-- ### Join room on invite
 - ### Execute action if messages meet criteria
 - ### Send message
 - ### More
