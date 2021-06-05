@@ -37,9 +37,9 @@ bot.run()
 
 ## In Progress:
 - ### Execute action based on criteria
+- ### Send message
 
 ## Planned:
-- ### Send message
 - ### More
 
 # Dependencies
