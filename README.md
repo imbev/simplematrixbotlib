@@ -36,10 +36,9 @@ bot.run()
 - ### Join room on invite - Bots automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
 
 ## In Progress:
-- ### N/A
+- ### Execute action based on criteria
 
 ## Planned:
-- ### Execute action if messages meet criteria
 - ### Send message
 - ### More
 
