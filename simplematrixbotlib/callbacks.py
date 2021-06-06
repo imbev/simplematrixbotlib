@@ -1,9 +1,10 @@
-from nio import InviteMemberEvent
+from nio import InviteMemberEvent, RoomMessageText
 
 
 class Callbacks:
-    def __init__(self, async_client):
+    def __init__(self, async_client, bot):
         self.async_client = async_client
+        self.bot = bot
 
     async def setup_callbacks(self):
         """
@@ -11,6 +12,8 @@ class Callbacks:
         """
         self.async_client.add_event_callback(self.invite_callback,
                                              InviteMemberEvent)
+        self.async_client.add_event_callback(self.message_callback,
+                                             RoomMessageText)
 
     async def invite_callback(self, room, event, tries=1):
         """
@@ -27,3 +30,10 @@ class Callbacks:
                 await self.invite_callback(room, event, tries)
             else:
                 print(f"Failed to join {room.room_id} after 3 tries")
+
+    async def message_callback(self, room, event):
+        """
+        callback for handling messages
+        """
+        for action in self.bot.message_actions:
+            await action(room, event)
