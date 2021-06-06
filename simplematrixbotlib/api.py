@@ -18,3 +18,11 @@ class API:
 
         response = await self.async_client.login(self.creds.password)
         print(response)
+
+    async def send_text_message(self, room_id, message):
+        await self.async_client.room_send(room_id=room_id,
+                                          message_type="m.room.message",
+                                          content={
+                                              "msgtype": "m.text",
+                                              "body": message
+                                          })

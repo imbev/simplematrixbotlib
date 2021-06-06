@@ -16,15 +16,19 @@ class Bot:
     def __init__(self, creds):
         self.creds = creds
         self.api = botlib.API(self.creds)
+        self.message_actions = []
 
     async def main(self):
         await self.api.login()
         self.async_client = self.api.async_client
 
-        self.callbacks = botlib.Callbacks(self.async_client)
+        self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
+
+    def add_message_listener(self, action_func):
+        self.message_actions.append(action_func)
 
     def run(self):
         asyncio.get_event_loop().run_until_complete(self.main())
