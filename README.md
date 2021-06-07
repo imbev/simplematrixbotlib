@@ -39,6 +39,7 @@ bot.add_message_listener(echo)
 
 bot.run()
 ```
+More examples can be found [here](examples).
 
 # Features
 ## Complete:
