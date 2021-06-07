@@ -1,3 +1,4 @@
+import simplematrixbotlib as botlib
 import os
 
 creds = botlib.Creds("https://example.org", "echo_bot", "secretpassword")
