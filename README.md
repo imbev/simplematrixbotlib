@@ -90,10 +90,11 @@ bot.run()
     bot.run()
     ```
 ## In Progress:
-- ### N/A
+- ### Add examples
 
 ## Planned:
 - ### Add more match filters
+- ### Preserve sessions
 - ### Support for Encrypted Rooms
 - ### More
 
