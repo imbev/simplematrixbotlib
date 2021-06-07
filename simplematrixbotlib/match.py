@@ -22,7 +22,7 @@ class MessageMatch:
         """
         self._command = command
         self.args = self.message.body.replace(self._prefix + self._command, '')
-        return self.message.body.replace(self._prefix, '').startswith(command)
+        return self.message.body.replace(self._prefix, '').split(' ')[0]  == self._command
 
     def not_from_this_bot(self):
         """
