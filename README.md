@@ -94,6 +94,7 @@ bot.run()
 
 ## Planned:
 - ### Add more match filters
+- ### Support for Encrypted Rooms
 - ### More
 
 # Dependencies
