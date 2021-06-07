@@ -17,9 +17,26 @@ git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-l
 # Example Usage
 ```python
 import simplematrixbotlib as botlib
-    
-creds = botlib.Creds("home.server", "user", "pass")
+import os
+
+creds = botlib.Creds("https://home.server", "user", "pass")
 bot = botlib.Bot(creds)
+
+prefix = '!'
+
+async def echo(room, message):
+    """
+    Example function that "echoes" arguements.
+    Usage:
+    example_user- !echo say something
+    echo_bot- say something
+    """
+    match = botlib.MessageMatch(room, message, bot)
+    if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
+        await bot.api.send_text_message(room.room_id, match.args)
+
+bot.add_message_listener(echo)
+
 bot.run()
 ```
 
@@ -38,7 +55,7 @@ bot.run()
     ```python
     import simplematrixbotlib as botlib
     
-    creds = botlib.Creds("home.server", "user", "pass")
+    creds = botlib.Creds("https://home.server", "user", "pass")
     bot = botlib.Bot(creds)
 
     async def say_something_to_a_message_not_from_bot(room, message): #Must be an "async" function with (room, message) arguments
@@ -48,12 +65,35 @@ bot.run()
 
     bot.run()
     ```
+- ### Execute action based on criteria - "match filters" can be used to  specify which messages for the bot to respond to
+    ```python
+    import simplematrixbotlib as botlib
+    import os
 
+    creds = botlib.Creds("https://home.server", "user", "pass")
+    bot = botlib.Bot(creds)
+
+    prefix = '!' #Create prefix for commands
+
+    async def echo(room, message):
+        """
+        Example function that "echoes" arguements.
+        Usage:
+        example_user- !echo say something
+        echo_bot- say something
+        """
+        match = botlib.MessageMatch(room, message, bot) #Create an object of the botlib.MessageMatch class
+        if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"): #Add match filters
+            await bot.api.send_text_message(room.room_id, match.args)#Execute action
+    bot.add_message_listener(echo)
+
+    bot.run()
+    ```
 ## In Progress:
-- ### Execute action based on criteria
+- ### Add more match filters
 
 ## Planned:
-- ### More
+- ### Prevent bot from reacting to messages sent prior to the bot running
 
 # Dependencies
 ## Python:
