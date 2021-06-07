@@ -90,7 +90,7 @@ bot.run()
     bot.run()
     ```
 ## In Progress:
-- ### Prevent bot from reacting to messages sent prior to the bot running
+- ### N/A
 
 ## Planned:
 - ### Add more match filters
