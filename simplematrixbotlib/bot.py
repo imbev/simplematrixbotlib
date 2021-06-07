@@ -22,6 +22,8 @@ class Bot:
         await self.api.login()
         self.async_client = self.api.async_client
 
+        await self.async_client.sync(timeout=65536, full_state=False) #Ignore prior messages
+
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
 
