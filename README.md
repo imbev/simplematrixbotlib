@@ -90,10 +90,11 @@ bot.run()
     bot.run()
     ```
 ## In Progress:
-- ### Add more match filters
+- ### Prevent bot from reacting to messages sent prior to the bot running
 
 ## Planned:
-- ### Prevent bot from reacting to messages sent prior to the bot running
+- ### Add more match filters
+- ### More
 
 # Dependencies
 ## Python:
