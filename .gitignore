@@ -1,4 +1,3 @@
 .vscode/settings.json
 venv/
 doc/_build/
-doc/autodoc/
