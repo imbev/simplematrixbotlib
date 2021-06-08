@@ -18,12 +18,3 @@ Simple-Matrix-Bot-Lib is a Python 3 library for quickly building Matrix bots. It
    :caption: Advanced:
 
    autodoc/simplematrixbotlib
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
