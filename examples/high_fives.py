@@ -55,3 +55,17 @@ async def high_five_count(room, message):
 bot.add_message_listener(high_five_count)
 
 bot.run()
+
+# random_user
+#       !count
+#
+# echo_bot
+#       The bot has been high-fived 10 times!
+#
+# random_user
+#       !high_five
+#
+# echo_bot
+#       The bot has been high-fived 11 times!
+#
+
