@@ -12,9 +12,18 @@ BUILDDIR      = _build
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile
+.PHONY: help Makefile autodoc
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+autodoc:
+	pip install simplematrixbotlib
+
+	..\venv\Scripts\sphinx-apidoc -o autodoc ../simplematrixbotlib/
+#..\venv\Scripts\sphinx-apidoc -o autodoc/examples ../examples
+
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	pip uninstall simplematrixbotlib matrix-nio
