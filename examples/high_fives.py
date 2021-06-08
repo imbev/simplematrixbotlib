@@ -50,8 +50,7 @@ async def high_five_count(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if match.not_from_this_bot and match.prefix(PREFIX) and (
     match.command("count") or match.command("how_many") or match.command("c")):
-    
-    await bot.api.send_text_message(room.room_id, f"The bot has been high-fived {str(bot.total_high_fives)} times!")
+        await bot.api.send_text_message(room.room_id, f"The bot has been high-fived {str(bot.total_high_fives)} times!")
 
 bot.add_message_listener(high_five_count)
 
