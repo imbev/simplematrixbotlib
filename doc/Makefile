@@ -19,11 +19,3 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-autodoc:
-	pip install simplematrixbotlib
-
-	..\venv\Scripts\sphinx-apidoc -o autodoc ../simplematrixbotlib/
-#..\venv\Scripts\sphinx-apidoc -o autodoc/examples ../examples
-
-	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	pip uninstall simplematrixbotlib matrix-nio
