@@ -2,6 +2,13 @@ from nio import InviteMemberEvent, RoomMessageText
 
 
 class Callbacks:
+    """
+    A class for handling callbacks.
+
+    ...
+
+    """
+
     def __init__(self, async_client, bot):
         self.async_client = async_client
         self.bot = bot
@@ -9,6 +16,7 @@ class Callbacks:
     async def setup_callbacks(self):
         """
         Add callbacks to async_client
+
         """
         self.async_client.add_event_callback(self.invite_callback,
                                              InviteMemberEvent)
@@ -17,7 +25,15 @@ class Callbacks:
 
     async def invite_callback(self, room, event, tries=1):
         """
-        callback for handling invites
+        Callback for handling invites.
+
+        Parameters
+        ----------
+        room : nio.rooms.MatrixRoom
+        event : nio.events.room_events.Event
+        tries : int, optional
+            Amount of times that this function has been called in a row for the same exact event.
+
         """
         try:
             await self.async_client.join(room.room_id)
@@ -34,6 +50,12 @@ class Callbacks:
     async def message_callback(self, room, event):
         """
         callback for handling messages
+
+        Parameters
+        ----------
+        room : nio.rooms.MatrixRoom
+        event : nio.events.room_events.Event
+        
         """
         for action in self.bot.message_actions:
             await action(room, event)
