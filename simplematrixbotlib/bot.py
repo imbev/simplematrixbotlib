@@ -15,7 +15,7 @@ class Bot:
     """
     def __init__(self, creds):
         self.creds = creds
-        self.api = botlib.API(self.creds)
+        self.api = botlib.Api(self.creds)
         self.message_actions = []
 
     async def main(self):
