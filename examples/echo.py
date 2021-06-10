@@ -1,3 +1,13 @@
+"""
+Example Usage:
+
+random_user
+      !echo something
+
+echo_bot
+      something
+"""
+
 import simplematrixbotlib as botlib
 import os
 
@@ -17,9 +27,3 @@ async def echo(room, message):
 bot.add_message_listener(echo)
 
 bot.run()
-
-# random_user
-#       !echo something
-#
-# echo_bot
-#       something

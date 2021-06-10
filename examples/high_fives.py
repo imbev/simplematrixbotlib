@@ -1,3 +1,25 @@
+"""
+Example Usage:
+
+random_user
+      !count
+
+echo_bot
+      The bot has been high-fived 10 times!
+
+random_user
+      !high_five
+
+echo_bot
+      random_user high-fived the bot!"
+
+random_user
+      !count
+
+echo_bot
+      The bot has been high-fived 11 times!
+"""
+
 import os
 
 creds = botlib.Creds("https://example.org", "hight_five_bot", "secretpassword")
@@ -65,16 +87,3 @@ async def high_five_count(room, message):
 bot.add_message_listener(high_five_count)
 
 bot.run()
-
-# random_user
-#       !count
-#
-# echo_bot
-#       The bot has been high-fived 10 times!
-#
-# random_user
-#       !high_five
-#
-# echo_bot
-#       The bot has been high-fived 11 times!
-#
