@@ -2,7 +2,7 @@ import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText)
 
 
-class API:
+class Api:
     """
     A class to interact with the matrix-nio library.
     """
