@@ -76,5 +76,11 @@ bot.run()
 #       !high_five
 #
 # echo_bot
+#       random_user high-fived the bot!"
+#
+# random_user
+#       !count
+#
+# echo_bot
 #       The bot has been high-fived 11 times!
 #
