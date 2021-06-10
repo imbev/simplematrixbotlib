@@ -27,6 +27,6 @@ MessageMatch
 Api
 -----
 
-.. autoclass:: simplematrixbotlib.API
+.. autoclass:: simplematrixbotlib.Api
     :members:
     :undoc-members:
