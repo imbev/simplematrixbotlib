@@ -8,7 +8,6 @@ class Callbacks:
     ...
 
     """
-
     def __init__(self, async_client, bot):
         self.async_client = async_client
         self.bot = bot
