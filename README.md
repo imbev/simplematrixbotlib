@@ -94,12 +94,12 @@ More examples can be found [here](examples).
     bot.run()
     ```
 ## In Progress:
+- ### Preserve sessions
 - ### Add more examples
 - ### Improve Documentation
 
 ## Planned:
 - ### Add more match filters
-- ### Preserve sessions
 - ### Support for Encrypted Rooms
 - ### More
 
