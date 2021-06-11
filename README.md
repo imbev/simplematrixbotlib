@@ -94,7 +94,8 @@ More examples can be found [here](examples).
     bot.run()
     ```
 ## In Progress:
-- ### Add examples
+- ### Add more examples
+- ### Improve Documentation
 
 ## Planned:
 - ### Add more match filters

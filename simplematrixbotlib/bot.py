@@ -4,16 +4,26 @@ import simplematrixbotlib as botlib
 
 class Bot:
     """
-    A class for the bot library user to interact with
-    Example Usage:
-
-    import simplematrixbotlib as bl
+    A class for the bot library user to interact with.
     
-    creds = bl.Creds("home.server", "user", "pass")
-    bot = bl.Bot(creds)
-    bot.run()
+    ...
+
+    Attributes
+    ----------
+    api : simplematrixbotlib.Api
+        An instance of the simplematrixbotlib.Api class.
+    
     """
     def __init__(self, creds):
+        """
+        Initializes the simplematrixbotlib.Bot class.
+
+        Parameters
+        ----------
+        creds : simplematrixbotlib.Creds
+
+        """
+
         self.creds = creds
         self.api = botlib.Api(self.creds)
         self.message_actions = []
@@ -31,7 +41,21 @@ class Bot:
         await self.async_client.sync_forever(timeout=3000, full_state=True)
 
     def add_message_listener(self, action_func):
+        """
+        Adds message callbacks to the message listener.
+
+        Parameteres
+        -----------
+        
+        action_func : function
+
+        """
         self.message_actions.append(action_func)
 
     def run(self):
+        """
+        Runs the bot.
+
+        """
+
         asyncio.get_event_loop().run_until_complete(self.main())
