@@ -40,9 +40,9 @@ class Api:
         if self.creds.device_id:
             self.async_client.device_id = self.creds.device_id
 
-        response = await self.async_client.login(self.creds.password,
+        response = await self.async_client.login(password=self.creds.password,
                                                 device_name='Bot Client built with Simple-Matrix-Bot-Lib',
-                                                 self.creds.access_token)
+                                                 token=self.creds.access_token)
         print(response)
 
         self.creds.device_id = response.device_id
