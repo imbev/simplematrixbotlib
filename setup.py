@@ -20,7 +20,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "matrix-nio >= 0.18.2",
-        "python-cryptography-fernet-wrapper"
+        "python-cryptography-fernet-wrapper",
+        "cryptography"
     ],
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
