@@ -60,7 +60,7 @@ class Creds:
             
             if file_exists:
                 key = fw.key_from_pass(self.password)
-                decrypted_session_data = fw.decrypt(encrypted_session_data, key)
+                decrypted_session_data = fw.decrypt(encrypted_session_data, key)[3:-2].replace('\'','').replace(' ','').split(",")
                 
                 self.device_id = decrypted_session_data[0]
                 self.access_token = decrypted_session_data[1]
