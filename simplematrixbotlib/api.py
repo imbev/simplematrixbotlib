@@ -23,17 +23,30 @@ class Api:
 
         """
         self.creds = creds
+        creds.session_read_file()
 
     async def login(self):
         """
         Login the client to the homeserver
 
         """
-        self.async_client = AsyncClient(self.creds.homeserver,
-                                        self.creds.username)
 
-        response = await self.async_client.login(self.creds.password)
+        self.creds.session_read_file()
+
+        self.async_client = AsyncClient(
+            self.creds.homeserver,
+            self.creds.username,
+            self.creds.device_id
+        )
+
+        response = await self.async_client.login(self.creds.password,
+                                                 self.creds.access_token)
         print(response)
+
+        self.creds.device_name = response.device_id
+        self.creds.access_token = response.access_token
+
+        self.creds.session_write_file()
 
     async def send_text_message(self, room_id, message):
         """
