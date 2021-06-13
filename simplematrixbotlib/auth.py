@@ -56,7 +56,6 @@ class Creds:
                     
             except FileNotFoundError:
                 file_exists = False
-                print(f'device_id and access_token are not found at {self._session_stored_file}. New device_id and access_token will be created.')
             
             if file_exists:
                 key = fw.key_from_pass(self.password)
@@ -84,8 +83,6 @@ class Creds:
 
             with open(self._session_stored_file, 'w') as f:
                 f.write(str(encrypted_session_data))
-
-            print('device_id and access_token are encrypted and saved to file')
         
         else:
             print('device_id and access_token will not be saved')
