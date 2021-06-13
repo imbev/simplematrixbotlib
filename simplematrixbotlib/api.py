@@ -41,7 +41,8 @@ class Api:
             self.async_client.device_id = self.creds.device_id
 
         response = await self.async_client.login(self.creds.password,
-                                                 self.creds.access_token)
+                                                device_name='Bot Client built with Simple-Matrix-Bot-Lib',
+                                                 self.creds.access_token,)
         print(response)
 
         self.creds.device_id = response.device_id
@@ -57,7 +58,7 @@ class Api:
         -----------
         room_id : str
             The room id of the destination of the message.
-        
+
         message : str
             The content of the message to be sent.
 
