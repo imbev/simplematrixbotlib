@@ -34,15 +34,17 @@ class Api:
 
         self.async_client = AsyncClient(
             self.creds.homeserver,
-            self.creds.username,
-            self.creds.device_id
+            self.creds.username
         )
+
+        if self.creds.device_id:
+            self.async_client.device_id = self.creds.device_id
 
         response = await self.async_client.login(self.creds.password,
                                                  self.creds.access_token)
         print(response)
 
-        self.creds.device_name = response.device_id
+        self.creds.device_id = response.device_id
         self.creds.access_token = response.access_token
 
         self.creds.session_write_file()
