@@ -51,7 +51,7 @@ class Creds:
         if self._session_stored_file:
             try:
                 with open(self._session_stored_file, 'r') as f:
-                    encrypted_session_data = f.readlines()
+                    encrypted_session_data = bytes(f.read()[2:-1], 'utf-8')
                     file_exists = True
                     
             except FileNotFoundError:
@@ -78,12 +78,12 @@ class Creds:
 
         """
         if self._session_stored_file:
-            session_data = [self.device_name, self.access_token]
+            session_data = str([self.device_name, self.access_token])
             key = fw.key_from_pass(self.password)
             encrypted_session_data = fw.encrypt(session_data, key)
 
             with open(self._session_stored_file, 'w') as f:
-                f.write('{encrypted_session_data}')
+                f.write(str(encrypted_session_data))
 
             print('device_name and access_token are encrypted and saved to file')
         
