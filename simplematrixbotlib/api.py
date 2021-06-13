@@ -23,7 +23,6 @@ class Api:
 
         """
         self.creds = creds
-        creds.session_read_file()
 
     async def login(self):
         """
