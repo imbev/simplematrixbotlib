@@ -1,5 +1,5 @@
 # Simple-Matrix-Bot-Lib
-(Version 1.3.x)
+(Version 1.4.x)
 
 simplematrixbotlib is a Python 3 library for quickly building Matrix bots. It uses [matrix-nio](https://github.com/poljar/matrix-nio) as its Matrix client library.
 
@@ -93,13 +93,37 @@ More examples can be found [here](examples).
 
     bot.run()
     ```
+- ### Preserve sessions - Sessions are now preserved between logins. The access token and device id are now saved in sessions.txt, unless specified otherwise.
+    ```python
+    import simplematrixbotlib as botlib
+    import os
+
+    creds = botlib.Creds("https://home.server", "user", "pass", None) #Disable preserved sessions
+    bot = botlib.Bot(creds)
+
+    prefix = '!'
+
+    async def echo(room, message):
+        """
+        Example function that "echoes" arguements.
+        Usage:
+        example_user- !echo say something
+        echo_bot- say something
+        """
+        match = botlib.MessageMatch(room, message, bot)
+        if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
+            await bot.api.send_text_message(room.room_id, match.args)
+    bot.add_message_listener(echo)
+
+    bot.run()
+    ```
+
 ## In Progress:
 - ### Add more examples
 - ### Improve Documentation
 
 ## Planned:
 - ### Add more match filters
-- ### Preserve sessions
 - ### Support for Encrypted Rooms
 - ### More
 

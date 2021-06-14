@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-VERSION = '1.3.3'
+VERSION = '1.4.0'
 DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                        'README.md'),
@@ -18,7 +18,11 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    install_requires=["matrix-nio >= 0.18.2"],
+    install_requires=[
+        "matrix-nio >= 0.18.2",
+        "python-cryptography-fernet-wrapper",
+        "cryptography"
+    ],
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
         'simplepythonbotlibrary', 'simplepythonbotlib',

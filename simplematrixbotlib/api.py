@@ -29,11 +29,26 @@ class Api:
         Login the client to the homeserver
 
         """
-        self.async_client = AsyncClient(self.creds.homeserver,
-                                        self.creds.username)
 
-        response = await self.async_client.login(self.creds.password)
+        self.creds.session_read_file()
+
+        self.async_client = AsyncClient(
+            self.creds.homeserver,
+            self.creds.username
+        )
+
+        if self.creds.device_id:
+            self.async_client.device_id = self.creds.device_id
+
+        response = await self.async_client.login(password=self.creds.password,
+                                                device_name='Bot Client built with Simple-Matrix-Bot-Lib',
+                                                 token=self.creds.access_token)
         print(response)
+
+        self.creds.device_id = response.device_id
+        self.creds.access_token = response.access_token
+
+        self.creds.session_write_file()
 
     async def send_text_message(self, room_id, message):
         """
@@ -43,7 +58,7 @@ class Api:
         -----------
         room_id : str
             The room id of the destination of the message.
-        
+
         message : str
             The content of the message to be sent.
 
