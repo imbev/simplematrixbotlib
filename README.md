@@ -1,5 +1,5 @@
 # Simple-Matrix-Bot-Lib
-(Version 1.4.x)
+(Version 1.5.x)
 
 simplematrixbotlib is a Python 3 library for quickly building Matrix bots. It uses [matrix-nio](https://github.com/poljar/matrix-nio) as its Matrix client library.
 
@@ -114,6 +114,30 @@ More examples can be found [here](examples).
         if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
             await bot.api.send_text_message(room.room_id, match.args)
     bot.add_message_listener(echo)
+
+    bot.run()
+    ```
+- ### Add choice of actions to execute at bot login - Execute action after logging in
+    ```python
+    import simplematrixbotlib as botlib
+    import os
+
+    creds = botlib.Creds("https://home.server", "random_bot", "pass")
+    bot = botlib.Bot(creds)
+
+    prefix = '!'
+
+    async def hello(room): #Must be an "async" function with a (room) argument
+        """
+        Example function that says "hello" when the bot is started.
+        Usage:
+        (start random_bot)
+        random_bot - hello
+        """
+        message = "hello"
+        await bot.api.send_text_message(room.room_id, message) #Example of sending a message
+
+    bot.add_startup_action(hello) #Add "hello" action to action to execute at login
 
     bot.run()
     ```
