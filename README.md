@@ -93,8 +93,32 @@ More examples can be found [here](examples).
 
     bot.run()
     ```
+- ### Preserve sessions - Sessions are now preserved between logins. The access token and device id are now saved in sessions.txt, unless specified otherwise.
+    ```python
+    import simplematrixbotlib as botlib
+    import os
+
+    creds = botlib.Creds("https://home.server", "user", "pass", None) #Disable preserved sessions
+    bot = botlib.Bot(creds)
+
+    prefix = '!'
+
+    async def echo(room, message):
+        """
+        Example function that "echoes" arguements.
+        Usage:
+        example_user- !echo say something
+        echo_bot- say something
+        """
+        match = botlib.MessageMatch(room, message, bot)
+        if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
+            await bot.api.send_text_message(room.room_id, match.args)
+    bot.add_message_listener(echo)
+
+    bot.run()
+    ```
+
 ## In Progress:
-- ### Preserve sessions
 - ### Add more examples
 - ### Improve Documentation
 
