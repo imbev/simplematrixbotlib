@@ -27,16 +27,21 @@ class Bot:
         self.creds = creds
         self.api = botlib.Api(self.creds)
         self.message_actions = []
+        self.startup_actions = []
 
     async def main(self):
         await self.api.login()
         self.async_client = self.api.async_client
 
-        await self.async_client.sync(timeout=65536,
-                                     full_state=False)  #Ignore prior messages
+        joined_rooms = await self.async_client.sync(timeout=65536,
+                                     full_state=False).rooms  #Ignore prior messages and get joined rooms
 
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
+
+        for action in self.startup_actions:
+            for room in joined_rooms:
+                action(room)
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
 
@@ -51,6 +56,19 @@ class Bot:
 
         """
         self.message_actions.append(action_func)
+    
+    def add_startup_action(self, action_func):
+        """
+        Adds action to be executed at bot start after bot login.
+
+        Parameteres
+        -----------
+        
+        action_func : function
+
+        """
+        self.startup_actions.append(action_func)
+
 
     def run(self):
         """
