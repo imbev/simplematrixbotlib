@@ -33,15 +33,15 @@ class Bot:
         await self.api.login()
         self.async_client = self.api.async_client
 
-        joined_rooms = await self.async_client.sync(timeout=65536,
-                                     full_state=False).rooms  #Ignore prior messages and get joined rooms
+        await self.async_client.sync(timeout=65536,
+                                     full_state=False)  #Ignore prior messages
 
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
 
         for action in self.startup_actions:
-            for room in joined_rooms:
-                action(room)
+            for room in self.async_client.rooms:
+                await action(room)
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
 
