@@ -121,6 +121,7 @@ More examples can be found [here](examples).
 ## In Progress:
 - ### Add more examples
 - ### Improve Documentation
+- ### Add choice of actions to execute at bot login
 
 ## Planned:
 - ### Add more match filters
