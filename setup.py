@@ -19,8 +19,7 @@ setup(
     long_description_content_type='text/markdown',
     packages=find_packages(),
     install_requires=[
-        "matrix-nio >= 0.18.2",
-        "python-cryptography-fernet-wrapper",
+        "matrix-nio >= 0.18.2", "python-cryptography-fernet-wrapper",
         "cryptography"
     ],
     keywords=[

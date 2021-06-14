@@ -32,17 +32,16 @@ class Api:
 
         self.creds.session_read_file()
 
-        self.async_client = AsyncClient(
-            self.creds.homeserver,
-            self.creds.username
-        )
+        self.async_client = AsyncClient(self.creds.homeserver,
+                                        self.creds.username)
 
         if self.creds.device_id:
             self.async_client.device_id = self.creds.device_id
 
-        response = await self.async_client.login(password=self.creds.password,
-                                                device_name='Bot Client built with Simple-Matrix-Bot-Lib',
-                                                 token=self.creds.access_token)
+        response = await self.async_client.login(
+            password=self.creds.password,
+            device_name='Bot Client built with Simple-Matrix-Bot-Lib',
+            token=self.creds.access_token)
         print(response)
 
         self.creds.device_id = response.device_id

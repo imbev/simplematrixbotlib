@@ -1,5 +1,6 @@
 from fernet_wrapper import Wrapper as fw
 
+
 class Creds:
     """
     A class to store and handle login credentials.
@@ -18,7 +19,11 @@ class Creds:
         The password for the bot to connect with.
 
     """
-    def __init__(self, homeserver, username, password, session_stored_file='session.txt'):
+    def __init__(self,
+                 homeserver,
+                 username,
+                 password,
+                 session_stored_file='session.txt'):
         """
         Initializes the simplematrixbotlib.Creds class.
 
@@ -42,7 +47,7 @@ class Creds:
         self.username = username
         self.password = password
         self._session_stored_file = session_stored_file
-    
+
     def session_read_file(self):
         """
         Reads and decrypts the device_id and access_token from file
@@ -53,24 +58,26 @@ class Creds:
                 with open(self._session_stored_file, 'r') as f:
                     encrypted_session_data = bytes(f.read()[2:-1], 'utf-8')
                     file_exists = True
-                    
+
             except FileNotFoundError:
                 file_exists = False
-            
+
             if file_exists:
                 key = fw.key_from_pass(self.password)
-                decrypted_session_data = fw.decrypt(encrypted_session_data, key)[3:-2].replace('\'','').replace(' ','').split(",")
-                
+                decrypted_session_data = fw.decrypt(
+                    encrypted_session_data,
+                    key)[3:-2].replace('\'', '').replace(' ', '').split(",")
+
                 self.device_id = decrypted_session_data[0]
                 self.access_token = decrypted_session_data[1]
-        
+
         else:
             file_exists = False
-        
+
         if not file_exists:
             self.device_id = None
             self.access_token = None
-    
+
     def session_write_file(self):
         """
         Encrypts and writes to file the device_id and access_token.
@@ -83,7 +90,6 @@ class Creds:
 
             with open(self._session_stored_file, 'w') as f:
                 f.write(str(encrypted_session_data))
-        
+
         else:
             print('device_id and access_token will not be saved')
-            
