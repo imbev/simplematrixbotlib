@@ -56,7 +56,7 @@ class Bot:
 
         """
         self.message_actions.append(action_func)
-    
+
     def add_startup_action(self, action_func):
         """
         Adds action to be executed at bot start after bot login.
@@ -68,7 +68,6 @@ class Bot:
 
         """
         self.startup_actions.append(action_func)
-
 
     def run(self):
         """
