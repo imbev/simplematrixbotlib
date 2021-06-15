@@ -127,7 +127,7 @@ More examples can be found [here](examples).
 
     prefix = '!'
 
-    async def hello(room): #Must be an "async" function with a (room) argument
+    async def hello(room_id): #Must be an "async" function with a (room_id) argument
         """
         Example function that says "hello" when the bot is started.
         Usage:
@@ -135,7 +135,7 @@ More examples can be found [here](examples).
         random_bot - hello
         """
         message = "hello"
-        await bot.api.send_text_message(room.room_id, message) #Example of sending a message
+        await bot.api.send_text_message(room_id, message) #Example of sending a message
 
     bot.add_startup_action(hello) #Add "hello" action to action to execute at login
 
