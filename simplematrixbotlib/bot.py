@@ -40,8 +40,8 @@ class Bot:
         await self.callbacks.setup_callbacks()
 
         for action in self.startup_actions:
-            for room in self.async_client.rooms:
-                await action(room)
+            for room_id in self.async_client.rooms:
+                await action(room_id)
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
 
