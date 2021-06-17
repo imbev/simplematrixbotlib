@@ -27,20 +27,20 @@ import simplematrixbotlib as botlib
 import os
 import random
 
-creds = creds = botlib.Creds("https://example.org", "rock_paper_scissors_bot", "secretpassword")
+creds = creds = botlib.Creds("https://example.org", "rock_paper_scissors_bot",
+                             "secretpassword")
 bot = botlib.Bot(creds)
 
 PREFIX = '!'
 
+
 async def help_message(room, message):
     match = botlib.MessageMatch(room, message, bot)
-    if not (
-        match.not_from_this_bot() and match.prefix(PREFIX) and match.command("help")
-    ):
+    if not (match.not_from_this_bot() and match.prefix(PREFIX)
+            and match.command("help")):
         return
-    
-    message = (
-    f"""
+
+    message = (f"""
     Help
     ============================
     What is this bot?
@@ -48,21 +48,20 @@ async def help_message(room, message):
     Commands?
         {PREFIX}help - show this message
         {PREFIX}play <rock/paper/scissors> - play the game by making a choice
-    """
-    )
+    """)
 
     await bot.api.send_text_message(room.room_id, message)
-    
+
+
 bot.add_message_listener(help_message)
 
 
 async def make_choice(room, message):
     match = botlib.MessageMatch(room, message, bot)
-    if not (
-        match.not_from_this_bot() and match.prefix(PREFIX) and match.command("play")
-    ):
+    if not (match.not_from_this_bot() and match.prefix(PREFIX)
+            and match.command("play")):
         return
-    
+
     args = match.args.split(' ')
 
     temp = True
@@ -74,18 +73,15 @@ async def make_choice(room, message):
         choice = "scissors"
     else:
         temp = False
-    
-    victory_table = {
-        "rock" : "scissors",
-        "scissors" : "paper",
-        "paper" : "rock"
-    }
-    
+
+    victory_table = {"rock": "scissors", "scissors": "paper", "paper": "rock"}
+
     if temp:
         bot_choice = random.choice(["rock", "paper", "scissors"])
 
         await bot.api.send_text_message(room.room_id, f"You choose {choice}.")
-        await bot.api.send_text_message(room.room_id, f"The bot chose {bot_choice}.")
+        await bot.api.send_text_message(room.room_id,
+                                        f"The bot chose {bot_choice}.")
 
         if choice == bot_choice:
             await bot.api.send_text_message(room.room_id, "You Tied!")
@@ -93,11 +89,14 @@ async def make_choice(room, message):
             await bot.api.send_text_message(room.room_id, "You Won!")
         if choice == victory_table[bot_choice]:
             await bot.api.send_text_message(room.room_id, "You Lost!")
-    
+
     else:
-        await bot.api.send_text_message(room.room_id, "Invalid choice. Please choose \"rock\", \"paper\", or \"scissors\".")
+        await bot.api.send_text_message(
+            room.room_id,
+            "Invalid choice. Please choose \"rock\", \"paper\", or \"scissors\"."
+        )
+
 
 bot.add_message_listener(make_choice)
-
 
 bot.run()
