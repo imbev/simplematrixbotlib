@@ -145,10 +145,10 @@ More examples can be found [here](examples).
 ## In Progress:
 - ### Add more examples
 - ### Improve Documentation
+- ### Support for Encrypted Rooms
 
 ## Planned:
 - ### Add more match filters
-- ### Support for Encrypted Rooms
 - ### More
 
 # Dependencies
