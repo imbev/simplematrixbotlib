@@ -62,7 +62,7 @@ async def make_choice(room, message):
             and match.command("play")):
         return
 
-    args = match.args.split(' ')
+    args = match.args
 
     temp = True
     if "rock" in args:
