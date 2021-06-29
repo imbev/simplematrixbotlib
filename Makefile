@@ -5,6 +5,7 @@ help:
 	@echo --HELP--
 	@echo make help - display this message
 	@echo make prep - install neccesary packages for development
+	@echo make test - run tests on the project
 	@echo make build - build wheel etc. for Pypi
 	@echo make upload - upload dist to PyPi
 	@echo make clean-windows - clean project of unwanted files and dirs on windows
@@ -13,6 +14,10 @@ help:
 prep:
 	@echo --PREP--
 	python -m pip install wheel twine
+
+test:
+	@echo --TEST--
+	python -m unittest discover -s tests
 
 build:
 	@echo --BUILD--
