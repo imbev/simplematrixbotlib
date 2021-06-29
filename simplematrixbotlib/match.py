@@ -58,7 +58,7 @@ class MessageMatch:
             Returns True if the string following the prefix begins with the given arg. If Match.prefix has not been called, it is assumed that the command does not have a prefix
         """
         self._command = command
-        self.args = self.message.body.replace(self._prefix + self._command, '')
+        self.args = self.message.body.replace(self._prefix + self._command, '')[1:].split(' ')
         return self.message.body.replace(self._prefix,
                                          '').split(' ')[0] == self._command
 
