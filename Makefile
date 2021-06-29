@@ -29,6 +29,7 @@ clean-windows:
 	if exist simplematrixbotlib.egg-info rmdir /S /Q simplematrixbotlib.egg-info
 	if exist simplematrixbotlib\__pycache__ rmdir /S /Q simplematrixbotlib\__pycache__
 	if exist "doc/_build" rmdir /S /Q "doc/_build"
+	if exist tests\__pycache__ rmdir /S /Q tests\__pycache__
 
 clean-linux:
 	@echo --CLEAN-LINUX--
@@ -37,3 +38,4 @@ clean-linux:
 	rm -r -f simplematrixbotlib.egg-info
 	rm -r -f simplematrixbotlib/__pycache__
 	rm -r -f doc/_build
+	rm -r -f tests/__pycache__
