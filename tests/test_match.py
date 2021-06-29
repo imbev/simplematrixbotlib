@@ -25,7 +25,7 @@ class IntegrationMatchTest(unittest.TestCase):
 
         message_match = botlib.MessageMatch(self.mock_room, self.mock_message, self.mock_bot)
         message_match.command('hello')
-        self.assertFalse(message_match.args)
+        self.assertEqual(message_match.args,[''])
 
         message_match = botlib.MessageMatch(self.mock_room, self.mock_message, self.mock_bot)
         self.assertTrue(message_match.contains('hello'))
