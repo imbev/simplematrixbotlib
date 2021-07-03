@@ -13,7 +13,7 @@ help:
 
 prep:
 	@echo --PREP--
-	
+	python -m pip -r requirements.txt
 
 test:
 	@echo --TEST--
