@@ -21,7 +21,11 @@ async def echo(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if match.not_from_this_bot() and match.prefix(prefix) and match.command(
             "echo"):
-        await bot.api.send_text_message(room.room_id, match.args)
+        print('matched')
+        message = ''
+        for arg in match.args:
+            message = message + (arg + " ")
+        await bot.api.send_text_message(room.room_id, message)
 
 
 bot.add_message_listener(echo)
