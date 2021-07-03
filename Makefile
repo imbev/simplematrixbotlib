@@ -13,7 +13,7 @@ help:
 
 prep:
 	@echo --PREP--
-	python -m pip install wheel twine
+	python -m pip install -r requirements.txt
 
 test:
 	@echo --TEST--
