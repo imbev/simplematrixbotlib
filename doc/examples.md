@@ -13,3 +13,6 @@
 ## A Rock Paper Scissors Bot
 
 .. literalinclude:: ../examples/rock_paper_scissors.py
+
+## Echo Bot within a Docker Container
+.. literalinclude:: ../examples/docker-example/Dockerfile
