@@ -38,7 +38,7 @@ docker build -t echo-bot .
 
 ### Create and run Docker image
 
-Docker will automatically create a Docker image from the container and run it with the following command.
+Docker will automatically create a Docker image from the container and run it when you use the following command.
 ```
 docker run echo-bot
 ```
