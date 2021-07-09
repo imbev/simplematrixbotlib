@@ -13,6 +13,7 @@ Simple-Matrix-Bot-Lib is a Python 3 library for quickly building Matrix bots. It
 
    quickstart
    examples
+   usage-with-docker
 
 .. toctree::
    :maxdepth: 2
