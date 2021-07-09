@@ -6,3 +6,4 @@ sending message example, prefix example, match filter example
 multiple commands example, defined help example, reading/writing values example
 3. [`rock_paper_scissors.py`](rock_paper_scissors.py): 
 different actions depending on args example
+4. [`docker-example/Dockerfile`](docker-example/Dockerfile) (to be used with echo.py example): usage with docker containers example
