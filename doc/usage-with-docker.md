@@ -31,7 +31,7 @@ CMD [ "python", "echo.py" ]
 ```
 
 ### Build the Docker container
-Before you can run the bot, docker will need to build a container using the Dockerfile. The syntax for this command is "docker build -t container name Directory with Dockerfile"
+Before you can run the bot, docker will need to build a container using the Dockerfile. The syntax for this command is "docker build -t container-name Directory-with-Dockerfile"
 ```
 docker build -t echo-bot .
 ```
