@@ -3,10 +3,16 @@ import os
 
 VERSION = '1.5.1'
 DESCRIPTION = 'An easy to use bot library for the Matrix ecosystem written in Python.'
+
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                        'README.md'),
           encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
+
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                       'requirements.txt'),
+          encoding='utf-8') as f:
+    REQUIREMENTS = f.read().split("\n")
 
 setup(
     # the name must match the folder name 'verysimplemodule'
@@ -18,10 +24,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    install_requires=[
-        "matrix-nio >= 0.18.2", "python-cryptography-fernet-wrapper",
-        "cryptography"
-    ],
+    install_requires=REQUIREMENTS
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
         'simplepythonbotlibrary', 'simplepythonbotlib',
