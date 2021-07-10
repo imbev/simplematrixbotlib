@@ -9,3 +9,7 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 ## Installation
 
 .. mdinclude:: manual/installation.md
+
+## Importing
+
+.. mdinclude:: manual/import.md
