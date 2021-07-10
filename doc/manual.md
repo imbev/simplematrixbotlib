@@ -13,3 +13,7 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 ## Importing
 
 .. mdinclude:: manual/import.md
+
+## Usage of Creds class
+
+.. mdinclude:: manual/creds.md
