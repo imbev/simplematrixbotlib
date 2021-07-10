@@ -24,7 +24,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    install_requires=REQUIREMENTS
+    install_requires=REQUIREMENTS,
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
         'simplepythonbotlibrary', 'simplepythonbotlib',
