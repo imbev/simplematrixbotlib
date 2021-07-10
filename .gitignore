@@ -1,3 +1,4 @@
 .vscode/settings.json
 venv/
 doc/_build/
+.devcontainer/
