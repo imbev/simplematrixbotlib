@@ -1,5 +1,5 @@
 Automatic documentation
-===
+=======================
 
 This is automatically generated documentation of the simplematrixbotlib package.
 
