@@ -1,0 +1,2 @@
+matrix-nio >= 0.18.2
+python-cryptography-fernet-wrapper >= 1.0.4
