@@ -17,3 +17,7 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 ## Usage of Creds class
 
 .. mdinclude:: manual/creds.md
+
+## Usage of Bot class
+
+..mdinclude:: manual/bot.md
