@@ -20,4 +20,4 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 ## Usage of Bot class
 
-..mdinclude:: manual/bot.md
+.. mdinclude:: manual/bot.md
