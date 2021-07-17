@@ -2,7 +2,7 @@
 Importing simplematrixbotlib requires [installation](#installation) of the package first.
 
 #### Importing
-Import the simplematrixbotlib package is done with the following python code.
+Importing the simplematrixbotlib package is done with the following python code.
 ```
 import simplematrixbotlib as botlib
 ```

@@ -11,4 +11,4 @@ creds = botlib.Creds(
     session_stored_file="session.txt"
     )
 ```
-The homeserver, username, and password arguments are strings, self explanatory and are always neccesary when creating an instance. The session_stored_file argument is optional and allows for specific data relating to each session such as the access token and the device name to be preserved across each run of the bot.
+The homeserver, username, and password arguments are strings that are always neccesary when creating an instance. The session_stored_file argument is optional and allows for specific data relating to each session such as the access token and the device name to be preserved across each run of the bot.
