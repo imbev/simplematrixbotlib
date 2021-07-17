@@ -3,7 +3,7 @@ The Bot class is a class that handles most of the functionality of a bot created
 
 #### Creating an instance of the Bot class
 An instance can be created using the following python code.
-```
+```python
 bot = botlib.Bot(
     creds=creds
     )
@@ -12,7 +12,7 @@ The creds argument is neccesary, and is an instance of the Creds class.
 
 #### Using the add_message_listener method
 The add_message_listener method of the Bot class may be used to execute actions based on messages that are sent in rooms that the bot is a member of. Example usage of add_message_listener is shown in the following python code.
-```
+```python
 async def example(room, message):
     print(f"A message({message.content}) was sent in a room({room.room_id}).")
 bot.add_message_listener(example)
@@ -21,7 +21,7 @@ When any message is sent, the function will be called with room as a [Room objec
 
 #### Using the add_startup_action method
 The add_startup_action method of the Bot class may be used to execute actions upon the starting of the Bot. Example usage of the add_startup_action method is show in the following python code.
-```
+```python
 async def room_joined(room_id):
     print(f"This account is a member of a room with the id {room_id}")
 bot.add_startup_listener(room_joined)

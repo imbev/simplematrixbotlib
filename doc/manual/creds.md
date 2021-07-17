@@ -3,7 +3,7 @@ The Creds class is a class that handles login credentials. The source is located
 
 #### Creating an instance of the Creds class
 An instance can be created using the following python code.
-```
+```python
 creds = botlib.Creds(
     homeserver="https://example.org", 
     username="username", 
