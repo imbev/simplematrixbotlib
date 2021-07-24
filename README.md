@@ -1,14 +1,14 @@
 # Simple-Matrix-Bot-Lib
 (Version 1.5.x)
 
-simplematrixbotlib is a Python 3 library for quickly building Matrix bots. It uses [matrix-nio](https://github.com/poljar/matrix-nio) as its Matrix client library.
+Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
 [View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
 [View docs on readthedocs.io](https://simple-matrix-bot-lib.readthedocs.io/en/latest/)
 
 # Installation
-### To use it, simplematrixbotlib can be either installed from pip or downloaded from github.</br>
-Installation from pip:
+### To use it, simplematrixbotlib can be either installed from PyPi or downloaded from github.</br>
+Installation from PyPi:
 ```
 python -m pip install simplematrixbotlib
 ```
