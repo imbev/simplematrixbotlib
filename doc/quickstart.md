@@ -111,4 +111,4 @@ bot.add_message_listener(echo)
 bot.run()
 ```
 
-Other examples can be found [here](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/tree/develop/examples).
+Other examples can be found [here](examples.html).
