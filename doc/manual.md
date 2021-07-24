@@ -2,8 +2,6 @@
 
 # Manual
 
-(Version >= 1.5.x)
-
 This is a manual for simplematrixbotlib that includes documentation, examples, and more.
 
 ## Installation

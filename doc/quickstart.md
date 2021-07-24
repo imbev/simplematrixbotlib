@@ -2,8 +2,6 @@
 
 # Quickstart
 
-(Version >= 1.3.x)
-
 [View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/)
 
 ### Install the simplematrixbotlib package
