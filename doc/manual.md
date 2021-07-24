@@ -21,3 +21,7 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 ## Usage of Bot class
 
 .. mdinclude:: manual/bot.md
+
+## Usage of MessageMatch class
+
+.. mdinclude:: manual/messagematch.md
