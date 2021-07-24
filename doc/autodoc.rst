@@ -1,7 +1,7 @@
-API
-===
+Automatic documentation
+=======================
 
-This document details the API of simplematrixbotlib.
+This is automatically generated documentation of the simplematrixbotlib package.
 
 Creds
 -----
