@@ -37,8 +37,8 @@ async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
     COMMAND = "example"
     if (match.prefix(PREFIX) and #Returns True if the message begins with PREFIX
-        match.command(EXAMPLE)): #Returns True if the message following the prefix begins with EXAMPLE
-        print(match.args) #Prints the message, but without PREFIX and without EXAMPLE
+        match.command(COMMAND)): #Returns True if the message following the prefix begins with COMMAND
+        print(match.args) #Prints the message, but without PREFIX and without COMMAND
 bot.add_message_listener(example)
 ```
 The command method will be improved, although with incompatable changes in the next major version of Simple-Major-Bot-Lib.
