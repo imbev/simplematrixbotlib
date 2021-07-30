@@ -6,6 +6,9 @@ Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on 
 [View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
 [View docs on readthedocs.io](https://simple-matrix-bot-lib.readthedocs.io/en/latest/)
 
+Learn how you can contribute [here](CONTRIBUTING.md).
+
+
 # Installation
 ### To use it, simplematrixbotlib can be either installed from PyPi or downloaded from github.</br>
 Installation from PyPi:
