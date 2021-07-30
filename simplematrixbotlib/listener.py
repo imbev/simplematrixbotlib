@@ -13,7 +13,7 @@ class Listener:
         return layer
     
     @self._make_dec_with_arg
-    def on_custom_event(self, handler, event_type: str):
+    def on_custom_event(self, handler, event_type):
         self._registry.append([event_type, handler])
     
     @self._make_dec_with_arg
