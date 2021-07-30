@@ -13,9 +13,9 @@ class Listener:
         return layer
     
     @self._make_dec_with_arg
-    def custom_event(self, handler, event_type: str):
+    def on_custom_event(self, handler, event_type: str):
         self._registry.append([event_type, handler])
     
     @self._make_dec_with_arg
-    def message_event(self, handler):
+    def on_message_event(self, handler):
         self._registry.append([RoomMessageText, handler])
