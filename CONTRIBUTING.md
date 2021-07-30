@@ -20,7 +20,7 @@ This project follows a variation of the Github Flow workflow. You may find the i
 
 ### Ask First
 
-Before you begin, please discuss your planned improvements with a maintainer in our Matrix Room. This is to make sure that your changes are aligned with the goals of this project, which can help you avoid wasting your time and effort.
+Before you begin, please discuss your planned improvements with a maintainer in our [Matrix Room](https://matrix.to/#/#simplematrixbotlib:matrix.org). This is to make sure that your changes are aligned with the goals of this project, which can help you avoid wasting your time and effort.
 
 ### Fork the Repository
 
