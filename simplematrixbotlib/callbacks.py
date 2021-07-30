@@ -23,7 +23,7 @@ class Callbacks:
                                              RoomMessageText)
 
         for event_listener in self.bot.listener._registry:
-            self.async_client.add_event_callback(event_listener[1], event_listener[0])
+            self.async_client.add_event_callback(event_listener[0], event_listener[1])
                                              
 
     async def invite_callback(self, room, event, tries=1):
