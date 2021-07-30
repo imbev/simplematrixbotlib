@@ -26,6 +26,7 @@ class Bot:
 
         self.creds = creds
         self.api = botlib.Api(self.creds)
+        self.listener = botlib.Listener(self)
         self.message_actions = []
         self.startup_actions = []
 
