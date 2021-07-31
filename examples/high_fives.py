@@ -34,6 +34,7 @@ except FileNotFoundError:
     bot.total_high_fives = 0
 
 
+@bot.listener.on_message_event
 async def bot_help(room, message):
     bot_help_message = f"""
     Help Message:
@@ -55,9 +56,7 @@ async def bot_help(room, message):
         await bot.api.send_text_message(room.room_id, bot_help_message)
 
 
-bot.add_message_listener(bot_help)
-
-
+@bot.listener.on_message_event
 async def high_five(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if match.not_from_this_bot() and match.prefix(PREFIX) and (
@@ -71,9 +70,7 @@ async def high_five(room, message):
             room.room_id, f"{message.sender} high-fived the bot!")
 
 
-bot.add_message_listener(high_five)
-
-
+@bot.listener.on_message_event
 async def high_five_count(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if match.not_from_this_bot and match.prefix(PREFIX) and (
@@ -83,7 +80,5 @@ async def high_five_count(room, message):
             room.room_id,
             f"The bot has been high-fived {str(bot.total_high_fives)} times!")
 
-
-bot.add_message_listener(high_five_count)
 
 bot.run()
