@@ -36,7 +36,7 @@ class Callbacks:
         """
         if not event.membership == "invite":
             return
-            
+
         try:
             await self.async_client.join(room.room_id)
             print(f"Joined {room.room_id}")
