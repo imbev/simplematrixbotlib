@@ -18,4 +18,18 @@ async def example(room, message):
 ```
 When any message is sent, the function will be called with room as a [Room object](https://matrix-nio.readthedocs.io/en/latest/nio.html#nio.rooms.MatrixRoom) representing each room that that the bot is a member of, and message as a [RoomMessage object](https://matrix-nio.readthedocs.io/en/latest/nio.html?highlight=nio.events.room_events.roommessage.content#nio.events.room_events.RoomMessage) representing the message that was sent.
 
+### Using the on_custom_event decorator
+The on_custom_event method of the Bot class may be used to execute actions based on any event that is sent in rooms that the bot is a member of. Example usage of on_custom_event is shown in the following python code.
+```python
+import nio
+
+@bot.listener.on_custom_event(nio.InviteMemberEvent)
+async def example(room, event):
+    if event.membership == "join":
+        print(f"A user joined the room({room.room_id}).")
+    if event.membership == "leave":
+        print(f"A user left the room({room.room_id}).")
+
+```
+The on_custom_event method is identical to the on_message_event method, however on_custom_event takes an argument that allows the developer to specify the event type for the Bot to respond to. Information on events can be found in the [matrix-nio docs](https://matrix-nio.readthedocs.io/en/latest/nio.html#module-nio.events).
 
