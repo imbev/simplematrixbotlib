@@ -27,7 +27,6 @@ class Bot:
         self.creds = creds
         self.api = botlib.Api(self.creds)
         self.listener = botlib.Listener(self)
-        self.message_actions = []
         self.startup_actions = []
 
     async def main(self):
@@ -45,18 +44,6 @@ class Bot:
                 await action(room_id)
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
-
-    def add_message_listener(self, action_func):
-        """
-        Adds message callbacks to the message listener.
-
-        Parameteres
-        -----------
-        
-        action_func : function
-
-        """
-        self.message_actions.append(action_func)
 
     def add_startup_action(self, action_func):
         """
