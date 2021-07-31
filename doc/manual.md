@@ -20,6 +20,10 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/bot.md
 
+## Usage of Listener class
+
+.. mdinclude:: manual/listener.md
+
 ## Usage of MessageMatch class
 
 .. mdinclude:: manual/messagematch.md

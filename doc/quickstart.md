@@ -51,6 +51,10 @@ If you want to use a prefix in the commands that your bot responds to, you may w
 ```python
 PREFIX = '!'
 ```
+Before creating a command, it is necessary to add a listener(callback) for the bot to use it.
+```python
+@bot.listener.on_message_event
+```
 Create a command by defining a function. The function must be an "async" function with (room, message) as the arguments.
 ```python
 async def echo(room, message): 
@@ -73,10 +77,6 @@ This part of the command is the part that "acts". The line provided sends a mess
 ```python
         await bot.api.send_text_message(room.room_id, match.args) 
 ```
-After creating a command, it is necessary to add a listener(callback) for the bot to use it.
-```python
-bot.add_message_listener(echo)
-```
 And finally run the bot.
 ```python
 bot.run()
@@ -93,6 +93,7 @@ bot = botlib.Bot(creds)
 
 PREFIX = '!'
 
+@bot.listener.on_message_event
 async def echo(room, message):
     """
     Example function that "echoes" arguements.
@@ -103,8 +104,6 @@ async def echo(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if match.not_from_this_bot() and match.prefix(PREFIX) and match.command("echo"):
         await bot.api.send_text_message(room.room_id, match.args)
-
-bot.add_message_listener(echo)
 
 bot.run()
 ```

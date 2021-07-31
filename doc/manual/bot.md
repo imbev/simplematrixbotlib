@@ -10,15 +10,6 @@ bot = botlib.Bot(
 ```
 The creds argument is neccesary, and is an instance of the Creds class.
 
-#### Using the add_message_listener method
-The add_message_listener method of the Bot class may be used to execute actions based on messages that are sent in rooms that the bot is a member of. Example usage of add_message_listener is shown in the following python code.
-```python
-async def example(room, message):
-    print(f"A message({message.content}) was sent in a room({room.room_id}).")
-bot.add_message_listener(example)
-```
-When any message is sent, the function will be called with room as a [Room object](https://matrix-nio.readthedocs.io/en/latest/nio.html#nio.rooms.MatrixRoom) representing each room that that the bot is a member of, and message as a [RoomMessage object](https://matrix-nio.readthedocs.io/en/latest/nio.html?highlight=nio.events.room_events.roommessage.content#nio.events.room_events.RoomMessage) representing the message that was sent.
-
 #### Using the add_startup_action method
 The add_startup_action method of the Bot class may be used to execute actions upon the starting of the Bot. Example usage of the add_startup_action method is show in the following python code.
 ```python
