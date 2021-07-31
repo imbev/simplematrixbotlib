@@ -10,15 +10,6 @@ bot = botlib.Bot(
 ```
 The creds argument is neccesary, and is an instance of the Creds class.
 
-#### Using the add_startup_action method
-The add_startup_action method of the Bot class may be used to execute actions upon the starting of the Bot. Example usage of the add_startup_action method is show in the following python code.
-```python
-async def room_joined(room_id):
-    print(f"This account is a member of a room with the id {room_id}")
-bot.add_startup_listener(room_joined)
-```
-When the bot is run, for each room that the Bot is a member of, the function will be called with room_id as a string that corresponds to the room_id of the room.
-
 #### Running the Bot
 When the Bot is ready to be started, the run method can be used to run the Bot. An example is shown in the following python code.
 ```
