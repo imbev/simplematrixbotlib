@@ -75,7 +75,7 @@ class Api:
                                               "body": message
                                           })
     
-    async def send_image(self, room_id, image_filepath):
+    async def send_image_message(self, room_id, image_filepath):
         """
         Send an image message in a Matrix room.
 
