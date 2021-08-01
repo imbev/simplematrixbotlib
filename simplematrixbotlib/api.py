@@ -74,7 +74,7 @@ class Api:
                                               "msgtype": "m.text",
                                               "body": message
                                           })
-    
+
     async def send_image_message(self, room_id, image_filepath):
         """
         Send an image message in a Matrix room.
@@ -96,16 +96,15 @@ class Api:
         file_stat = await aiofiles.os.stat(image_filepath)
         async with aiofiles.open(image_filepath, "r+b") as file:
             resp, maybe_keys = await self.async_client.upload(
-                file, 
+                file,
                 content_type=mime_type,
                 filename=os.path.basename(image_filepath),
-                filesize=file_stat.st_size
-            )
+                filesize=file_stat.st_size)
         if isinstance(resp, UploadResponse):
-            pass #Successful upload
+            pass  #Successful upload
         else:
             print(f"Failed Upload Response: {resp}")
-        
+
         content = {
             "body": os.path.basename(image_filepath),
             "info": {
@@ -121,9 +120,8 @@ class Api:
         }
 
         try:
-            await self.async_client.room_send(
-                room_id, message_type="m.room.message", content=content
-            )
+            await self.async_client.room_send(room_id,
+                                              message_type="m.room.message",
+                                              content=content)
         except:
             print(f"Failed to send image file {image_filepath}")
-
