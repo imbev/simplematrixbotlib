@@ -21,7 +21,8 @@ setup(
     install_requires=[
         "matrix-nio >= 0.18.2",
         "python-cryptography-fernet-wrapper >= 1.0.4",
-        "pillow >= 8.0"
+        "pillow >= 8.0",
+        "aiofiles >= 0.7.0"
     ],
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
