@@ -1,5 +1,5 @@
 # Simple-Matrix-Bot-Lib
-(Version 1.5.x)
+(Version 1.6.x)
 
 Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
@@ -69,6 +69,20 @@ More examples can be found [here](examples).
         if not message.sender == bot.async_client.user_id: #Optional, prevents the bot from reacting to its own messages
             await bot.api.send_text_message(room.room_id, "something") #Send a message containing "something" to room
     bot.add_message_listener(say_something_to_a_message_not_from_bot) #Listen for messages, can have as many message listeners as needed, each added using bot.add_message_listener
+
+    bot.run()
+    ```
+- ### Send images - bot can send image messages
+    ```python
+    import simplematrixbotlib as botlib
+    
+    creds = botlib.Creds("https://home.server", "user", "pass")
+    bot = botlib.Bot(creds)
+
+    async def send_image_to_a_message_not_from_bot(room, message):
+        if not message.sender == bot.async_client.user_id:
+            await bot.api.send_image_message(room.room_id, "./example.png") #Send the image file located at ./example.png to room
+    bot.add_message_listener(send_image_to_a_message_not_from_bot)
 
     bot.run()
     ```
