@@ -1,5 +1,11 @@
 import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText)
+from PIL import Image
+import aiofiles.os
+import mimetypes
+import os
+
+from nio.responses import UploadResponse
 
 
 class Api:
@@ -68,3 +74,56 @@ class Api:
                                               "msgtype": "m.text",
                                               "body": message
                                           })
+    
+    async def send_image(self, room_id, image_filepath):
+        """
+        Send an image message in a Matrix room.
+
+        Parameteres
+        -----------
+        room_id : str
+            The room id of the destination of the message.
+
+        image_filepath : str
+            The path to the image on your machien.
+        """
+
+        mime_type = mimetypes.guess_type(image_filepath)[0]
+
+        image = Image.open(image_filepath)
+        (width, height) = image.size
+
+        file_stat = await aiofiles.os.stat(image_filepath)
+        async with aiofiles.open(image_filepath, "r+b") as file:
+            resp, maybe_keys = await self.async_client.upload(
+                file, 
+                content_type=mime_type,
+                filename=os.path.basename(image_filepath),
+                filesize=file_stat.st_size
+            )
+        if isinstance(resp, UploadResponse):
+            pass #Successful upload
+        else:
+            print(f"Failed Upload Response: {resp}")
+        
+        content = {
+            "body": os.path.basename(image_filepath),
+            "info": {
+                "size": file_stat.st_size,
+                "mimetype": mime_type,
+                "thumbnail_info": None,
+                "w": width,
+                "h": height,
+                "thumbnail_url": None
+            },
+            "msgtype": "m.image",
+            "url": resp.content_uri
+        }
+
+        try:
+            await self.async_client.room_send(
+                room_id, message_type="m.room.message", content=content
+            )
+        except:
+            print(f"Failed to send image file {image_filepath}")
+
