@@ -2,3 +2,7 @@
 venv/
 doc/_build/
 .devcontainer/
+__pycache__
+simplematrixbotlib/__pycache__
+simplematrixbotlib/*/__pycache__
+
