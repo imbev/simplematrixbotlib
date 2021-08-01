@@ -20,3 +20,16 @@ async def example(room, message):
             message=example_message)
 ```
 Both arguments are required. The room_id argument is the id of the destination room. The message argument is the string that is to be sent as a message.
+
+### Using the send_image_message method
+The send_image_message method of the Api class can be used to send image messages in Matrix rooms. An example is shown in the following python code.
+```python
+async def example(room, message):
+    match = botlib.MessageMatch(room, message, bot)
+    example_image="./img/example.png"
+    if match.not_from_this_bot():
+        bot.api.send_image_message(
+            room_id=room.room_id, 
+            image_filepath=example_image)
+```
+Both arguments are required. The room_id argument is the id of the destination room. The image_filepath argument is a string that is the path to the image file that is to be sent as a message.
