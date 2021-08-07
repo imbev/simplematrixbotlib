@@ -17,6 +17,13 @@ Bot
     :members:
     :undoc-members:
 
+Listener
+---
+
+.. autoclass:: simplematrixbotlib.Listener
+    :members:
+    :undoc-members:
+
 MessageMatch
 ------------
 

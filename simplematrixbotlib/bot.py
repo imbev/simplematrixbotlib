@@ -26,8 +26,7 @@ class Bot:
 
         self.creds = creds
         self.api = botlib.Api(self.creds)
-        self.message_actions = []
-        self.startup_actions = []
+        self.listener = botlib.Listener(self)
 
     async def main(self):
         await self.api.login()
@@ -39,35 +38,11 @@ class Bot:
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
 
-        for action in self.startup_actions:
+        for action in self.listener._startup_registry:
             for room_id in self.async_client.rooms:
                 await action(room_id)
 
         await self.async_client.sync_forever(timeout=3000, full_state=True)
-
-    def add_message_listener(self, action_func):
-        """
-        Adds message callbacks to the message listener.
-
-        Parameteres
-        -----------
-        
-        action_func : function
-
-        """
-        self.message_actions.append(action_func)
-
-    def add_startup_action(self, action_func):
-        """
-        Adds action to be executed at bot start after bot login.
-
-        Parameteres
-        -----------
-        
-        action_func : function
-
-        """
-        self.startup_actions.append(action_func)
 
     def run(self):
         """

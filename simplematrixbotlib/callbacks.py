@@ -19,8 +19,10 @@ class Callbacks:
         """
         self.async_client.add_event_callback(self.invite_callback,
                                              InviteMemberEvent)
-        self.async_client.add_event_callback(self.message_callback,
-                                             RoomMessageText)
+
+        for event_listener in self.bot.listener._registry:
+            self.async_client.add_event_callback(event_listener[0], event_listener[1])
+                                             
 
     async def invite_callback(self, room, event, tries=1):
         """
@@ -48,16 +50,3 @@ class Callbacks:
                 await self.invite_callback(room, event, tries)
             else:
                 print(f"Failed to join {room.room_id} after 3 tries")
-
-    async def message_callback(self, room, event):
-        """
-        callback for handling messages
-
-        Parameters
-        ----------
-        room : nio.rooms.MatrixRoom
-        event : nio.events.room_events.Event
-        
-        """
-        for action in self.bot.message_actions:
-            await action(room, event)

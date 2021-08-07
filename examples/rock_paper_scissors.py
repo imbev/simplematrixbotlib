@@ -34,6 +34,7 @@ bot = botlib.Bot(creds)
 PREFIX = '!'
 
 
+@bot.listener.on_message_event
 async def help_message(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if not (match.not_from_this_bot() and match.prefix(PREFIX)
@@ -53,9 +54,8 @@ async def help_message(room, message):
     await bot.api.send_text_message(room.room_id, message)
 
 
-bot.add_message_listener(help_message)
 
-
+@bot.listener.on_message_event
 async def make_choice(room, message):
     match = botlib.MessageMatch(room, message, bot)
     if not (match.not_from_this_bot() and match.prefix(PREFIX)
@@ -97,6 +97,5 @@ async def make_choice(room, message):
         )
 
 
-bot.add_message_listener(make_choice)
 
 bot.run()
