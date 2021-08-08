@@ -21,7 +21,7 @@ class Creds:
     """
     def __init__(self,
                  homeserver,
-                 username,
+                 username=None,
                  password=None,
                  login_token=None,
                  session_stored_file='session.txt'):
@@ -33,8 +33,8 @@ class Creds:
         homeserver : str
             The homeserver for the bot to connect to. Begins with "https://".
     
-        username : str
-            The username for the bot to connect as.
+        username : str, optional
+            The username for the bot to connect as. This is neccesary if password is used instead of login_token.
     
         password : str, optional
             The password for the bot to connect with. Can be used instead of login_token. Either the login_token or password must be provided.
