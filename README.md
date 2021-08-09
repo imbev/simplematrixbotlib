@@ -56,7 +56,7 @@ More examples can be found [here](examples).
 
 ## Complete:
 
-- ### Login to homeserver - bot automatically login upon the execution of bot.run()
+- ### Login to homeserver with password - bot automatically login upon the execution of bot.run()
   
   ```python
   import simplematrixbotlib as botlib
@@ -64,6 +64,16 @@ More examples can be found [here](examples).
   creds = botlib.Creds("home.server", "user", "pass")
   bot = botlib.Bot(creds)
   bot.run() #Logs in during the execution of this line
+  ```
+  
+- ### Login to homeserver with token - bot uses token provided via SSO (Single Sign-On) to login
+  
+  ```python
+  import simplematrixbotlib as botlib
+  
+  creds = botlib.Creds("home.server", login_token="MDA...xja") # login_token keyword must be used, username argument is optional when login_token is used
+  bot = botlib.Bot(creds)
+  bot.run()
   ```
 
 - ### Join room on invite - bot automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
