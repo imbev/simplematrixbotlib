@@ -1,11 +1,64 @@
-class MessageMatch:
+class Match:
     """
-    Class with methods to filter messages
+    Class with methods to filter events
 
     ...
-    
+
     """
-    def __init__(self, room, message, bot):
+    def __init__(self, room, event, bot) -> None:
+        """
+        Initializes the simplematrixbotlib.Match class.
+
+        ...
+
+        Parameters
+        ----------
+        room : nio.rooms.MatrixRoom
+            The bot developer will use the room parameter of the handler function for this.
+    
+        event : nio.events.room_events.Event
+            The bot developer will use the event parameter of the handler function for this.
+        
+        bot : simplematrixbotlib.Bot
+            The bot developer will use the bot's instance of the simplematrixbotlib.Bot class for this.
+
+        """
+        self.room = room
+        self.event = event
+        self._bot = bot
+    
+    def is_from_userid(self, userid):
+        """
+        Parameters
+        ----------
+        userid : str
+            The userid of a user.
+
+        Returns
+        -------
+        boolean
+            Returns True if the event was sent from the specified userid
+        """
+        return self.event.sender == userid
+    
+    def is_not_from_this_bot(self):
+        """
+        
+        Returns
+        -------
+        boolean
+            Returns True if the event is from a user that is not this bot.
+        """
+        return not self.is_from_userid(self._bot.async_client.user_id)
+
+class MessageMatch(Match):
+    """
+    Class with methods to filter message events
+
+    ...
+
+    """
+    def __init__(self, room, event, bot, prefix="") -> None:
         """
         Initializes the simplematrixbotlib.MessageMatch class.
 
@@ -14,73 +67,76 @@ class MessageMatch:
         Parameters
         ----------
         room : nio.rooms.MatrixRoom
-            The bot developer will use the room parameter of the command function for this.
+            The bot developer will use the room parameter of the handler function for this.
     
-        message : nio.events.room_events.Event
-            The bot developer will use the message parameter of the command function for this.
+        event : nio.events.room_events.Event
+            The bot developer will use the event parameter of the handler function for this.
         
         bot : simplematrixbotlib.Bot
             The bot developer will use the bot's instance of the simplematrixbotlib.Bot class for this.
 
-        """
+        prefix : str, Optional
+            The bot developer will specify a prefix, the prefix is the beginning of messages that are intended to be commands, usually "!", "/" or similar.
 
-        self.room = room
-        self.message = message
-        self.bot = bot
-        self._prefix = ''
-        self._command = ''
-
-    def prefix(self, prefix):
         """
-        Parameters
-        ----------
-        prefix : str
-            Beginning of messages that are intended to be commands, usually "!", "/" or similar
-
-        Returns
-        -------
-        boolean
-            Returns True if the message begins with the given arg.
-        """
+        super().__init__(room, event, bot)
         self._prefix = prefix
-        return self.message.body.startswith(prefix)
-
-    def command(self, command):
+    
+    def command(self, command=None):
         """
         Parameters
         ----------
-        command : str
+        command : str, Optional
             Beginning of messages that are intended to be commands, but after the prefix; e.g. "help".
 
         Returns
         -------
         boolean
-            Returns True if the string following the prefix begins with the given arg. If Match.prefix has not been called, it is assumed that the command does not have a prefix
+            Returns True if the string after the prefix and before the first space is the same as the given arg.
+        
+        str
+            Returns the string after the prefix and before the first space if no arg is passed to this method.
         """
-        self._command = command
-        self.args = self.message.body.replace(self._prefix + self._command, '')
-        return self.message.body.replace(self._prefix,
-                                         '').split(' ')[0] == self._command
 
-    def not_from_this_bot(self):
+        if self._prefix == self.event.body[0:len(self._prefix)]:
+            body_without_prefix = self.event.body[len(self._prefix):]
+        else:
+            body_without_prefix = self.event.body
+
+        if command:
+            return body_without_prefix.split()[0] == command
+        else:
+            return body_without_prefix.split()[0]
+    
+    def prefix(self):
         """
+
         Returns
         -------
         boolean
-            Returns true if the message was not sent by this bot
+            Returns True if the message begins with the prefix, and False otherwise. If there is no prefix specified during the creation of this MessageMatch object, then return True.
         """
-        return not self.message.sender == self.bot.async_client.user_id
 
+        return self.event.body.startswith(self._prefix)
+    
+    def args(self):
+        """
+        
+        Returns
+        -------
+        list
+            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the command.
+        """
+
+        return self.event.body.split()[1:]
+    
     def contains(self, string):
         """
-        Parameters
-        ----------
-        string : str
-            String to test if it is part of the message.
-
+        
         Returns
         -------
         boolean
-            Returns true if the message contains the given arg
+            Returns True if the string argument is found within the body of the message.
         """
-        return string in self.message.body
+        
+        return string in self.event.body
