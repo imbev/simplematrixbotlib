@@ -14,10 +14,10 @@ class Match:
         Parameters
         ----------
         room : nio.rooms.MatrixRoom
-            The bot developer will use the room parameter of the command handler for this.
+            The bot developer will use the room parameter of the handler function for this.
     
         event : nio.events.room_events.Event
-            The bot developer will use the event parameter of the command function for this.
+            The bot developer will use the event parameter of the handler function for this.
         
         bot : simplematrixbotlib.Bot
             The bot developer will use the bot's instance of the simplematrixbotlib.Bot class for this.
@@ -67,10 +67,10 @@ class MessageMatch(Match):
         Parameters
         ----------
         room : nio.rooms.MatrixRoom
-            The bot developer will use the room parameter of the command handler for this.
+            The bot developer will use the room parameter of the handler function for this.
     
         event : nio.events.room_events.Event
-            The bot developer will use the event parameter of the command function for this.
+            The bot developer will use the event parameter of the handler function for this.
         
         bot : simplematrixbotlib.Bot
             The bot developer will use the bot's instance of the simplematrixbotlib.Bot class for this.
