@@ -37,9 +37,19 @@ class Match:
         Returns
         -------
         boolean
-            Returns true if the event was sent from the specified userid
+            Returns True if the event was sent from the specified userid
         """
         return self.event.sender == userid
+    
+    def is_not_from_this_bot(self):
+        """
+        
+        Returns
+        -------
+        boolean
+            Returns True if the event is from a user that is not this bot.
+        """
+        return not self.is_from_userid(self._bot.async_client.user_id)
 
 class MessageMatch(Match):
     """
