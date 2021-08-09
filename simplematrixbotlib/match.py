@@ -40,3 +40,93 @@ class Match:
             Returns true if the event was sent from the specified userid
         """
         return self.event.sender == userid
+
+class MessageMatch(Match):
+    """
+    Class with methods to filter message events
+
+    ...
+
+    """
+    def __init__(self, room, event, bot, prefix="") -> None:
+        """
+        Initializes the simplematrixbotlib.MessageMatch class.
+
+        ...
+
+        Parameters
+        ----------
+        room : nio.rooms.MatrixRoom
+            The bot developer will use the room parameter of the command handler for this.
+    
+        event : nio.events.room_events.Event
+            The bot developer will use the event parameter of the command function for this.
+        
+        bot : simplematrixbotlib.Bot
+            The bot developer will use the bot's instance of the simplematrixbotlib.Bot class for this.
+
+        prefix : str, Optional
+            The bot developer will specify a prefix, the prefix is the beginning of messages that are intended to be commands, usually "!", "/" or similar.
+
+        """
+        super().__init__(room, event, bot)
+        self._prefix = prefix
+    
+    def command(self, command=None):
+        """
+        Parameters
+        ----------
+        command : str, Optional
+            Beginning of messages that are intended to be commands, but after the prefix; e.g. "help".
+
+        Returns
+        -------
+        boolean
+            Returns True if the string after the prefix and before the first space is the same as the given arg.
+        
+        str
+            Returns the string after the prefix and before the first space if no arg is passed to this method.
+        """
+
+        if self._prefix == self.event.body[0:len(self._prefix)]:
+            body_without_prefix = self.event.body[len(self._prefix):]
+        else:
+            body_without_prefix = self.event.body
+
+        if command:
+            return body_without_prefix.split()[0] == command
+        else:
+            return body_without_prefix.split()[0]
+    
+    def prefix(self):
+        """
+
+        Returns
+        -------
+        boolean
+            Returns True if the message begins with the prefix, and False otherwise. If there is no prefix specified during the creation of this MessageMatch object, then return True.
+        """
+
+        return self.event.body.startswith(self._prefix)
+    
+    def args(self):
+        """
+        
+        Returns
+        -------
+        list
+            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the command.
+        """
+
+        return self.event.body.split()[1:]
+    
+    def contains(self, string):
+        """
+        
+        Returns
+        -------
+        boolean
+            Returns True if the string argument is found within the body of the message.
+        """
+        
+        return string in self.event.body
