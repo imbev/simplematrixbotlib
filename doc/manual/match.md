@@ -14,18 +14,28 @@ match = botlib.Match(
 )
 ```
 
-The room, event, and bot arguments are neccesary. The room and event arguments should be the same as the arguments of the handler function. The bot argument should be the same as the instance of the Bot class. This class is intended to be used with non-message events, as the MessageMatch class is a child class of this class, and has message-specific methods.
+The room, event, and bot arguments are neccesary. The room and event arguments should be the same as the arguments of the handler function. The bot argument should be the same as the instance of the Bot class. This class is intended to be used with non-message events, as the MessageMatch class is a child class of this class, and has message-specific methods. A list of methods for the Match class is shown below.
 
-#### Methods:
+#### <div id="match-methods">List of Methods:</div>
 
 | Method                          | Explanation                                                     |
 | ------------------------------- | --------------------------------------------------------------- |
 | `Match.is_from_user_id(userid)` | Returns True if the userid argument matches the event's sender. |
 | `Match.is_not_from_this_bot()`  | Returns True if the event is not sent by this bot.              |
 
+Example:
+
+```python
+bot.listener.on_message_event
+async def example(room, event):
+    match = botlib.Match(room, event, bot)
+    if match.is_not_from_this_bot():
+        print(f"A user sent a message in room {room.room_id}")
+```
+
 ### How to use the MessageMatch class
 
-The MessageMatch class is a class that handles matching/filtering of the content of message events. The source is located at simplematrixbotlib/match.py
+The MessageMatch class is a class that handles matching/filtering of message events. It is a subclass of the Match class, and thus methods of the Match class can also be used with the MessageMatch class. The source is located at simplematrixbotlib/match.py
 
 #### Creating an instance of the MessageMatch class
 
@@ -34,71 +44,39 @@ An instance can be created using the following python code.
 ```python
 match = botlib.MessageMatch(
     room=room,
-    message=message,
-    bot=bot
+    event=event,
+    bot=bot,
+    prefix="/"
 )
 ```
 
-All of the arguments are neccesary. The bot argument is an instance of the Bot class. The room and message arguments are the same as the arguments specified when creating a function to be used with the Bot.add_message_listener method. An example of the two combined is shown in the following python code.
+The room, event, and bot arguments are necessary. The bot argument is an instance of the Bot class. The room and event arguments are the same as the arguments specified when creating a handler function to be used with the Listener.on_message_event method. The prefix argument is usually used as the beginning of messages that are intended to be commands, usually "!", "/" or another short string. An example handler function that uses MessageMatch is shown in the following python code.
+
+```python
+bot.listener.on_message_event
+async def example(room, message):
+    match = botlib.MessageMatch(room, message, bot, "!")
+    if match.command("help") and match.prefix(): # Matches any message that begins with "!help "
+        #Respond to help command
+```
+
+As said earlier, the prefix argument is optional. An example handler function without it is shown in the following python code.
 
 ```python
 bot.listener.on_message_event
 async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
+    if match.command("help"): # Matches any message that begins with "help "
+        #Respond to help command
 ```
 
-#### Using the prefix method
+A list of methods for the Match class is shown below. [Methods from the Match class](#match-methods) can also be used with the MessageMatch class.
 
-The prefix method of the MessageMatch class can be used to filter by messages that begin with a specified prefix. Example usage of the MessageMatch.prefix method is shown in the following python code.
+#### List of Methods:
 
-```python
-PREFIX = '!'
-bot.listener.on_message_event
-async def example(room, message):
-    match = botlib.MessageMatch(room, message, bot)
-    if match.prefix(PREFIX):
-        #Do Something
-```
-
-In this case, match.prefix(PREFIX) returns True if the message begins with the same value as the PREFIX variable.
-
-#### Using the command method
-
-The command method of the MessageMatch class can be used to filter messages by the string that immediately follows the prefix of the message. The command method returns True if the string following the prefix begins with the command string. The args attribute of the MessageMatch object is set to a string that contains the original message, but with the command ommitted. It will also ommit the prefix if the prefix method was called before this method. An example is shown in the following python code.
-
-```python
-PREFIX = '!'
-bot.listener.on_message_event
-async def example(room, message):
-    match = botlib.MessageMatch(room, message, bot)
-    COMMAND = "example"
-    if (match.prefix(PREFIX) and #Returns True if the message begins with PREFIX
-        match.command(COMMAND)): #Returns True if the message following the prefix begins with COMMAND
-        print(match.args) #Prints the message, but without PREFIX and without COMMAND
-```
-
-The command method will be improved, although with incompatable changes in the next major version of Simple-Major-Bot-Lib.
-
-#### Using the not_from_this_bot method
-
-The not_from_this_bot method of the MessageMatch class can be used to filter messages based on whether they come from Matrix users and not from this bot. not_from_this_bot returns True if the message sender is not the bot. An example is shown in the following python code.
-
-```python
-bot.listener.on_message_event
-async def example(room, message):
-    match = botlib.MessageMatch(room, message, bot)
-    if match.not_from_this_bot: #Returns True if the message was sent by a different user
-        #Do Something
-```
-
-#### Using the contains method
-
-The contains method of the MessageMatch class can be used to filter messages based on whether a specified string is within the message body. An example is shown in the following python code.
-
-```python
-bot.listener.on_message_event
-async def example(room,message):
-    match = botlib.MessageMatch(room, message, bot)
-    if match.contains("example string"): #Returns True if the message body contains "example string"
-        #Do Something
-```
+| Method                                                      | Explanation                                                                                                                                                                                                                              |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MessageMatch.command()` or `MessageMatch.command(command)` | The "command" is the beginning of messages that are intended to be commands, but after the prefix; e.g. "help". Returns the command if the command argument is empty. Returns True if the command argument is equivalent to the command. |
+| `MessageMatch.prefix()`                                     | Returns True if the message begins with the prefix specified during the initialization of the instance of the MessageMatch class. Returns True if no prefix was specified during the initialization.                                     |
+| `MessageMatch.args()`                                       | Returns a list of strings; each string is part of the message separated by a space, with the exception of the part of the message before the first space (the prefix and command). Returns an empty list if it is a single-word command. |
+| `MessageMatch.contains(string)`                             | Returns True if the message contains the value specified in the string argument.                                                                                                                                                         |
