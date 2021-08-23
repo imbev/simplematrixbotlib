@@ -102,6 +102,9 @@ class MessageMatch(Match):
             body_without_prefix = self.event.body[len(self._prefix):]
         else:
             body_without_prefix = self.event.body
+        
+        if not body_without_prefix:
+          return []
 
         if command:
             return body_without_prefix.split()[0] == command
