@@ -51,4 +51,4 @@ async def echo(room, message):
 bot.run()
 ```
 
-More examples can be found [here](examples).
+More information and examples can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/).
