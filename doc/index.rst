@@ -5,7 +5,7 @@
 
 Welcome to Simple-Matrix-Bot-Lib's documentation!
 =================================================
-Simple-Matrix-Bot-Lib is a Python 3 library for quickly building Matrix bots. It uses matrix-nio as its Matrix client library. To begin using Simple-Matrix-Bot-Lib, :ref:`check out the quickstart <quickstart>`.
+Simple-Matrix-Bot-Lib is a Python 3 library for quickly building Matrix bots. It is based on the matrix-nio Python library. To begin using Simple-Matrix-Bot-Lib, :ref:`check out the quickstart <quickstart>`.
 
 .. toctree::
    :maxdepth: 2
@@ -20,5 +20,3 @@ Simple-Matrix-Bot-Lib is a Python 3 library for quickly building Matrix bots. It
    :caption: Reference
 
    manual
-   autodoc
-
