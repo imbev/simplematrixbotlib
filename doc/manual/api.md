@@ -14,7 +14,7 @@ The send_text_message method of the Api class can be used to send text messages 
 async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
     example_message = "Hello World"
-    if match.not_from_this_bot():
+    if match.is_not_from_this_bot():
         bot.api.send_text_message(
             room_id=room.room_id, 
             message=example_message)
@@ -27,7 +27,7 @@ The send_image_message method of the Api class can be used to send image message
 async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
     example_image="./img/example.png"
-    if match.not_from_this_bot():
+    if match.is_not_from_this_bot():
         bot.api.send_image_message(
             room_id=room.room_id, 
             image_filepath=example_image)
