@@ -1,5 +1,5 @@
 # Simple-Matrix-Bot-Lib
-(Version 1.6.x)
+(Version 2.0.0)
 
 Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
