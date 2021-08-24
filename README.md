@@ -8,9 +8,9 @@ Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on 
 
 Learn how you can contribute [here](CONTRIBUTING.md).
 
-# Installation
+## Installation
 
-### To use it, simplematrixbotlib can be either installed from PyPi or downloaded from github.</br>
+### simplematrixbotlib can be either installed from PyPi or downloaded from github.<br>
 
 Installation from PyPi:
 
@@ -24,185 +24,64 @@ Download from github:
 git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
 ```
 
-# Example Usage
+## Example Usage
 
 ```python
+# echo.py
+# Example:
+# randomuser - "!echo example string"
+# echo_bot - "example string"
+
 import simplematrixbotlib as botlib
-import os
 
-creds = botlib.Creds("https://home.server", "user", "pass")
+creds = botlib.Creds("https://home.server", "echo_bot", "pass")
 bot = botlib.Bot(creds)
-
-prefix = '!'
+PREFIX = '!'
 
 @bot.listener.on_message_event
 async def echo(room, message):
-    """
-    Example function that "echoes" arguements.
-    Usage:
-    example_user- !echo say something
-    echo_bot- say something
-    """
-    match = botlib.MessageMatch(room, message, bot)
-    if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
-        await bot.api.send_text_message(room.room_id, match.args)
+    match = botlib.MessageMatch(room, message, bot, PREFIX)
+
+    if match.is_not_from_this_bot() and match.prefix() and match.command("echo"):
+
+        await bot.api.send_text_message(
+            room.room_id, " ".join(arg for arg in match.args())
+            )
 
 bot.run()
 ```
 
 More examples can be found [here](examples).
 
-# Features
+## Features
 
-## Complete:
+### Complete:
 
-- ### Login to homeserver with password - bot automatically login upon the execution of bot.run()
+- #### Login to homeserver with password - bot automatically login upon the execution of bot.run()
   
-  ```python
-  import simplematrixbotlib as botlib
-  
-  creds = botlib.Creds("home.server", "user", "pass")
-  bot = botlib.Bot(creds)
-  bot.run() #Logs in during the execution of this line
-  ```
-  
-- ### Login to homeserver with token - bot uses token provided via SSO (Single Sign-On) to login
-  
-  ```python
-  import simplematrixbotlib as botlib
-  
-  creds = botlib.Creds("home.server", login_token="MDA...xja") # login_token keyword must be used, username argument is optional when login_token is used
-  bot = botlib.Bot(creds)
-  bot.run()
-  ```
+- #### Login to homeserver with token - bot uses token provided via SSO (Single Sign-On) to login
 
-- ### Join room on invite - bot automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
+- #### Join room on invite - bot automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
 
-- ### Send message - bot can send messages in response to other messages, and can also run other code in response to messages as well as filter the messages that the bot responds to
-  
-  ```python
-  import simplematrixbotlib as botlib
-  
-  creds = botlib.Creds("https://home.server", "user", "pass")
-  bot = botlib.Bot(creds)
-  
-  @bot.listener.on_message_event #Listen for messages, can have as many message listeners as needed, each added using @bot.listener.on_message_event
-  async def say_something_to_a_message_not_from_bot(room, message): #Must be an "async" function with (room, message) arguments
-      if not message.sender == bot.async_client.user_id: #Optional, prevents the bot from reacting to its own messages
-          await bot.api.send_text_message(room.room_id, "something") #Send a message containing "something" to room
-  
-  bot.run()
-  ```
+- #### Send messages - bot can send messages in response to other messages, and can also run other code in response to messages as well as filter the messages that the bot responds to
 
-- ### Send images - bot can send image messages
-    ```python
-    import simplematrixbotlib as botlib
-    
-    creds = botlib.Creds("https://home.server", "user", "pass")
-    bot = botlib.Bot(creds)
+- #### Send images - bot can send image messages
 
-    @bot.listener.on_message_event
-    async def send_image_to_a_message_not_from_bot(room, message):
-        if not message.sender == bot.async_client.user_id:
-            await bot.api.send_image_message(room.room_id, "./example.png") #Send the image file located at ./example.png to room
+- #### Execute action based on criteria - "match filters" can be used to  specify which messages for the bot to respond to
 
-    bot.run()
-    ```
+- #### Preserve sessions - Sessions are now preserved between logins. The access token and device id are now saved in sessions.txt, unless specified otherwise.
 
-- ### Execute action based on criteria - "match filters" can be used to  specify which messages for the bot to respond to
-  
-  ```python
-  import simplematrixbotlib as botlib
-  import os
-  
-  creds = botlib.Creds("https://home.server", "user", "pass")
-  bot = botlib.Bot(creds)
-  
-  prefix = '!' #Create prefix for commands
-  
-  @bot.listener.on_message_event
-  async def echo(room, message):
-      """
-      Example function that "echoes" arguements.
-      Usage:
-      example_user- !echo say something
-      echo_bot- say something
-      """
-      match = botlib.MessageMatch(room, message, bot) #Create an object of the botlib.MessageMatch class
-      if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"): #Add match filters
-          await bot.api.send_text_message(room.room_id, match.args)#Execute action
-  
-  bot.run()
-  ```
+- #### Add choice of actions to execute at bot login - Execute action after logging in
 
-- ### Preserve sessions - Sessions are now preserved between logins. The access token and device id are now saved in sessions.txt, unless specified otherwise.
-  
-  ```python
-  import simplematrixbotlib as botlib
-  import os
-  
-  creds = botlib.Creds("https://home.server", "user", "pass", None) #Disable preserved sessions
-  bot = botlib.Bot(creds)
-  
-  prefix = '!'
-  
-  @bot.listener.on_message_event
-  async def echo(room, message):
-      """
-      Example function that "echoes" arguements.
-      Usage:
-      example_user- !echo say something
-      echo_bot- say something
-      """
-      match = botlib.MessageMatch(room, message, bot)
-      if match.not_from_this_bot() and match.prefix(prefix) and match.command("echo"):
-          await bot.api.send_text_message(room.room_id, match.args)
-  
-  bot.run()
-  ```
 
-- ### Add choice of actions to execute at bot login - Execute action after logging in
-  
-  ```python
-  import simplematrixbotlib as botlib
-  import os
-  
-  creds = botlib.Creds("https://home.server", "random_bot", "pass")
-  bot = botlib.Bot(creds)
-  
-  prefix = '!'
+### In Progress:
 
-  @bot.listener.on_startup #Add "hello" action to action to execute at login
-  async def hello(room_id): #Must be an "async" function with a (room_id) argument
-      """
-      Example function that says "hello" when the bot is started.
-      Usage:
-      (start random_bot)
-      random_bot - hello
-      """
-      message = "hello"
-      await bot.api.send_text_message(room_id, message) #Example of sending a message
+- #### Add more examples
+- #### Improve Documentation
 
-  
-  bot.run()
-  ```
+### Planned:
 
-## In Progress:
+- #### Add toggles for defaults
+- #### Sending of markdown formatted messages
+- #### More
 
-- ### Add more examples
-- ### Improve Documentation
-
-## Planned:
-
-- ### Add more match filters
-- ### Support for Encrypted Rooms
-- ### More
-
-# Dependencies
-
-## Python:
-
-- ### matrix-nio >= 0.18.2
-  
-  ## External:
-- ### Python >= 3.7
