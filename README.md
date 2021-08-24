@@ -52,36 +52,3 @@ bot.run()
 ```
 
 More examples can be found [here](examples).
-
-## Features
-
-### Complete:
-
-- #### Login to homeserver with password - bot automatically login upon the execution of bot.run()
-  
-- #### Login to homeserver with token - bot uses token provided via SSO (Single Sign-On) to login
-
-- #### Join room on invite - bot automatically join rooms that the bot is invited to upon execution of bot.run(), or upon invite if the bot is running
-
-- #### Send messages - bot can send messages in response to other messages, and can also run other code in response to messages as well as filter the messages that the bot responds to
-
-- #### Send images - bot can send image messages
-
-- #### Execute action based on criteria - "match filters" can be used to  specify which messages for the bot to respond to
-
-- #### Preserve sessions - Sessions are now preserved between logins. The access token and device id are now saved in sessions.txt, unless specified otherwise.
-
-- #### Add choice of actions to execute at bot login - Execute action after logging in
-
-
-### In Progress:
-
-- #### Add more examples
-- #### Improve Documentation
-
-### Planned:
-
-- #### Add toggles for defaults
-- #### Sending of markdown formatted messages
-- #### More
-
