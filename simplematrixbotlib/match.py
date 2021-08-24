@@ -26,7 +26,7 @@ class Match:
         self.room = room
         self.event = event
         self._bot = bot
-    
+
     def is_from_userid(self, userid):
         """
         Parameters
@@ -40,7 +40,7 @@ class Match:
             Returns True if the event was sent from the specified userid
         """
         return self.event.sender == userid
-    
+
     def is_not_from_this_bot(self):
         """
         
@@ -50,6 +50,7 @@ class Match:
             Returns True if the event is from a user that is not this bot.
         """
         return not self.is_from_userid(self._bot.async_client.user_id)
+
 
 class MessageMatch(Match):
     """
@@ -81,7 +82,7 @@ class MessageMatch(Match):
         """
         super().__init__(room, event, bot)
         self._prefix = prefix
-    
+
     def command(self, command=None):
         """
         Parameters
@@ -102,15 +103,15 @@ class MessageMatch(Match):
             body_without_prefix = self.event.body[len(self._prefix):]
         else:
             body_without_prefix = self.event.body
-        
+
         if not body_without_prefix:
-          return []
+            return []
 
         if command:
             return body_without_prefix.split()[0] == command
         else:
             return body_without_prefix.split()[0]
-    
+
     def prefix(self):
         """
 
@@ -121,7 +122,7 @@ class MessageMatch(Match):
         """
 
         return self.event.body.startswith(self._prefix)
-    
+
     def args(self):
         """
         
@@ -132,7 +133,7 @@ class MessageMatch(Match):
         """
 
         return self.event.body.split()[1:]
-    
+
     def contains(self, string):
         """
         
@@ -141,5 +142,5 @@ class MessageMatch(Match):
         boolean
             Returns True if the string argument is found within the body of the message.
         """
-        
+
         return string in self.event.body

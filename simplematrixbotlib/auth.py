@@ -74,7 +74,8 @@ class Creds:
             if file_exists:
                 decrypted_session_data = fw.decrypt(
                     encrypted_session_data,
-                    self._key)[3:-2].replace('\'', '').replace(' ', '').split(",")
+                    self._key)[3:-2].replace('\'', '').replace(' ',
+                                                               '').split(",")
 
                 self.device_id = decrypted_session_data[0]
                 self.access_token = decrypted_session_data[1]
@@ -93,7 +94,7 @@ class Creds:
         """
         if self._session_stored_file:
             session_data = str([self.device_id, self.access_token])
-            
+
             encrypted_session_data = fw.encrypt(session_data, self._key)
 
             with open(self._session_stored_file, 'w') as f:

@@ -43,7 +43,7 @@ class Api:
 
         if self.creds.device_id:
             self.async_client.device_id = self.creds.device_id
-        
+
         if self.creds.password or self.creds.login_token:
             response = await self.async_client.login(
                 password=self.creds.password,
@@ -53,7 +53,7 @@ class Api:
 
             self.creds.device_id = response.device_id
             self.creds.access_token = response.access_token
-        
+
         else:
             self.async_client.access_token = self.creds.access_token
             self.async_client.user_id = f"@{self.creds.username}:{self.creds.homeserver}"
