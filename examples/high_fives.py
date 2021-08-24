@@ -20,7 +20,7 @@ echo_bot
       The bot has been high-fived 11 times!
 """
 
-import os
+import simplematrixbotlib as botlib
 
 creds = botlib.Creds("https://example.org", "hight_five_bot", "secretpassword")
 bot = botlib.Bot(creds)
@@ -50,16 +50,16 @@ async def bot_help(room, message):
                 command: count, how_many, c
                 description: show amount of high fives
                 """
-    match = botlib.MessageMatch(room, message, bot)
-    if match.not_from_this_bot() and match.prefix(PREFIX) and (
+    match = botlib.MessageMatch(room, message, bot, PREFIX)
+    if match.is_not_from_this_bot() and match.prefix() and (
             match.command("help") or match.command("?") or match.command("h")):
         await bot.api.send_text_message(room.room_id, bot_help_message)
 
 
 @bot.listener.on_message_event
 async def high_five(room, message):
-    match = botlib.MessageMatch(room, message, bot)
-    if match.not_from_this_bot() and match.prefix(PREFIX) and (
+    match = botlib.MessageMatch(room, message, bot, PREFIX)
+    if match.is_not_from_this_bot() and match.prefix() and (
             match.command("high_five") or match.command("hf")):
 
         bot.total_high_fives += 1
@@ -72,8 +72,8 @@ async def high_five(room, message):
 
 @bot.listener.on_message_event
 async def high_five_count(room, message):
-    match = botlib.MessageMatch(room, message, bot)
-    if match.not_from_this_bot and match.prefix(PREFIX) and (
+    match = botlib.MessageMatch(room, message, bot, PREFIX)
+    if match.is_not_from_this_bot() and match.prefix() and (
             match.command("count") or match.command("how_many")
             or match.command("c")):
         await bot.api.send_text_message(
