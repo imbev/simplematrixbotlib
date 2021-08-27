@@ -132,7 +132,7 @@ class Api:
                                               content=content)
         except:
             print(f"Failed to send image file {image_filepath}")
-    
+
     async def send_markdown_message(self, room_id, message):
         """
         Send a markdown message in a Matrix room.
@@ -150,9 +150,12 @@ class Api:
         await self.async_client.room_send(room_id=room_id,
                                           message_type="m.room.message",
                                           content={
-                                              "msgtype": "m.text",
-                                              "body": message,
-                                              "format" : "org.matrix.custom.html",
-                                              "formatted_body" : markdown.markdown(message)
+                                              "msgtype":
+                                              "m.text",
+                                              "body":
+                                              message,
+                                              "format":
+                                              "org.matrix.custom.html",
+                                              "formatted_body":
+                                              markdown.markdown(message)
                                           })
-

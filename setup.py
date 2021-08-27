@@ -19,10 +19,8 @@ setup(
     long_description_content_type='text/markdown',
     packages=find_packages(),
     install_requires=[
-        "matrix-nio == 0.18.6", 
-        "python-cryptography-fernet-wrapper == 1.0.4",
-        "pillow == 8.2.0",
-        "markdown == 3.3.4"
+        "matrix-nio == 0.18.6", "python-cryptography-fernet-wrapper == 1.0.4",
+        "pillow == 8.2.0", "markdown == 3.3.4"
     ],
     keywords=[
         'python', 'matrix', 'bot', 'simple', 'library',
