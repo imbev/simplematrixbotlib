@@ -4,6 +4,7 @@ from PIL import Image
 import aiofiles.os
 import mimetypes
 import os
+import markdown
 
 from nio.responses import UploadResponse
 
@@ -131,3 +132,27 @@ class Api:
                                               content=content)
         except:
             print(f"Failed to send image file {image_filepath}")
+    
+    async def send_markdown_message(self, room_id, message):
+        """
+        Send a markdown message in a Matrix room.
+
+        Parameteres
+        -----------
+        room_id : str
+            The room id of the destination of the message.
+
+        message : str
+            The content of the message to be sent.
+
+        """
+
+        await self.async_client.room_send(room_id=room_id,
+                                          message_type="m.room.message",
+                                          content={
+                                              "msgtype": "m.text",
+                                              "body": message,
+                                              "format" : "org.matrix.custom.html",
+                                              "formatted_body" : markdown.markdown(message)
+                                          })
+

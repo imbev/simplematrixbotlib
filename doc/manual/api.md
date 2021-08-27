@@ -33,3 +33,16 @@ async def example(room, message):
             image_filepath=example_image)
 ```
 Both arguments are required. The room_id argument is the id of the destination room. The image_filepath argument is a string that is the path to the image file that is to be sent as a message.
+
+### Using the send_markdown_message method
+The send_markdown_message method of the Api class can be used to send markdown messages in Matrix rooms. An example is shown in the following python code.
+```python
+async def example(room, message):
+    match = botlib.MessageMatch(room, message, bot)
+    example_markdown = "# Hello World from [simplematrixbotlib](https://github.com/KrazyKirby99999/simple-matrix-bot-lib)!"
+    if match.is_not_from_this_bot():
+        await bot.api.send_markdown_message(
+            room_id=room.room_id, 
+            message=example_markdown)
+```
+Both arguments are required. The room_id argument is the id of the destination room. The message argument is the string with markdown syntax that is to be sent as a message.
