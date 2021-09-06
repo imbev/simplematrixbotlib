@@ -39,3 +39,16 @@ def test_on_message_event():
         return False
     
     assert check() == True
+
+def test_on_startup():
+    @listener.on_startup
+    def example3():
+        return "example3"
+    
+    def check():
+        for func in listener._startup_registry:
+            if func() == "example3":
+                return True
+        return False
+
+    assert check()
