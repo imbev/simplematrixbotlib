@@ -21,6 +21,9 @@ classifiers = [
     "Topic :: Internet"
 ]
 
+[tool.poetry.urls]
+"Matrix Room" = "https://matrix.to/#/#simplematrixbotlib:matrix.org"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 matrix-nio = ">=0.18"
