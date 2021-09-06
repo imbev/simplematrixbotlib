@@ -20,7 +20,7 @@ jobs:
 
       - name: YAPF Formatter
         run: |
-          yapf --verbose --recursive --in-place --parallel
+          yapf --verbose --recursive --in-place --parallel .
 
       - name: action metadata
         run: |
