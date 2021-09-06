@@ -11,17 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v2.3.4
+      - name: Pip Installer
+        uses: BSFishy/pip-action@v1
         with:
-          repository: ${{ github.repository }}
-          token: ${{ github.token }}
+          packages: |
+            yapf
+            toml
 
-      # https://github.com/diegovalenzuelaiturra/yapf-action
       - name: YAPF Formatter
-        uses: diegovalenzuelaiturra/yapf-action@master
-        with:
-          args: . --verbose --recursive --in-place --parallel
+        run: |
+          args: yapf --verbose --recursive --in-place --parallel
 
       - name: action metadata
         run: |
