@@ -4,7 +4,7 @@
 help:
 	@echo --HELP--
 	@echo make help - display this message
-	@echo make prep - run "poetry install"
+	@echo make prep - install poetry and run "poetry install"
 #	@echo make test - run tests on the project
 	@echo make build - run "poetry build"
 	@echo make upload - run "poetry publish"
@@ -13,6 +13,7 @@ help:
 
 prep:
 	@echo --PREP--
+	pip install poetry
 	poetry install
 
 #test:
