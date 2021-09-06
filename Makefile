@@ -4,16 +4,17 @@
 help:
 	@echo --HELP--
 	@echo make help - display this message
-	@echo make prep - install neccesary packages for development
+	@echo make prep - install poetry and run "poetry install"
 #	@echo make test - run tests on the project
-	@echo make build - build wheel etc. for Pypi
-	@echo make upload - upload dist to PyPi
+	@echo make build - run "poetry build"
+	@echo make upload - run "poetry publish"
 	@echo make clean-windows - clean project of unwanted files and dirs on windows
 	@echo make clean-linux - clean project of unwanted files and dirs on linux
 
 prep:
 	@echo --PREP--
-	python -m pip install wheel twine
+	pip install poetry
+	poetry install
 
 #test:
 #	@echo --TEST--
@@ -21,11 +22,11 @@ prep:
 
 build:
 	@echo --BUILD--
-	python setup.py sdist bdist_wheel
+	poetry build
 
 upload:
 	@echo --UPLOAD--
-	twine upload dist/*
+	poetry publish
 
 clean-windows:
 	@echo --CLEAN-WINDOWS--

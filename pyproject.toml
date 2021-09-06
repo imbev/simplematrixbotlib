@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "simplematrixbotlib"
+version = "2.1.0"
+description = "An easy to use bot library for the Matrix ecosystem written in Python."
+authors = ["krazykirby99999 <krazykirby99999@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/KrazyKirby99999/simple-matrix-bot-lib"
+documentation = "https://simple-matrix-bot-lib.readthedocs.io/en/latest/"
+keywords = [
+    "simple", 
+    "matrix", 
+    "bot", 
+    "lib", 
+    "simple-matrix-bot-lib"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Communications :: Chat",
+    "Topic :: Internet"
+]
+
+[tool.poetry.urls]
+"Matrix Room" = "https://matrix.to/#/#simplematrixbotlib:matrix.org"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+matrix-nio = ">=0.18"
+python-cryptography-fernet-wrapper = ">=1.0.4"
+pillow = ">=8.2"
+markdown = ">=3.3"
+
+[tool.poetry.dev-dependencies]
+wheel = "^0.37.0"
+twine = "^3.4.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
