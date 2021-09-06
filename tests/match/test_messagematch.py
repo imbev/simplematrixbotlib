@@ -40,3 +40,8 @@ def test_args():
     assert match.args() == ["example"]
 
     assert match4.args() == []
+
+def test_contains():
+    assert match.contains("!h") == True
+    assert match.contains("lp exam") == True
+    assert match.contains("nothing") == False
