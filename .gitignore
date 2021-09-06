@@ -5,4 +5,4 @@ doc/_build/
 __pycache__
 simplematrixbotlib/__pycache__
 simplematrixbotlib/*/__pycache__
-
+dist/
