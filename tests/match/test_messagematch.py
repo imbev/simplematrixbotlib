@@ -9,9 +9,11 @@ mock_event.body = "p!help example"
 mock_bot = mock.MagicMock()
 
 prefix = "p!"
+prefix2 = "!!"
 
 match = MessageMatch(mock_room, mock_event, mock_bot, prefix)
 match2 = MessageMatch(mock_room, mock_event, mock_bot)
+match3 = MessageMatch(mock_room, mock_event, mock_bot, prefix2)
 
 def test_init():
     assert issubclass(MessageMatch, Match)
@@ -23,3 +25,9 @@ def test_command():
 
     assert match2.command() == "p!help"
     assert match2.command("p!help") == True
+
+def test_prefix():
+    assert match.prefix() == True
+    assert match3.prefix() == False
+
+    #assert match2.prefix() == True
