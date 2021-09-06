@@ -45,3 +45,10 @@ def test_contains():
     assert match.contains("!h") == True
     assert match.contains("lp exam") == True
     assert match.contains("nothing") == False
+=======
+
+match = MessageMatch(mock_room, mock_event, mock_bot, prefix)
+
+def test_init():
+    assert issubclass(MessageMatch, Match)
+    assert match._prefix == prefix
