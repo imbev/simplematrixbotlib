@@ -5,7 +5,7 @@ help:
 	@echo --HELP--
 	@echo make help - display this message
 	@echo make prep - install poetry and run "poetry install"
-#	@echo make test - run tests on the project
+	@echo make test - run "poetry run pytest"
 	@echo make build - run "poetry build"
 	@echo make upload - run "poetry publish"
 	@echo make clean-windows - clean project of unwanted files and dirs on windows
@@ -16,9 +16,9 @@ prep:
 	pip install poetry
 	poetry install
 
-#test:
-#	@echo --TEST--
-#	python -m unittest discover -s tests
+test:
+	@echo --TEST--
+	poetry run pytest
 
 build:
 	@echo --BUILD--
