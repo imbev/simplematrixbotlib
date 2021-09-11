@@ -24,6 +24,7 @@ class Creds:
                  username=None,
                  password=None,
                  login_token=None,
+                 access_token=None,
                  session_stored_file='session.txt'):
         """
         Initializes the simplematrixbotlib.Creds class.
@@ -37,10 +38,13 @@ class Creds:
             The username for the bot to connect as. This is neccesary if password is used instead of login_token.
     
         password : str, optional
-            The password for the bot to connect with. Can be used instead of login_token. Either the login_token or password must be provided.
+            The password for the bot to connect with. Can be used instead of login_token. One of the password, login_token, or access_token must be provided.
 
         login_token : str, optional
-            The login_token for the bot to connect with. Can be used instead of password. Either the login_token or password must be provided.
+            The login_token for the bot to connect with. Can be used instead of password. One of the password, login_token, or access_token must be provided.
+
+        access_token : str, optional
+            The access_token for the bot to connect with. Can be used instead of password. One of the password, login_token, or access_token must be provided.
         
         session_stored_file : str, optional
             Location for the bot to read and write device_id and access_token. The data within this file is encrypted and decrypted with the password parameter using the cryptography package. If set to None, session data will not be saved to file.
@@ -51,11 +55,17 @@ class Creds:
         self.username = username
         self.password = password
         self.login_token = login_token
+        self.access_token = access_token
         self._session_stored_file = session_stored_file
+
         if self.password:
             self._key = fw.key_from_pass(self.password)
-        else:
+        elif self.login_token:
             self._key = fw.key_from_pass(self.login_token)
+        elif self.access_token:
+            self._key = fw.key_from_pass(self.access_token)
+        else:
+            raise ValueError("password or login_token or access_token is required")
 
     def session_read_file(self):
         """
