@@ -57,6 +57,8 @@ class Creds:
         self.login_token = login_token
         self.access_token = access_token
         self._session_stored_file = session_stored_file
+        self.device_name = "Bot Client using Simple-Matrix-Bot-Lib"
+        self.device_id = ""
 
         if self.password:
             self._key = fw.key_from_pass(self.password)
@@ -95,7 +97,6 @@ class Creds:
 
         if not file_exists:
             self.device_id = None
-            self.access_token = None
 
     def session_write_file(self):
         """

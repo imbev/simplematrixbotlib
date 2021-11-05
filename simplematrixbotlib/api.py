@@ -5,8 +5,10 @@ import aiofiles.os
 import mimetypes
 import os
 import markdown
-
+import aiohttp
+import ast
 from nio.responses import UploadResponse
+import nio
 
 
 class Api:
@@ -37,30 +39,36 @@ class Api:
 
         """
 
-        self.creds.session_read_file()
+        if not self.creds.homeserver:
+            raise ValueError("Missing homeserver")
+        if not self.creds.username:
+            raise ValueError("Missing Username")
+        if not (self.creds.password or self.creds.login_token or self.creds.access_token):
+            raise ValueError("Missing password, login token, access token. Either password, login token or access token must be provided")
 
-        self.async_client = AsyncClient(self.creds.homeserver,
-                                        self.creds.username)
+        self.async_client = AsyncClient(homeserver=self.creds.homeserver, user=self.creds.username, device_id=self.creds.device_id)
 
-        if self.creds.device_id:
-            self.async_client.device_id = self.creds.device_id
+        if self.creds.password:
+            resp = await self.async_client.login(password=self.creds.password,  device_name=self.creds.device_name)
 
-        if self.creds.password or self.creds.login_token:
-            response = await self.async_client.login(
-                password=self.creds.password,
-                device_name='Bot Client built with Simple-Matrix-Bot-Lib',
-                token=self.creds.login_token)
-            print(response)
-
-            self.creds.device_id = response.device_id
-            self.creds.access_token = response.access_token
-
-        else:
+        elif self.creds.access_token:
             self.async_client.access_token = self.creds.access_token
-            self.async_client.user_id = f"@{self.creds.username}:{self.creds.homeserver}"
-            self.async_client.device_id = self.creds.device_id
 
-        self.creds.session_write_file()
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f'https://matrix.org/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}') as response:
+                    device_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['device_id']
+                    user_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['user_id']
+            
+            self.async_client.device_id, self.creds.device_id = device_id, device_id
+            self.async_client.user_id, self.creds.user_id = user_id, user_id
+            resp = None
+
+        elif self.creds.login_token:
+            resp = await self.async_client.login(token=self.creds.login_token,  device_name=self.creds.device_name)
+        
+        if isinstance(resp, nio.responses.LoginError):
+            raise Exception(resp)
+
 
     async def send_text_message(self, room_id, message):
         """
@@ -159,3 +167,5 @@ class Api:
                                               "formatted_body":
                                               markdown.markdown(message)
                                           })
+
+
