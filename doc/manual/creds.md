@@ -14,9 +14,21 @@ creds = botlib.Creds(
 or
 ```python
 creds = botlib.Creds(
-    homeserver="https://example.org", 
-    login_token="MDA..gZ2"
+    homeserver="https://example.org",
+    username="username", 
+    login_token="MDA..gZ2",
     session_stored_file="session.txt"
     )
 ```
-The homeserver argument is always required. The username, and password arguments are also required unless the login_token argument is used. The keyword "login_token" must be specified when the login_token argument is used. Although the login_token can only be used to authenticate with the homeserver once, it is required in every run of the bot in order to encrypt/decrypt the session data such as the access_token. If the login_token is used and the session_stored_file argument is set to `None`, then the bot will only be able to run once per login_token. The session_stored_file argument is optional and allows for specific data relating to each session such as the access token and the device name to be preserved across each run of the bot.
+or
+```python
+creds = botlib.Creds(
+    homeserver="https://example.org",
+    username="username",
+    access_token="syt_c2...DTJ",
+    session_stored_file="session.txt"
+    )
+```
+The homeserver and username arguments are always required.  The password argument may be replaced by either the login_token argument or the access_token argument. The login_token is used with handling SSO logins (See the [Matrix Docs](https://matrix.org/docs/guides/sso-for-client-developers#handling-sso)). The access_token is normally generated after using a different login method with another client. 
+
+The optional session_stored_file argument is the location of a file used by the bot to store session information such as the generated access token and device name. A login_token can only be used to authenticate once, so setting the session_stored_file argument to "" will require you to enter a new SSO token each time the program is run.
