@@ -1,5 +1,6 @@
 import asyncio
 import simplematrixbotlib as botlib
+from nio import SyncResponse
 
 
 class Bot:
@@ -29,11 +30,21 @@ class Bot:
         self.listener = botlib.Listener(self)
 
     async def main(self):
+
+        self.creds.session_read_file()
+
         await self.api.login()
+        
         self.async_client = self.api.async_client
 
-        await self.async_client.sync(timeout=65536,
+
+        resp = await self.async_client.sync(timeout=65536,
                                      full_state=False)  #Ignore prior messages
+
+        if isinstance(resp, SyncResponse):
+            print(f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})")
+
+        self.creds.session_write_file()
 
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
