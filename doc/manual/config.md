@@ -27,4 +27,4 @@ Depending on the setting, a specific method may be used for choosing the value. 
 
 | Method                      | Description                                  |
 |-----------------------------|----------------------------------------------|
-| set_join_on_invite(boolean) | Whether the bot should join rooms on invite. |
+| set_join_on_invite(boolean) | Whether the bot should automatically join rooms on invite. |
