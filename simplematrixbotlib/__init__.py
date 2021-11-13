@@ -4,3 +4,4 @@ from simplematrixbotlib.bot import Bot
 from simplematrixbotlib.callbacks import Callbacks
 from simplematrixbotlib.match import MessageMatch
 from simplematrixbotlib.listener import Listener
+from simplematrixbotlib.config import Config
