@@ -178,6 +178,7 @@ class Api:
                                               "org.matrix.custom.html",
                                               "formatted_body":
                                               markdown.markdown(message)
-                                          })
+                                          },
+                                          ignore_unverified_devices=True)
 
 
