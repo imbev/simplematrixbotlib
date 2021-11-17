@@ -1,6 +1,6 @@
 import json
 import asyncio
-from nio import (AsyncClient, SyncResponse, RoomMessageText)
+from nio import (AsyncClient, SyncResponse, RoomMessageText, AsyncClientConfig)
 from PIL import Image
 import aiofiles.os
 import mimetypes
@@ -50,9 +50,18 @@ class Api:
                 "Missing password, login token, access token. Either password, login token or access token must be provided"
             )
 
+        clientConfig = AsyncClientConfig(max_limit_exceeded=0,
+                                         max_timeouts=0,
+                                         store_sync_tokens=True,
+                                         encryption_enabled=True)
+        STORE_PATH = "./store/"
+        if not os.path.exists(STORE_PATH):
+            os.makedirs(STORE_PATH)
         self.async_client = AsyncClient(homeserver=self.creds.homeserver,
                                         user=self.creds.username,
-                                        device_id=self.creds.device_id)
+                                        device_id=self.creds.device_id,
+                                        store_path=STORE_PATH,
+                                        config=clientConfig)
 
         if self.creds.password:
             resp = await self.async_client.login(
@@ -79,6 +88,8 @@ class Api:
             self.async_client.user_id, self.creds.user_id = user_id, user_id
             resp = None
 
+            self.async_client.load_store()
+
         elif self.creds.login_token:
             resp = await self.async_client.login(
                 token=self.creds.login_token,
@@ -86,6 +97,9 @@ class Api:
 
         if isinstance(resp, nio.responses.LoginError):
             raise Exception(resp)
+
+        if self.async_client.should_upload_keys:
+            await self.async_client.keys_upload()
 
     async def check_valid_homeserver(self, homeserver: str) -> bool:
         if not (homeserver.startswith('http://')
