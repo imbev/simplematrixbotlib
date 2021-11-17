@@ -86,6 +86,7 @@ class MessageMatch(Match):
         self._display_name = bot_user.display_name
         self._disambiguated_name = bot_user.disambiguated_name
         self._pill = f'<a href="https://matrix.to/#/{self.room.own_user_id}">'
+        self._body_without_prefix = None
 
     def command(self, command=None):
         """
@@ -103,33 +104,37 @@ class MessageMatch(Match):
             Returns the string after the prefix and before the first space if no arg is passed to this method.
         """
 
-        if self._prefix == self.event.body[0:len(self._prefix)]:
-            body_without_prefix = self.event.body[len(self._prefix):]
-        elif self.mention():
-            # the order is important here!
-            # note: we assume that body and formatted_body, if present, match as a workaraound of cleaning html
-            if self.event.body.startswith(self._disambiguated_name):
-                body_without_prefix = self.event.body[len(self._disambiguated_name):]
-            elif self.event.body.startswith(self._display_name):
-                body_without_prefix = self.event.body[len(self._display_name):]
-            elif self.event.body.startswith(self.room.own_user_id):
-                body_without_prefix = self.event.body[len(self.room.own_user_id):]
-            elif self.event.formatted_body.startswith(self._pill):
-                name = self.event.formatted_body[len(self._pill):self.event.formatted_body.index('</a>')]
-                body_without_prefix = body_without_prefix = self.event.body[len(name):]
-            # mentioning may include a : (colon) as inserted by Element when clicking on a user
-            if body_without_prefix.startswith(':'):
-                body_without_prefix = body_without_prefix[1:]
-        else:
-            body_without_prefix = self.event.body
+        # we cache this part
+        if not self._body_without_prefix:
+            if self._prefix == self.event.body[0:len(self._prefix)]:
+                self._body_without_prefix = self.event.body[len(self._prefix):]
+            elif self.mention():
+                # the order is important here!
+                # note: we assume that body and formatted_body, if present, match as a workaraound of cleaning html
+                if self.event.body.startswith(self._disambiguated_name):
+                    self._body_without_prefix = self.event.body[len(self._disambiguated_name):]
+                elif self.event.body.startswith(self._display_name):
+                    self._body_without_prefix = self.event.body[len(self._display_name):]
+                elif self.event.body.startswith(self.room.own_user_id):
+                    self._body_without_prefix = self.event.body[len(self.room.own_user_id):]
+                elif self.event.formatted_body.startswith(self._pill):
+                    name = self.event.formatted_body[len(self._pill):self.event.formatted_body.index('</a>')]
+                    self._body_without_prefix = self.event.body[len(name):]
+                # mentioning may include a : (colon) as inserted by Element when clicking on a user
+                if self._body_without_prefix.startswith(':'):
+                    self._body_without_prefix = self._body_without_prefix[1:]
+                # trim leading whitespace after the mention
+                self._body_without_prefix = self._body_without_prefix.strip()
+            else:
+                self._body_without_prefix = self.event.body
 
-        if not body_without_prefix:
-            return []
+            if not self._body_without_prefix:
+                return []
 
         if command:
-            return body_without_prefix.split()[0] == command
+            return self._body_without_prefix.split()[0] == command
         else:
-            return body_without_prefix.split()[0]
+            return self._body_without_prefix.split()[0]
 
     def prefix(self):
         """
@@ -167,7 +172,7 @@ class MessageMatch(Match):
             Returns a list of strings that are the "words" of the message, except for the first "word", which would be the command.
         """
 
-        return self.event.body.split()[1:]
+        return self._body_without_prefix.split()[1:]
 
     def contains(self, string):
         """
