@@ -221,4 +221,5 @@ class Api:
                                               markdown.markdown(
                                                   message,
                                                   extensions=['nl2br'])
-                                          })
+                                          },
+                                          ignore_unverified_devices=True)
