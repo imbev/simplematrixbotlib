@@ -82,6 +82,10 @@ class MessageMatch(Match):
         """
         super().__init__(room, event, bot)
         self._prefix = prefix
+        bot_user = self.room.users[self.room.own_user_id]
+        self._display_name = bot_user.display_name
+        self._disambiguated_name = bot_user.disambiguated_name
+        self._pill = f'<a href="https://matrix.to/#/{self.room.own_user_id}">'
 
     def command(self, command=None):
         """
@@ -101,6 +105,21 @@ class MessageMatch(Match):
 
         if self._prefix == self.event.body[0:len(self._prefix)]:
             body_without_prefix = self.event.body[len(self._prefix):]
+        elif self.mention():
+            # the order is important here!
+            # note: we assume that body and formatted_body, if present, match as a workaraound of cleaning html
+            if self.event.body.startswith(self._disambiguated_name):
+                body_without_prefix = self.event.body[len(self._disambiguated_name):]
+            elif self.event.body.startswith(self._display_name):
+                body_without_prefix = self.event.body[len(self._display_name):]
+            elif self.event.body.startswith(self.room.own_user_id):
+                body_without_prefix = self.event.body[len(self.room.own_user_id):]
+            elif self.event.formatted_body.startswith(self._pill):
+                name = self.event.formatted_body[len(self._pill):self.event.formatted_body.index('</a>')]
+                body_without_prefix = body_without_prefix = self.event.body[len(name):]
+            # mentioning may include a : (colon) as inserted by Element when clicking on a user
+            if body_without_prefix.startswith(':'):
+                body_without_prefix = body_without_prefix[1:]
         else:
             body_without_prefix = self.event.body
 
@@ -122,6 +141,22 @@ class MessageMatch(Match):
         """
 
         return self.event.body.startswith(self._prefix)
+
+    def mention(self):
+        """
+
+        Returns
+        -------
+        boolean
+            Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
+        """
+
+        for i in [self._display_name, self._disambiguated_name, self.room.own_user_id, self._pill]:
+            body = self.event.formatted_body or self.event.body
+            if body.startswith(i):
+                return True
+
+        return False
 
     def args(self):
         """

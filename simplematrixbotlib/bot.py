@@ -39,7 +39,7 @@ class Bot:
 
 
         resp = await self.async_client.sync(timeout=65536,
-                                     full_state=False)  #Ignore prior messages
+                                     full_state=True)  #Ignore prior messages
 
         if isinstance(resp, SyncResponse):
             print(f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})")
