@@ -63,32 +63,22 @@ class Api:
                                         store_path=STORE_PATH,
                                         config=clientConfig)
 
-        if self.creds.password:
-            resp = await self.async_client.login(
-                password=self.creds.password,
-                device_name=self.creds.device_name)
-
-        elif self.creds.access_token:
+        if self.creds.access_token:
             self.async_client.access_token = self.creds.access_token
 
             async with aiohttp.ClientSession() as session:
-                async with session.get(
-                        f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}'
-                ) as response:
-                    device_id = json.loads(
-                        (await
-                         response.text()).replace(":false,",
-                                                  ":\"false\","))['device_id']
-                    user_id = json.loads(
-                        (await
-                         response.text()).replace(":false,",
-                                                  ":\"false\","))['user_id']
+                async with session.get(f'https://matrix.org/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}') as response:
+                    device_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['device_id']
+                    user_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['user_id']
 
             self.async_client.device_id, self.creds.device_id = device_id, device_id
             self.async_client.user_id, self.creds.user_id = user_id, user_id
             resp = None
 
             self.async_client.load_store()
+
+        elif self.creds.password:
+            resp = await self.async_client.login(password=self.creds.password,  device_name=self.creds.device_name)
 
         elif self.creds.login_token:
             resp = await self.async_client.login(
