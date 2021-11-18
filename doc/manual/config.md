@@ -18,6 +18,8 @@ Depending on the file format, a specific method may be used for reading the file
 |--------|-----------------|
 | TOML   | load_toml(file) |
 
+Example configuration files for each file format can be under the examples section of the documentation. An example of a toml config file can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-config-file-in-toml-format).
+
 #### Manually setting config values
 Configuration settings can also be set manually using the following python code.
 ```
