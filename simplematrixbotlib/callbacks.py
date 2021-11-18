@@ -17,7 +17,8 @@ class Callbacks:
         Add callbacks to async_client
 
         """
-        self.async_client.add_event_callback(self.invite_callback,
+        if self.bot.config._join_on_invite:
+            self.async_client.add_event_callback(self.invite_callback,
                                              InviteMemberEvent)
 
         for event_listener in self.bot.listener._registry:

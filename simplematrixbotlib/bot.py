@@ -1,4 +1,5 @@
 import asyncio
+from typing import Optional
 import simplematrixbotlib as botlib
 from nio import SyncResponse
 
@@ -15,7 +16,7 @@ class Bot:
         An instance of the simplematrixbotlib.Api class.
     
     """
-    def __init__(self, creds):
+    def __init__(self, creds, config = None):
         """
         Initializes the simplematrixbotlib.Bot class.
 
@@ -26,6 +27,10 @@ class Bot:
         """
 
         self.creds = creds
+        if config:
+            self.config = config
+        else:
+            self.config = botlib.Config()
         self.api = botlib.Api(self.creds)
         self.listener = botlib.Listener(self)
 
