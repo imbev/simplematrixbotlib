@@ -26,7 +26,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-matrix-nio = {extras = ["e2e"], version = "^0.18.7"}
+matrix-nio = ">=0.18"
 python-cryptography-fernet-wrapper = ">=1.0.4"
 pillow = ">=8.2"
 markdown = ">=3.3"
