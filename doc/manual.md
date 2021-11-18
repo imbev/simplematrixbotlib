@@ -16,6 +16,10 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/creds.md
 
+## Usage of Config class
+
+.. mdinclude:: manual/config.md
+
 ## Usage of Bot class
 
 .. mdinclude:: manual/bot.md
