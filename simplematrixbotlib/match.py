@@ -111,25 +111,25 @@ class MessageMatch(Match):
             elif self.mention():
                 # the order is important here!
                 # note: we assume that body and formatted_body, if present, match as a workaraound of cleaning html
-                if self.event.body.startswith(self._disambiguated_name):
-                    self._body_without_prefix = self.event.body[len(self._disambiguated_name):]
-                elif self.event.body.startswith(self._display_name):
-                    self._body_without_prefix = self.event.body[len(self._display_name):]
-                elif self.event.body.startswith(self.room.own_user_id):
-                    self._body_without_prefix = self.event.body[len(self.room.own_user_id):]
-                elif self.event.formatted_body.startswith(self._pill):
-                    name = self.event.formatted_body[len(self._pill):self.event.formatted_body.index('</a>')]
+                id_matched = False
+                for id in (self._disambiguated_name, self._display_name, self.room.own_user_id):
+                    if self.event.body.startswith(id) and not id_matched:
+                        self._body_without_prefix = self.event.body[len(id):]
+                        id_matched = True
+
+                if self.event.formatted_body.startswith(self._pill) and not id_matched:
+                    name = self.event.formatted_body[len():self.event.formatted_body.index('</a>')]
                     self._body_without_prefix = self.event.body[len(name):]
+
                 # mentioning may include a : (colon) as inserted by Element when clicking on a user
                 if self._body_without_prefix.startswith(':'):
                     self._body_without_prefix = self._body_without_prefix[1:]
+                
                 # trim leading whitespace after the mention
                 self._body_without_prefix = self._body_without_prefix.strip()
+            
             else:
                 self._body_without_prefix = self.event.body
-
-            if not self._body_without_prefix:
-                return []
 
         if command:
             return self._body_without_prefix.split()[0] == command
