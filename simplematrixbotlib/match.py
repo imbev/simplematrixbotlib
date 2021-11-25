@@ -156,12 +156,18 @@ class MessageMatch(Match):
             Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
         """
 
-        for body in (self.event.formatted_body, self.event.body):
-            for id in [self._display_name, self._disambiguated_name, self.room.own_user_id, self._pill]:
-                if body.startswith(id):
+        for id in [self._display_name, self._disambiguated_name, self.room.own_user_id]:
+            body = self.event.body
+            if body.startswith(id):
+                body = body[len(id):]
+                # the match needs to end here, otherwise someone else is mentioned
+                # this isn't perfect but probably the best effort
+                if body[0] in [' ', ':']:
                     return True
-                    
-        return False
+
+        # pills on the other hand are a clearer case thanks to HTML tags which include delimiters
+        body = self.event.formatted_body
+        return False if body is None else body.startswith(self._pill)
 
     def args(self):
         """
