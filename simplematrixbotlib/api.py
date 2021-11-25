@@ -165,7 +165,7 @@ class Api:
                                               "format":
                                               "org.matrix.custom.html",
                                               "formatted_body":
-                                              markdown.markdown(message)
+                                              markdown.markdown(message, extensions=['nl2br'])
                                           })
 
 
