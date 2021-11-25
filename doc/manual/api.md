@@ -15,7 +15,7 @@ async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
     example_message = "Hello World"
     if match.is_not_from_this_bot():
-        bot.api.send_text_message(
+        await bot.api.send_text_message(
             room_id=room.room_id, 
             message=example_message,
             msgtype="m.notice)
@@ -29,7 +29,7 @@ async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
     example_image="./img/example.png"
     if match.is_not_from_this_bot():
-        bot.api.send_image_message(
+        await bot.api.send_image_message(
             room_id=room.room_id, 
             image_filepath=example_image)
 ```
