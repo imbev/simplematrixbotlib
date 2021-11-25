@@ -156,11 +156,11 @@ class MessageMatch(Match):
             Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
         """
 
-        for i in [self._display_name, self._disambiguated_name, self.room.own_user_id, self._pill]:
-            body = self.event.formatted_body or self.event.body
-            if body.startswith(i):
-                return True
-
+        for body in (self.event.formatted_body, self.event.body):
+            for id in [self._display_name, self._disambiguated_name, self.room.own_user_id, self._pill]:
+                if body.startswith(id):
+                    return True
+                    
         return False
 
     def args(self):
