@@ -17,9 +17,10 @@ async def example(room, message):
     if match.is_not_from_this_bot():
         bot.api.send_text_message(
             room_id=room.room_id, 
-            message=example_message)
+            message=example_message,
+            msgtype="m.notice)
 ```
-Both arguments are required. The room_id argument is the id of the destination room. The message argument is the string that is to be sent as a message.
+The first two arguments are required. The room_id argument is the id of the destination room. The message argument is the string that is to be sent as a message. The msgtype argument can be "m.text" (default) or "m.notice".
 
 ### Using the send_image_message method
 The send_image_message method of the Api class can be used to send image messages in Matrix rooms. An example is shown in the following python code.
@@ -43,6 +44,7 @@ async def example(room, message):
     if match.is_not_from_this_bot():
         await bot.api.send_markdown_message(
             room_id=room.room_id, 
-            message=example_markdown)
+            message=example_markdown,
+            msgtype="m.notice")
 ```
-Both arguments are required. The room_id argument is the id of the destination room. The message argument is the string with markdown syntax that is to be sent as a message.
+The first two arguments are required. The room_id argument is the id of the destination room. The message argument is the string with markdown syntax that is to be sent as a message. The msgtype argument can be "m.text" (default) or "m.notice".
