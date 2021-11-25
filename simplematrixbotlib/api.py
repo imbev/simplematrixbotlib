@@ -70,7 +70,7 @@ class Api:
             raise Exception(resp)
 
 
-    async def send_text_message(self, room_id, message):
+    async def send_text_message(self, room_id, message, msgtype='m.text'):
         """
         Send a text message in a Matrix room.
 
@@ -82,11 +82,14 @@ class Api:
         message : str
             The content of the message to be sent.
 
+        msgtype : str, optional
+            The type of message to send: m.text (default), m.notice, etc
+
         """
         await self.async_client.room_send(room_id=room_id,
                                           message_type="m.room.message",
                                           content={
-                                              "msgtype": "m.text",
+                                              "msgtype": msgtype,
                                               "body": message
                                           })
 
@@ -141,7 +144,7 @@ class Api:
         except:
             print(f"Failed to send image file {image_filepath}")
 
-    async def send_markdown_message(self, room_id, message):
+    async def send_markdown_message(self, room_id, message, msgtype='m.text'):
         """
         Send a markdown message in a Matrix room.
 
@@ -153,13 +156,16 @@ class Api:
         message : str
             The content of the message to be sent.
 
+        msgtype : str, optional
+            The type of message to send: m.text (default), m.notice, etc
+
         """
 
         await self.async_client.room_send(room_id=room_id,
                                           message_type="m.room.message",
                                           content={
                                               "msgtype":
-                                              "m.text",
+                                              msgtype,
                                               "body":
                                               message,
                                               "format":
