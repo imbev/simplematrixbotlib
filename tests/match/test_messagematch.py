@@ -35,6 +35,9 @@ mock_event8 = mock.MagicMock()
 mock_event8.body = "bottom help"
 mock_event8.formatted_body = None
 
+mock_event9 = mock.MagicMock()
+mock_event9.body = "p!"
+
 mock_bot = mock.MagicMock()
 
 prefix = "p!"
@@ -53,6 +56,8 @@ match9 = MessageMatch(mock_room2, mock_event7, mock_bot, prefix)   # mention wit
 match10 = MessageMatch(mock_room2, mock_event8, mock_bot, prefix)  # mention someone else
 match11 = MessageMatch(mock_room2, mock_event3, mock_bot)          # mention without prefix
 
+match12 = MessageMatch(mock_room, mock_event9, mock_bot, prefix)   # prefix match with empty command
+
 def test_init():
     assert issubclass(MessageMatch, Match)
     assert match._prefix == prefix
@@ -63,6 +68,9 @@ def test_command():
 
     assert match2.command() == "p!help"
     assert match2.command("p!help") == True
+
+    assert match12.command() == ""
+    assert match12.command("") == True
 
 def test_mention():
     assert match5.command() == "help"
@@ -91,6 +99,8 @@ def test_prefix():
     assert match3.prefix() == False
 
     #assert match2.prefix() == True
+
+    assert match12.prefix() == True
 
 def test_args():
     assert match.args() == ["example"]

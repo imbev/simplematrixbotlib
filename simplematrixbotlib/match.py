@@ -116,10 +116,14 @@ class MessageMatch(Match):
                 else:
                     self._body_without_prefix = self.event.body
 
-        if command:
-            return self._body_without_prefix.split()[0] == command
+        split_body = self._body_without_prefix.split()
+        if len(split_body) < 1:
+            split_body = [""]
+
+        if command is not None:
+            return split_body[0] == command
         else:
-            return self._body_without_prefix.split()[0]
+            return split_body[0]
 
     def prefix(self):
         """
