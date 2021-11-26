@@ -13,10 +13,10 @@ jobs:
         python-version: 3.9
       
     - name: Setup Poetry
-        run: |
-          curl -sL https://install.python-poetry.org | python - -y 3.9
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-          poetry config virtualenvs.in-project true
+      run: |
+        curl -sL https://install.python-poetry.org | python - -y 3.9
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        poetry config virtualenvs.in-project true
     
     - name: Checkout repo
       uses: actions/checkout@v2
