@@ -1,5 +1,6 @@
 name: Pytest Automated Testing
 on: [push]
+
 jobs:
   automated-testing:
     name: Automated Testing
@@ -18,6 +19,4 @@ jobs:
 
     - name: Pytest Test Runner
     - uses: actions/checkout@v2
-    run: |
-      pytest -v .
-        
+    - run: pytest -v .
