@@ -18,7 +18,7 @@ async def example(room, message):
         await bot.api.send_text_message(
             room_id=room.room_id, 
             message=example_message,
-            msgtype="m.notice)
+            msgtype="m.notice")
 ```
 The first two arguments are required. The room_id argument is the id of the destination room. The message argument is the string that is to be sent as a message. The msgtype argument can be "m.text" (default) or "m.notice".
 
