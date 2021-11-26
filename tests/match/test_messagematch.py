@@ -51,6 +51,7 @@ match7 = MessageMatch(mock_room2, mock_event5, mock_bot, prefix)   # mention wit
 match8 = MessageMatch(mock_room2, mock_event6, mock_bot, prefix)   # mention with disambiguated name
 match9 = MessageMatch(mock_room2, mock_event7, mock_bot, prefix)   # mention with pill
 match10 = MessageMatch(mock_room2, mock_event8, mock_bot, prefix)  # mention someone else
+match11 = MessageMatch(mock_room2, mock_event3, mock_bot)          # mention without prefix
 
 def test_init():
     assert issubclass(MessageMatch, Match)
@@ -81,6 +82,9 @@ def test_mention():
 
     assert match10.command() == "bottom"
     assert match10.mention() == False
+
+    assert match11.command() == "help"
+    assert match11.mention() == True
 
 def test_prefix():
     assert match.prefix() == True

@@ -110,10 +110,11 @@ class MessageMatch(Match):
 
         # we cache this part
         if self._body_without_prefix is None:
-            if self._prefix == self.event.body[0:len(self._prefix)]:
-                self._body_without_prefix = self.event.body[len(self._prefix):]
-            elif not self.mention():  # if mention() is True then it also sets the _body_without_prefix
-                self._body_without_prefix = self.event.body
+            if not self.mention():
+                if self._prefix == self.event.body[0:len(self._prefix)]:
+                    self._body_without_prefix = self.event.body[len(self._prefix):]
+                else:
+                    self._body_without_prefix = self.event.body
 
         if command:
             return self._body_without_prefix.split()[0] == command
