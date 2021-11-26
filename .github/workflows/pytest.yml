@@ -18,5 +18,4 @@ jobs:
         pip install pytest
 
     - name: Pytest Test Runner
-      uses: actions/checkout@v2
       run: pytest -v .
