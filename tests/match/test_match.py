@@ -23,5 +23,5 @@ def test_is_from_userid():
 def test_is_not_from_this_bot():
     assert match.is_not_from_this_bot()
 
-def intentional_fail_REMOVE(): ##REMOVE
+def test_intentional_fail_REMOVE(): ##REMOVE
     assert True == False
