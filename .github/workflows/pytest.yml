@@ -1,0 +1,12 @@
+name: Pytest Automated Testing
+on: [push]
+jobs:
+  automated-testing:
+    name: Automated Testing
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Pytest Test Runner
+      run: |
+        python -m pip install pytest; pytest -v .
+        
