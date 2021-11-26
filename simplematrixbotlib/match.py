@@ -105,30 +105,10 @@ class MessageMatch(Match):
         """
 
         # we cache this part
-        if not self._body_without_prefix:
+        if self._body_without_prefix is None:
             if self._prefix == self.event.body[0:len(self._prefix)]:
                 self._body_without_prefix = self.event.body[len(self._prefix):]
-            elif self.mention():
-                # the order is important here!
-                # note: we assume that body and formatted_body, if present, match as a workaraound of cleaning html
-                id_matched = False
-                for id in (self._disambiguated_name, self._display_name, self.room.own_user_id):
-                    if self.event.body.startswith(id) and not id_matched:
-                        self._body_without_prefix = self.event.body[len(id):]
-                        id_matched = True
-
-                if self.event.formatted_body.startswith(self._pill) and not id_matched:
-                    name = self.event.formatted_body[len():self.event.formatted_body.index('</a>')]
-                    self._body_without_prefix = self.event.body[len(name):]
-
-                # mentioning may include a : (colon) as inserted by Element when clicking on a user
-                if self._body_without_prefix.startswith(':'):
-                    self._body_without_prefix = self._body_without_prefix[1:]
-                
-                # trim leading whitespace after the mention
-                self._body_without_prefix = self._body_without_prefix.strip()
-            
-            else:
+            elif not self.mention():  # if mention() is True then it also sets the _body_without_prefix
                 self._body_without_prefix = self.event.body
 
         if command:
@@ -156,18 +136,26 @@ class MessageMatch(Match):
             Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
         """
 
-        for id in [self._display_name, self._disambiguated_name, self.room.own_user_id]:
-            body = self.event.body
+        body = self.event.body
+        for id in [self._disambiguated_name, self._display_name, self.room.own_user_id]:
             if body.startswith(id):
-                body = body[len(id):]
+                body_ = body[len(id):]
                 # the match needs to end here, otherwise someone else is mentioned
                 # this isn't perfect but probably the best effort
-                if body[0] in [' ', ':']:
+                if body_[0] in [' ', ':']:
+                    self._body_without_prefix = body_[1:].strip()
                     return True
 
         # pills on the other hand are a clearer case thanks to HTML tags which include delimiters
         body = self.event.formatted_body
-        return False if body is None else body.startswith(self._pill)
+        if body is not None and body.startswith(self._pill):
+            # remove the first half of the pill
+            body = body[len(self._pill):]
+            # find pill end + trailing delimiter + maybe whitespace
+            self._body_without_prefix = body[body.index('</a>')+5:].strip()
+            return True
+
+        return False
 
     def args(self):
         """
