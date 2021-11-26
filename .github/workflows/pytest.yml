@@ -8,5 +8,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Pytest Test Runner
       run: |
-        python -m pip install pytest; pytest -v .
+        python -m pip install pytest -e .; pytest -v .
         
