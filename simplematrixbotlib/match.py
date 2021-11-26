@@ -83,8 +83,12 @@ class MessageMatch(Match):
         super().__init__(room, event, bot)
         self._prefix = prefix
         bot_user = self.room.users[self.room.own_user_id]
-        self._display_name = bot_user.display_name
+        # in case another user uses the same display name, we need to regard the disambiguation if present
         self._disambiguated_name = bot_user.disambiguated_name
+        # still we allow to mention without disambiguation if typing manually for now
+        self._display_name = bot_user.display_name
+        # element generates a "pill" from formatted (HTML) links to matrix.to/#/@matrix:id
+        # this isn't really specced but still the status quo
         self._pill = f'<a href="https://matrix.to/#/{self.room.own_user_id}">'
         self._body_without_prefix = None
 
