@@ -1,10 +1,10 @@
 import asyncio
-from nio import (AsyncClient, SyncResponse, RoomMessageText)
+from nio import (AsyncClient, SyncResponse, RoomMessageText, RoomMessageFormatted)
 from PIL import Image
 import aiofiles.os
 import mimetypes
 import os
-import markdown
+import markdown as md
 import aiohttp
 import ast
 from nio.responses import UploadResponse
@@ -70,11 +70,11 @@ class Api:
             raise Exception(resp)
 
 
-    async def send_text_message(self, room_id, message, msgtype='m.text'):
+    async def send_text_message(self, room_id, message, msgtype='m.text', reply_to=None, markdown=False):
         """
         Send a text message in a Matrix room.
 
-        Parameteres
+        Parameters
         -----------
         room_id : str
             The room id of the destination of the message.
@@ -85,19 +85,63 @@ class Api:
         msgtype : str, optional
             The type of message to send: m.text (default), m.notice, etc
 
+        reply_to : nio.events.room_events.RoomMessage, optional
+            The event to reply to
+
+        markdown : Boolean, optional
+            Whether to treat message as markdown and render as HTML
+
         """
+        content = {
+                      "msgtype": msgtype,
+                      "body": message
+                  }
+
+        if markdown or reply_to is not None:
+            content["format"] = "org.matrix.custom.html"
+            content["formatted_body"] = md.markdown(message, extensions=['nl2br'])
+
+        if reply_to is not None:
+            content["m.relates.to"] = {"m.in_reply_to": {"event_id": reply_to.event_id}}
+            if isinstance(reply_to, RoomMessageFormatted):  # quote fallback if it's a text event https://spec.matrix.org/unstable/client-server-api/#fallbacks-for-rich-replies
+                content["body"] = f'> <{reply_to.sender}> {reply_to.body}\n\n{content["body"]}'
+                formatted_body = f'<mx-reply><blockquote><a href="https://matrix.to/#/{room_id}/{reply_to.event_id}">In reply to</a> '
+                formatted_body += f'<a href="https://matrix.to/#/{reply_to.sender}">{reply_to.sender}</a><br>'
+                formatted_body += f'{reply_to.formatted_body or reply_to.body}</blockquote></mx-reply>{content["formatted_body"]}'
+                content["formatted_body"] = formatted_body
+
         await self.async_client.room_send(room_id=room_id,
                                           message_type="m.room.message",
-                                          content={
-                                              "msgtype": msgtype,
-                                              "body": message
-                                          })
+                                          content=content,
+                                          ignore_unverified_devices=True)
+
+    async def send_markdown_message(self, room_id, message, msgtype='m.text', reply_to=None):
+        """
+        Send a markdown message in a Matrix room.
+        Wrapper for send_text_message
+
+        Parameters
+        -----------
+        room_id : str
+            The room id of the destination of the message.
+
+        message : str
+            The content of the message to be sent.
+
+        msgtype : str, optional
+            The type of message to send: m.text (default), m.notice, etc
+
+        reply_to : nio.events.room_events.RoomMessage, optional
+            The event to reply to
+
+        """
+        await self.send_text_message(room_id=room_id, message=message, msgtype=msgtype, reply_to=reply_to, markdown=True)
 
     async def send_image_message(self, room_id, image_filepath):
         """
         Send an image message in a Matrix room.
 
-        Parameteres
+        Parameters
         -----------
         room_id : str
             The room id of the destination of the message.
@@ -140,38 +184,7 @@ class Api:
         try:
             await self.async_client.room_send(room_id,
                                               message_type="m.room.message",
-                                              content=content)
+                                              content=content,
+                                              ignore_unverified_devices=True)
         except:
             print(f"Failed to send image file {image_filepath}")
-
-    async def send_markdown_message(self, room_id, message, msgtype='m.text'):
-        """
-        Send a markdown message in a Matrix room.
-
-        Parameteres
-        -----------
-        room_id : str
-            The room id of the destination of the message.
-
-        message : str
-            The content of the message to be sent.
-
-        msgtype : str, optional
-            The type of message to send: m.text (default), m.notice, etc
-
-        """
-
-        await self.async_client.room_send(room_id=room_id,
-                                          message_type="m.room.message",
-                                          content={
-                                              "msgtype":
-                                              msgtype,
-                                              "body":
-                                              message,
-                                              "format":
-                                              "org.matrix.custom.html",
-                                              "formatted_body":
-                                              markdown.markdown(message, extensions=['nl2br'])
-                                          })
-
-
