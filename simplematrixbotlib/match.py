@@ -82,17 +82,27 @@ class MessageMatch(Match):
         """
         super().__init__(room, event, bot)
         self._prefix = prefix
-        bot_user = self.room.users[self.room.own_user_id]
-        # in case another user uses the same display name, we need to regard the disambiguation if present
-        self._disambiguated_name = bot_user.disambiguated_name
-        # still we allow to mention without disambiguation if typing manually for now
-        self._display_name = bot_user.display_name
-        # element generates a "pill" from formatted (HTML) links to matrix.to/#/@matrix:id
-        # this isn't really specced but still the status quo
-        self._pill = f'<a href="https://matrix.to/#/{self.room.own_user_id}">'
-        self._body_without_prefix = None
 
-    def command(self, command=None):
+        """Forms of identification"""
+        self._own_user_id = f"@{self._bot.creds.username}:{self._bot.creds.homeserver.replace("https://","").replace("http://","")}"
+        self._own_nio_user = self.room.users[own_user_id]
+        self._own_disambiguated_name = own_nio_user.disambiguated_name
+        self._own_display_name = own_nio_user.display_name
+        self._own_pill = f"<a href=\"https://matrix.to/#/{self.room.own_user_id}\">"
+
+        self.mention() # Set self._mention_id_length
+        self._body_without_prefix = self.event.body[len(self._prefix):]
+        self._body_without_mention = self.event.body[len(self._mention_id_length):]
+        
+        if self.mention():
+            body = self._body_without_mention
+        elif self.prefix():
+            body = self._body_without_prefix
+        else:
+            body = self.event.body
+        self._split_body = body.split()
+
+    def command(self, command="") -> Union[bool, str]:
         """
         Parameters
         ----------
@@ -108,22 +118,16 @@ class MessageMatch(Match):
             Returns the string after the prefix and before the first space if no arg is passed to this method.
         """
 
-        # we cache this part
-        if self._body_without_prefix is None:
-            if not self.mention():
-                if self._prefix == self.event.body[0:len(self._prefix)]:
-                    self._body_without_prefix = self.event.body[len(self._prefix):]
-                else:
-                    self._body_without_prefix = self.event.body
+        if not (self._body_without_prefix and self._body_without_mention):
+            if command:
+                return False
+            else:
+                return ""
 
-        split_body = self._body_without_prefix.split()
-        if len(split_body) < 1:
-            split_body = [""]
-
-        if command is not None:
-            return split_body[0] == command
+        if command:
+            return self._split_body[0] == command
         else:
-            return split_body[0]
+            return self._split_body[0]
 
     def prefix(self):
         """
@@ -134,7 +138,7 @@ class MessageMatch(Match):
             Returns True if the message begins with the prefix, and False otherwise. If there is no prefix specified during the creation of this MessageMatch object, then return True.
         """
 
-        return self.event.body.startswith(self._prefix)
+        return self.event.body[self._mention_id_length:].startswith(self._prefix)
 
     def mention(self):
         """
@@ -145,25 +149,11 @@ class MessageMatch(Match):
             Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
         """
 
-        body = self.event.body
-        for id in [self._disambiguated_name, self._display_name, self.room.own_user_id]:
-            if body.startswith(id):
-                body_ = body[len(id):]
-                # the match needs to end here, otherwise someone else is mentioned
-                # this isn't perfect but probably the best effort
-                if body_[0] in [' ', ':']:
-                    self._body_without_prefix = body_[1:].strip()
-                    return True
-
-        # pills on the other hand are a clearer case thanks to HTML tags which include delimiters
-        body = self.event.formatted_body
-        if body is not None and body.startswith(self._pill):
-            # remove the first half of the pill
-            body = body[len(self._pill):]
-            # find pill end + trailing delimiter + maybe whitespace
-            self._body_without_prefix = body[body.index('</a>')+5:].strip()
-            return True
-
+        for id in [self._own_disambiguated_name, self._own_display_name, self._own_user_id]:
+            if self.event.body.startswith(id):
+                self._mention_id_length = len(id)
+                return True
+                
         return False
 
     def args(self):
@@ -172,12 +162,10 @@ class MessageMatch(Match):
         Returns
         -------
         list
-            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the command.
+            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the prefix/mention + command.
         """
 
-        if self._body_without_prefix is None:
-            self.command()  # calculate _body_without_prefix
-        return self._body_without_prefix.split()[1:]
+        return self._split_body[1:]
 
     def contains(self, string):
         """
