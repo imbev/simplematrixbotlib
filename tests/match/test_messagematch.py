@@ -92,11 +92,11 @@ def test_mention():
     assert match8.command() == "help"
     assert match8.mention() == True
 
-#    assert match9.command() == "help"
-#    assert match9.mention() == True
+    assert match9.command() == "help"
+    assert match9.mention() == True
 
-#    assert match10.command() == "bottom"
-#    assert match10.mention() == False
+    assert match10.command() == "bottom"
+    assert match10.mention() == False
 
     assert match11.command() == "help"
     assert match11.mention() == True
@@ -105,7 +105,7 @@ def test_prefix():
     assert match.prefix() == True
     assert match3.prefix() == False
 
-    #assert match2.prefix() == True
+    assert match2.prefix() == True
 
     assert match12.prefix() == True
 
