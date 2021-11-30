@@ -68,8 +68,10 @@ class Api:
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'https://matrix.org/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}') as response:
-                    device_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['device_id']
-                    user_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['user_id']
+                    r = (await response.text()).replace(":false,", ":\"false\",")
+                    r = ast.literal_eval(r)
+                    device_id = r['device_id']
+                    user_id = r['user_id']
 
             self.async_client.device_id, self.creds.device_id = device_id, device_id
             self.async_client.user_id, self.creds.user_id = user_id, user_id
