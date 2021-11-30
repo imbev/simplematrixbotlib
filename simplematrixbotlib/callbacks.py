@@ -1,3 +1,5 @@
+import nio.events.room_events
+import nio.events.to_device
 from nio import InviteMemberEvent, RoomMessageText
 from nio import MegolmEvent, KeyVerificationStart, KeyVerificationCancel, KeyVerificationKey, KeyVerificationMac, ToDeviceError
 
@@ -25,8 +27,14 @@ class Callbacks:
                                              MegolmEvent)
 
         for event_listener in self.bot.listener._registry:
-            self.async_client.add_event_callback(event_listener[0],
-                                                 event_listener[1])
+            if issubclass(event_listener[1], nio.events.room_events.Event):
+                self.async_client.add_event_callback(event_listener[0],
+                                                     event_listener[1])
+            elif issubclass(event_listener[1], nio.events.to_device.ToDeviceEvent):
+                self.async_client.add_to_device_callback(event_listener[0],
+                                                         event_listener[1])
+            else:
+                print(f"unexpected event type {event_listener[1]}")
 
     async def invite_callback(self, room, event, tries=1):
         """
