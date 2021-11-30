@@ -37,7 +37,7 @@ class Callbacks:
         Parameters
         ----------
         room : nio.rooms.MatrixRoom
-        event : nio.events.room_events.Event
+        event : nio.events.room_events.InviteMemberEvent
         tries : int, optional
             Amount of times that this function has been called in a row for the same exact event.
 
