@@ -1,4 +1,5 @@
 from nio import InviteMemberEvent, RoomMessageText
+from nio import MegolmEvent
 
 
 class Callbacks:
@@ -19,6 +20,9 @@ class Callbacks:
         """
         self.async_client.add_event_callback(self.invite_callback,
                                              InviteMemberEvent)
+
+        self.async_client.add_event_callback(self.decryption_failure,
+                                             MegolmEvent)
 
         for event_listener in self.bot.listener._registry:
             self.async_client.add_event_callback(event_listener[0],
@@ -50,3 +54,19 @@ class Callbacks:
                 await self.invite_callback(room, event, tries)
             else:
                 print(f"Failed to join {room.room_id} after 3 tries")
+
+    async def decryption_failure(self, room, event):
+        """
+        Callback for handling decryption errors.
+
+        Parameters
+        ----------
+        room : nio.rooms.MatrixRoom
+        event : nio.events.room_events.MegolmEvent
+
+        """
+        if not isinstance(event, MegolmEvent):
+            return
+
+        print(f"failed to decrypt message: {event.event_id} from {event.sender}")
+        await bot.api.send_text_message(room.room_id, "Failed to decrypt your message. Make sure you are sending messages to unverified devices or verify me if possible.", msgtype='m.notice')
