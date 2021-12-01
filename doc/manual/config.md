@@ -1,6 +1,23 @@
 ### How to use the Config class
 The Config class is a class that handles whether certain features are enabled or disabled. The source is located at simplematrixbotlib/config.py
 
+#### Supported Values
+##### `join_on_invite`
+Boolean: whether the bot accepts all invites automatically.
+
+##### `allowlist`
+List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are allowed to send commands to the bot.
+Defaults to allow everyone on the bot's homeserver.
+If the list is non-empty, user IDs that are not on it are blocked. Thus to allow anybody, set it to `[]`.
+You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+
+##### `blocklist`
+List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are not allowed to send commands to the bot.
+Defaults to empty, blocking nobody.
+Blocks user IDs on it if non-empty, even overriding the `allowlist`.
+For example: this way it is possible to allow all users from a homesever, but block single ones.
+You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+
 #### Creating an instance of the Config class
 An instance can be created using the following python code.
 ```python
