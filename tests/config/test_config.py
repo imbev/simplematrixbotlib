@@ -8,11 +8,15 @@ def test_defaults():
     config = botlib.Config()
 
     assert config._join_on_invite
+    assert config.allowlist == list()
+    assert config.blocklist == list()
 
 def test_read_toml():
     config = botlib.Config()
     config.load_toml(f'{sample_config_path}/config1.toml')
     assert not config._join_on_invite
+    assert config.allowlist == ['*:example.org', '@test:matrix.org']
+    assert config.blocklist == ['@test2:example.org']
         
     config = botlib.Config()
     config.load_toml(f'{sample_config_path}/config2.toml')
