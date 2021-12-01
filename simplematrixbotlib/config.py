@@ -21,8 +21,7 @@ class Config:
 
     def load_toml(self, file_path: str) -> None:
         with open(file_path, 'r') as file:
-            toml_content: str = file.read()
-            config_dict: dict = toml.loads(toml_content)['simplematrixbotlib']['config']
+            config_dict: dict = toml.load(file)['simplematrixbotlib']['config']
             self._load_config_dict(config_dict)
     
     def set_join_on_invite(self, value: bool) -> None:
