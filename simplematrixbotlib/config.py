@@ -3,7 +3,7 @@ import toml
 
 @dataclass
 class Config:
-    _join_on_invite: bool = True
+    join_on_invite: bool = True
     allowlist: list[str] = field(default_factory=list)  #TODO: default to bot's homeserver
     blocklist: list[str] = field(default_factory=list)
 
@@ -25,7 +25,7 @@ class Config:
             self._load_config_dict(config_dict)
     
     def set_join_on_invite(self, value: bool) -> None:
-        self._join_on_invite = value
+        self.join_on_invite = value
 
     def set_allowlist(self, value: list) -> None:
         self.allowlist = value
