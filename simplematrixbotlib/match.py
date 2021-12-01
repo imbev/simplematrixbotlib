@@ -1,3 +1,5 @@
+import re
+
 class Match:
     """
     Class with methods to filter events
@@ -40,6 +42,34 @@ class Match:
             Returns True if the event was sent from the specified userid
         """
         return self.event.sender == userid
+
+    def is_from_allowed_user(self):
+        """
+        Returns
+        -------
+        boolean
+            Returns True if the event was sent from an allowed userid
+        """
+        allowlist = self._bot.config.allowlist
+        blocklist = self._bot.config.blocklist
+        sender = self.event.sender
+        # if there is no explicit allowlist, default to allow
+        is_allowed = False if len(allowlist) > 0 else True
+
+        try:
+            for id in allowlist:
+                if re.fullmatch(id, sender):
+                    is_allowed = True
+                    break
+            for id in blocklist:
+                if re.fullmatch(id, sender):
+                    is_allowed = False
+                    break
+        except re.error as e:
+            print(f"invalid regular expression {e.pattern} (column {e.colno}")
+            return False
+
+        return is_allowed
 
     def is_not_from_this_bot(self):
         """

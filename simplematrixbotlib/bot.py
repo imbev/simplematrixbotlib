@@ -27,11 +27,13 @@ class Bot:
         """
 
         self.creds = creds
+        self.api = botlib.Api(self.creds)
         if config:
             self.config = config
         else:
             self.config = botlib.Config()
-        self.api = botlib.Api(self.creds)
+            # allow (only) users from our own homeserver by default
+            self.config.set_allowlist([f'*:{self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:]}'])
         self.listener = botlib.Listener(self)
 
     async def main(self):
