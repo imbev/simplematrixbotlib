@@ -1,4 +1,4 @@
 [simplematrixbotlib.config]
 join_on_invite = false
-allowlist = [".*:example\\.org", "@test:matrix.org"]
-blocklist = ["@test2:example.org"]
+allowlist = [".*:example\\.org", "@test:matrix\\.org"]
+blocklist = ["@test2:example\\.org"]

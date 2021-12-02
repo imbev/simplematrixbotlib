@@ -33,7 +33,8 @@ class Bot:
         else:
             self.config = botlib.Config()
             # allow (only) users from our own homeserver by default
-            self.config.set_allowlist([f'*:{self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:]}'])
+            hs: str = self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:].replace('.', '\\.')
+            self.config.set_allowlist(set(f".*:{hs}"))
         self.listener = botlib.Listener(self)
 
     async def main(self):

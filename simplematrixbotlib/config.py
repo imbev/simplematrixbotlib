@@ -1,11 +1,12 @@
 from dataclasses import dataclass, field
 import toml
+import re
 
 @dataclass
 class Config:
     join_on_invite: bool = True
-    allowlist: list[str] = field(default_factory=list)  #TODO: default to bot's homeserver
-    blocklist: list[str] = field(default_factory=list)
+    allowlist: set[str] = field(default_factory=set)  #TODO: default to bot's homeserver
+    blocklist: set[str] = field(default_factory=set)
 
     def _load_config_dict(self, config_dict: dict) -> None:
         _settings: dict = {
@@ -18,7 +19,6 @@ class Config:
             if key in _settings.keys():
                 _settings[key](value)
 
-
     def load_toml(self, file_path: str) -> None:
         with open(file_path, 'r') as file:
             config_dict: dict = toml.load(file)['simplematrixbotlib']['config']
@@ -27,14 +27,14 @@ class Config:
     def set_join_on_invite(self, value: bool) -> None:
         self.join_on_invite = value
 
-    def set_allowlist(self, value: list) -> None:
-        self.allowlist = value
+    def set_allowlist(self, value: set[str]) -> None:
+        self.allowlist = set(map(re.compile, value))
 
-    def add_allowlist(self, value: list) -> None:
-        self.allowlist = list(set(self.allowlist + value))
+    def add_allowlist(self, value: set[str]) -> None:
+        self.allowlist = self.allowlist.union(set(map(re.compile, value)))
 
-    def set_blocklist(self, value: list) -> None:
-        self.blocklist = value
+    def set_blocklist(self, value: set[str]) -> None:
+        self.blocklist = set(map(re.compile, value))
 
-    def add_blocklist(self, value: list) -> None:
-        self.blocklist = list(set(self.blocklist + value))
+    def add_blocklist(self, value: set[str]) -> None:
+        self.blocklist = self.blocklist.union(set(map(re.compile, value)))
