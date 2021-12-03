@@ -16,8 +16,7 @@ match = botlib.Match(
 
 The room, event, and bot arguments are neccesary. The room and event arguments should be the same as the arguments of the handler function. The bot argument should be the same as the instance of the Bot class. This class is intended to be used with non-message events, as the MessageMatch class is a child class of this class, and has message-specific methods. A list of methods for the Match class is shown below.
 
-(match_methods)=
-#### List of Methods:
+#### <div id="match-methods">List of Methods:</div>
 
 | Method                          | Explanation                                                     |
 | ------------------------------- | --------------------------------------------------------------- |
@@ -71,10 +70,8 @@ async def example(room, message):
         #Respond to help command
 ```
 
+A list of methods for the Match class is shown below. [Methods from the Match class](#match-methods) can also be used with the MessageMatch class.
 
-A list of methods for the MessageMatch class is shown below. [Methods from the Match class](#match_methods) can also be used with the MessageMatch class.
-
-(message_match_methods)=
 #### List of Methods:
 
 | Method                                                      | Explanation                                                                                                                                                                                                                              |
