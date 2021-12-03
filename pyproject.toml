@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simplematrixbotlib"
-version = "2.4.0"
+version = "2.4.1"
 description = "An easy to use bot library for the Matrix ecosystem written in Python."
 authors = ["krazykirby99999 <krazykirby99999@gmail.com>"]
 license = "MIT"
