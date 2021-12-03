@@ -1,5 +1,6 @@
 name: YAPF Formatting Check
-on: [push]
+on: [push, pull_request]
+
 jobs:
   formatting-check:
     name: Formatting Check
