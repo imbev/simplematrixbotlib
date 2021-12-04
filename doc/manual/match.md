@@ -70,6 +70,17 @@ async def example(room, message):
         #Respond to help command
 ```
 
+It is also possible to match by mention of the bot's username, matrix ID, etc.
+In the next example, we can use the prefix or mention the bot to show its help message.
+
+```python
+bot.listener.on_message_event
+async def help(room, message):
+    match = botlib.MessageMatch(room, message, bot, "!")
+    if match.command("help") and (match.prefix() or match.mention()):
+        #Respond to help command
+```
+
 A list of methods for the Match class is shown below. [Methods from the Match class](#match-methods) can also be used with the MessageMatch class.
 
 #### List of Methods:
@@ -78,5 +89,6 @@ A list of methods for the Match class is shown below. [Methods from the Match cl
 | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `MessageMatch.command()` or `MessageMatch.command(command)` | The "command" is the beginning of messages that are intended to be commands, but after the prefix; e.g. "help". Returns the command if the command argument is empty. Returns True if the command argument is equivalent to the command. |
 | `MessageMatch.prefix()`                                     | Returns True if the message begins with the prefix specified during the initialization of the instance of the MessageMatch class. Returns True if no prefix was specified during the initialization.                                     |
+| `MessageMatch.mention()`                                    | Returns True if the message begins with the bot's display name, disambiguated display name, matrix ID, or pill (HTML link to the bot via matrix.to) if formatted_body is present.                                                        |
 | `MessageMatch.args()`                                       | Returns a list of strings; each string is part of the message separated by a space, with the exception of the part of the message before the first space (the prefix and command). Returns an empty list if it is a single-word command. |
 | `MessageMatch.contains(string)`                             | Returns True if the message contains the value specified in the string argument.                                                                                                                                                         |

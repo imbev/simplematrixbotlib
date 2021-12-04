@@ -1,3 +1,5 @@
+from typing import Union, Optional
+
 class Match:
     """
     Class with methods to filter events
@@ -83,7 +85,27 @@ class MessageMatch(Match):
         super().__init__(room, event, bot)
         self._prefix = prefix
 
-    def command(self, command=None):
+        """Forms of identification"""
+        self._own_user_id = room.own_user_id
+        self._own_nio_user = self.room.users[self._own_user_id]
+        self._own_disambiguated_name = self._own_nio_user.disambiguated_name
+        self._own_display_name = self._own_nio_user.display_name
+        self._own_display_name_colon = f"{self._own_display_name}:"
+        self._own_pill = f"<a href=\"https://matrix.to/#/{self._own_user_id}\">"
+
+        self.mention() # Set self._mention_id_length
+        self._body_without_prefix = self.event.body[len(self._prefix):]
+        self._body_without_mention = self.event.body[self._mention_id_length:]
+        
+        if self.mention():
+            body = self._body_without_mention
+        elif self.prefix():
+            body = self._body_without_prefix
+        else:
+            body = self.event.body
+        self._split_body = body.split()
+
+    def command(self, command: Optional[str] = None) -> Union[bool, str]:
         """
         Parameters
         ----------
@@ -99,18 +121,19 @@ class MessageMatch(Match):
             Returns the string after the prefix and before the first space if no arg is passed to this method.
         """
 
-        if self._prefix == self.event.body[0:len(self._prefix)]:
-            body_without_prefix = self.event.body[len(self._prefix):]
-        else:
-            body_without_prefix = self.event.body
+        if not (self._body_without_prefix and self._body_without_mention):
+            """Body is empty after removing prefix or mention"""
+            if command is None:
+                return ""
+            elif command:
+                return False
+            else:
+                return True
 
-        if not body_without_prefix:
-            return []
-
-        if command:
-            return body_without_prefix.split()[0] == command
+        if command is not None:
+            return self._split_body[0] == command
         else:
-            return body_without_prefix.split()[0]
+            return self._split_body[0]
 
     def prefix(self):
         """
@@ -121,7 +144,24 @@ class MessageMatch(Match):
             Returns True if the message begins with the prefix, and False otherwise. If there is no prefix specified during the creation of this MessageMatch object, then return True.
         """
 
-        return self.event.body.startswith(self._prefix)
+        return self.event.body[self._mention_id_length:].startswith(self._prefix)
+
+    def mention(self):
+        """
+
+        Returns
+        -------
+        boolean
+            Returns True if the message begins with the bot's username, MXID, or pill targeting the MXID, and False otherwise.
+        """
+
+        for id in [self._own_disambiguated_name, self._own_display_name, self._own_user_id, self._own_display_name_colon]:
+            if self.event.body.startswith(id):
+                self._mention_id_length = len(id)+1
+                return True
+            self._mention_id_length = 0
+
+        return False
 
     def args(self):
         """
@@ -129,10 +169,10 @@ class MessageMatch(Match):
         Returns
         -------
         list
-            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the command.
+            Returns a list of strings that are the "words" of the message, except for the first "word", which would be the prefix/mention + command.
         """
 
-        return self.event.body.split()[1:]
+        return self._split_body[1:]
 
     def contains(self, string):
         """
