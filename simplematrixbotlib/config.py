@@ -5,17 +5,14 @@ import re
 @dataclass
 class Config:
     _join_on_invite: bool = True
-    _allowlist: set[str] = field(default_factory=set)  #TODO: default to bot's homeserver
-    _blocklist: set[str] = field(default_factory=set)
+    _allowlist: set[re.Pattern] = field(default_factory=set)  #TODO: default to bot's homeserver
+    _blocklist: set[re.Pattern] = field(default_factory=set)
 
     def _check_set_regex(self, value: set[str]) -> set[re.Pattern]:
         new_list = set()
-        # loop value
         for v in value:
-            # try re.compile
             try:
                 tmp = re.compile(v)
-            # except return False
             except re.error:
                 print(f"{v} is not a valid regular expression. Ignoring your list update.")
                 return
@@ -36,6 +33,18 @@ class Config:
             config_dict: dict = toml.load(file)['simplematrixbotlib']['config']
             self._load_config_dict(config_dict)
 
+    def save_toml(self, file_path: str) -> None:
+        tmp = {'simplematrixbotlib':
+                   {'config':
+                        {
+                            'join_on_invite': self._join_on_invite,
+                            'allowlist': [l.pattern for l in self._allowlist],
+                            'blocklist': [l.pattern for l in self._blocklist]
+                        }
+                   }
+              }
+        with open(file_path, 'w') as file:
+            toml.dump(tmp, file)
 
     @property
     def join_on_invite(self) -> bool:
@@ -65,7 +74,6 @@ class Config:
 
     @allowlist.setter
     def allowlist(self, value: set[str]) -> None:
-        # TODO rebase onto new master with working pytest
         checked = self._check_set_regex(value)
         if checked is None:
             return
