@@ -1,4 +1,3 @@
-# .github/workflows/matrix-commit.yml
 on:
   push:
     branches:
