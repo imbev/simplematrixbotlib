@@ -12,7 +12,7 @@ config = botlib.Config()
 The following Config values may implement validation logic. They can be interacted with as if they were public member variables:
 ```python
 config.join_on_invite = True
-print(c.join_on_invite)
+print(config.join_on_invite)
 ```
 
 See also: [Additional Methods](#additional-methods)
@@ -23,15 +23,14 @@ Boolean: whether the bot accepts all invites automatically.
 ##### `allowlist`
 List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are allowed to send commands to the bot.
 Defaults to allow everyone on the bot's homeserver.
-If the list is non-empty, user IDs that are not on it are blocked. Thus to allow anybody, set it to `[]`.
-You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+If the list is non-empty, user IDs that are not on it are blocked. Thus to allow anybody, set it to `[]`. You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly. **IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
 
 ##### `blocklist`
 List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are not allowed to send commands to the bot.
 Defaults to empty, blocking nobody.
 Blocks user IDs on it if non-empty, even overriding the `allowlist`.
 For example: this way it is possible to allow all users from a homesever, but block single ones.
-You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly. **IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
 
 #### Additional methods
 Configuration settings can additionally be manipulated in special ways using the following methods.
