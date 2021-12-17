@@ -12,7 +12,7 @@ config = botlib.Config()
 The following Config values may implement validation logic. They can be interacted with as if they were public member variables:
 ```python
 config.join_on_invite = True
-print(c.join_on_invite)
+print(config.join_on_invite)
 ```
 
 See also: [Additional Methods](#additional-methods)
