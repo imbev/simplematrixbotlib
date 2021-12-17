@@ -1,0 +1,3 @@
+[simplematrixbotlib.config]
+allowlist = ['@admin.*:example\.org']
+blocklist = ['@admin3:example\.org']
