@@ -28,3 +28,9 @@
 
 ### Bot Config File in TOML format
 .. literalinclude:: ../examples/config-files/config_allowed.toml
+
+## Using Allow/Blocklist Interactively + Config File
+.. literalinclude:: ../examples/config-files/config_bot_allowed_interactive.py
+
+### Bot Config File in TOML format
+.. literalinclude:: ../examples/config-files/config_allowed_interactive.toml
