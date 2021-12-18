@@ -1,3 +1,4 @@
+#Used with Bot Config File in TOML format
 """
 Example Usage:
 
@@ -7,7 +8,7 @@ admin1
 echo_bot
       something
 
-admin2
+admin3
       !echo something
 
 user1
