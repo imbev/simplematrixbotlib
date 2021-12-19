@@ -31,10 +31,8 @@ class Bot:
         if config:
             self.config = config
         else:
+            self._need_allow_homeserver_users = True
             self.config = botlib.Config()
-            # allow (only) users from our own homeserver by default
-            hs: str = self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:].replace('.', '\\.')
-            self.config.set_allowlist(set(f".*:{hs}"))
         self.listener = botlib.Listener(self)
 
     async def main(self):
@@ -53,6 +51,11 @@ class Bot:
             print(f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})")
 
         self.creds.session_write_file()
+
+        if self._need_allow_homeserver_users:
+            # allow (only) users from our own homeserver by default
+            hs: str = self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:].replace('.', '\\.')
+            self.config.allowlist = set([f"(.+):{hs}"])
 
         self.callbacks = botlib.Callbacks(self.async_client, self)
         await self.callbacks.setup_callbacks()
