@@ -22,7 +22,7 @@ copyright = '2021, KrazyKirby99999'
 author = 'KrazyKirby99999'
 
 # The full version, including alpha/beta/rc tags
-release = '2.5.0'
+release = '2.5.1'
 
 # -- General configuration ---------------------------------------------------
 
