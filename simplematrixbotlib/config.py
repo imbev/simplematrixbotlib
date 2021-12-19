@@ -1,14 +1,15 @@
 from dataclasses import dataclass, field
 import toml
 import re
+from typing import Set
 
 @dataclass
 class Config:
     _join_on_invite: bool = True
-    _allowlist: set[re.Pattern] = field(default_factory=set)  #TODO: default to bot's homeserver
-    _blocklist: set[re.Pattern] = field(default_factory=set)
+    _allowlist: Set[re.Pattern] = field(default_factory=set)  #TODO: default to bot's homeserver
+    _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self, value: set[str]) -> set[re.Pattern]:
+    def _check_set_regex(self, value: Set[str]) -> Set[re.Pattern]:
         new_list = set()
         for v in value:
             try:
@@ -61,7 +62,7 @@ class Config:
         self._join_on_invite = value
 
     @property
-    def allowlist(self) -> set[str]:
+    def allowlist(self) -> Set[str]:
         """
         Returns
         -------
@@ -73,13 +74,13 @@ class Config:
         return self._allowlist
 
     @allowlist.setter
-    def allowlist(self, value: set[str]) -> None:
+    def allowlist(self, value: Set[str]) -> None:
         checked = self._check_set_regex(value)
         if checked is None:
             return
         self._allowlist = checked
 
-    def add_allowlist(self, value: set[str]) -> None:
+    def add_allowlist(self, value: Set[str]) -> None:
         """
         Parameters
         ----------
@@ -91,7 +92,7 @@ class Config:
             return
         self._allowlist = self._allowlist.union(checked)
 
-    def remove_allowlist(self, value: set[str]) -> None:
+    def remove_allowlist(self, value: Set[str]) -> None:
         """
         Parameters
         ----------
@@ -104,7 +105,7 @@ class Config:
         self._allowlist = self._allowlist - checked
 
     @property
-    def blocklist(self) -> set[str]:
+    def blocklist(self) -> Set[str]:
         """
         Returns
         -------
@@ -115,13 +116,13 @@ class Config:
         return self._blocklist
 
     @blocklist.setter
-    def blocklist(self, value: set[str]) -> None:
+    def blocklist(self, value: Set[str]) -> None:
         checked = self._check_set_regex(value)
         if checked is None:
             return
         self._blocklist = checked
 
-    def add_blocklist(self, value: set[str]) -> None:
+    def add_blocklist(self, value: Set[str]) -> None:
         """
         Parameters
         ----------
@@ -133,7 +134,7 @@ class Config:
             return
         self._blocklist = self._blocklist.union(checked)
 
-    def remove_blocklist(self, value: set[str]) -> None:
+    def remove_blocklist(self, value: Set[str]) -> None:
         """
         Parameters
         ----------
