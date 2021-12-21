@@ -20,5 +20,17 @@
 ## Echo Bot using Config Files
 .. literalinclude:: ../examples/config-files/config_bot.py
 
-## Bot Config File in TOML format
+### Bot Config File in TOML format
 .. literalinclude:: ../examples/config-files/config.toml
+
+## Echo Bot with Allow/Blocklist Config File
+.. literalinclude:: ../examples/config-files/config_bot_allowed.py
+
+### Bot Config File in TOML format
+.. literalinclude:: ../examples/config-files/config_allowed.toml
+
+## Using Allow/Blocklist Interactively + Config File
+.. literalinclude:: ../examples/config-files/config_bot_allowed_interactive.py
+
+### Bot Config File in TOML format
+.. literalinclude:: ../examples/config-files/config_allowed_interactive.toml
