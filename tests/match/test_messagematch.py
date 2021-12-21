@@ -34,7 +34,7 @@ def test_prefix():
     assert match.prefix() == True
     assert match3.prefix() == False
 
-    #assert match2.prefix() == True
+    assert match2.prefix() == True
 
 def test_args():
     assert match.args() == ["example"]
