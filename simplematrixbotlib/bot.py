@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from typing import Optional
 import simplematrixbotlib as botlib
 from nio import SyncResponse
@@ -38,6 +39,9 @@ class Bot:
     async def main(self):
 
         self.creds.session_read_file()
+        
+        if not (await self.api.check_valid_homeserver(self.creds.homeserver)):
+            raise ValueError("Invalid Homeserver")
 
         await self.api.login()
         

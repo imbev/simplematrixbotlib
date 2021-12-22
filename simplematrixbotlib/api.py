@@ -68,7 +68,20 @@ class Api:
         
         if isinstance(resp, nio.responses.LoginError):
             raise Exception(resp)
-
+    
+    async def check_valid_homeserver(self, homeserver: str) -> bool:
+        if not (homeserver.startswith('http://') or homeserver.startswith('https://')):
+            return False
+        
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.get(f'{homeserver}/_matrix/client/versions') as response:
+                    if response.status == 200:
+                        return True
+            except aiohttp.client_exceptions.ClientConnectorError:
+                return False
+        
+        return False
 
     async def send_text_message(self, room_id, message, msgtype='m.text'):
         """
