@@ -15,7 +15,7 @@ user1
       !allow @user2:example\.org
 
 echo_bot
-      allowing @user1:example\.org
+      allowing @user2:example\.org
 
 admin2
       !disallow @user1:example\.org

@@ -1,3 +1,2 @@
 [simplematrixbotlib.config]
-join_on_invite = false
 allowlist = ['@admin1:example\.org']
