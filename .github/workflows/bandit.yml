@@ -1,0 +1,34 @@
+name: Bandit Security Linting
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  automated-testing:
+    name: Automated Testing
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+        architecture: x64
+      
+    - name: Setup Poetry
+      run: |
+        curl -sL https://install.python-poetry.org | python
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        poetry config virtualenvs.in-project true
+    
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Bandit Security Linter
+      run: poetry run python -m bandit -r simplematrixbotlib
