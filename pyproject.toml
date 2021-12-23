@@ -37,6 +37,7 @@ wheel = "^0.37.0"
 twine = "^3.4.2"
 pytest = "^6.2.5"
 bandit = "^1.7.1"
+mypy = "^0.930"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
