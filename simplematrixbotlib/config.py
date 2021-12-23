@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import toml
 import re
-from typing import Set
+from typing import Set, Union
 
 @dataclass
 class Config:
@@ -9,14 +9,14 @@ class Config:
     _allowlist: Set[re.Pattern] = field(default_factory=set)  #TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self, value: Set[str]) -> Set[re.Pattern]:
+    def _check_set_regex(self, value: Set[str]) -> Union[Set[re.Pattern], None]:
         new_list = set()
         for v in value:
             try:
                 tmp = re.compile(v)
             except re.error:
                 print(f"{v} is not a valid regular expression. Ignoring your list update.")
-                return
+                return None
             new_list.add(tmp)
         return new_list
 
@@ -62,7 +62,7 @@ class Config:
         self._join_on_invite = value
 
     @property
-    def allowlist(self) -> Set[str]:
+    def allowlist(self) -> Set[re.Pattern]:
         """
         Returns
         -------
@@ -105,7 +105,7 @@ class Config:
         self._allowlist = self._allowlist - checked
 
     @property
-    def blocklist(self) -> Set[str]:
+    def blocklist(self) -> Set[re.Pattern]:
         """
         Returns
         -------
