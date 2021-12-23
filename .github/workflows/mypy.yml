@@ -31,4 +31,4 @@ jobs:
         poetry install
 
     - name: Mypy Type Checker
-      run: poetry run python -m mypy simplematrixbotlib
+      run: poetry run python -m mypy simplematrixbotlib --ignore-missing-imports
