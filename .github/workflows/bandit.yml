@@ -1,4 +1,4 @@
-name: Pytest Automated Testing
+name: Bandit Security Linting
 on:
   pull_request:
   push:
@@ -9,15 +9,12 @@ jobs:
   automated-testing:
     name: Automated Testing
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.8', '3.9', '3.10']
     steps:
 
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
         architecture: x64
       
     - name: Setup Poetry
@@ -32,7 +29,6 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-        poetry run pip install pytest-github-actions-annotate-failures
 
-    - name: Pytest Test Runner
-      run: poetry run python -m pytest -p no:sugar
+    - name: Bandit Security Linter
+      run: poetry run python -m bandit -r simplematrixbotlib
