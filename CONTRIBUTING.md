@@ -1,18 +1,18 @@
 # How can I contribute?
 
-Thank you for taking your time to view and possibly contribute to SImple-Matrix-Bot-Lib!
+Thank you for taking your time to view and possibly contribute to simplematrixbotlib!
 
 ### Reporting Bugs
 
-To report a bug in Simple-Matrix-Bot-Lib, select the bug report template from [here](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/new/choose) and replace the default and blank values with the appropriate information. You can also join Simple-Matrix-Bot-Lib's Matrix room located at [#simplematrixbotlib:matrix.org](https://matrix.to/#/#simplematrixbotlib:matrix.org) to discuss your problem with members.
+To report a bug in simplematrixbotlib, select the bug report template from [here](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/new/choose) and replace the default and blank values with the appropriate information. You can also join simplematrixbotlib's Matrix room located at [#simplematrixbotlib:matrix.org](https://matrix.to/#/#simplematrixbotlib:matrix.org) to discuss your problem with members.
 
 ### Suggesting Features
 
-To suggest a feature for Simple-Matrix-Bot-Lib, select the feature request template from [here](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/new/choose) and add clear and precise details concerning your suggestion.
+To suggest a feature for simplematrixbotlib, select the feature request template from [here](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/new/choose) and add clear and precise details concerning your suggestion.
 
 ### Improving the Source Code
 
-If you want to contribute to Simple-Matrix-Bot-Lib, the most direct method is to improve the source code. 
+If you want to contribute to simplematrixbotlib, the most direct method is to improve the source code. 
 
 # How do I improve the Source Code?
 
