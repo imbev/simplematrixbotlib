@@ -76,4 +76,4 @@ class Bot:
 
         """
 
-        asyncio.get_event_loop().run_until_complete(self.main())
+        asyncio.run(self.main())
