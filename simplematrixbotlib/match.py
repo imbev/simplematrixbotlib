@@ -125,10 +125,10 @@ class MessageMatch(Match):
             """Body is empty after removing prefix or mention"""
             if command is None:
                 return ""
-            elif command:
-                return False
-            else:
+            elif not command:
                 return True
+            else:
+                return False
 
         if command is not None:
             return self._split_body[0] == command
