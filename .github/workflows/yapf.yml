@@ -32,7 +32,7 @@ jobs:
 
     - name: Yapf Formatter
       run: |
-        yapf --verbose -ir .
+        poetry run yapf --verbose -ir .
     
     - name: Commit Changes
       run: |
