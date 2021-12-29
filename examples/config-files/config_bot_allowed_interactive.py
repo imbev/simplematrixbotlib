@@ -42,13 +42,15 @@ async def echo(room, message):
 
         if match.command("allow"):
             bot.config.add_allowlist(set(match.args()))
-            await bot.api.send_text_message(room.room_id,
-                                            f'allowing {", ".join(arg for arg in match.args())}')
+            await bot.api.send_text_message(
+                room.room_id,
+                f'allowing {", ".join(arg for arg in match.args())}')
 
         if match.command("disallow"):
             bot.config.remove_allowlist(set(match.args()))
-            await bot.api.send_text_message(room.room_id,
-                                            f'disallowing {", ".join(arg for arg in match.args())}')
+            await bot.api.send_text_message(
+                room.room_id,
+                f'disallowing {", ".join(arg for arg in match.args())}')
 
 
 bot.run()

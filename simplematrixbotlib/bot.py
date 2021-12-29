@@ -17,7 +17,8 @@ class Bot:
         An instance of the simplematrixbotlib.Api class.
     
     """
-    def __init__(self, creds, config = None):
+
+    def __init__(self, creds, config=None):
         """
         Initializes the simplematrixbotlib.Bot class.
 
@@ -39,26 +40,29 @@ class Bot:
     async def main(self):
 
         self.creds.session_read_file()
-        
+
         if not (await self.api.check_valid_homeserver(self.creds.homeserver)):
             raise ValueError("Invalid Homeserver")
 
         await self.api.login()
-        
+
         self.async_client = self.api.async_client
 
-
-        resp = await self.async_client.sync(timeout=65536,
-                                     full_state=False)  #Ignore prior messages
+        resp = await self.async_client.sync(timeout=65536, full_state=False
+                                            )  #Ignore prior messages
 
         if isinstance(resp, SyncResponse):
-            print(f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})")
+            print(
+                f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})"
+            )
 
         self.creds.session_write_file()
 
         if self._need_allow_homeserver_users:
             # allow (only) users from our own homeserver by default
-            hs: str = self.api.async_client.user_id[self.api.async_client.user_id.index(":")+1:].replace('.', '\\.')
+            hs: str = self.api.async_client.user_id[self.api.async_client.
+                                                    user_id.index(":") +
+                                                    1:].replace('.', '\\.')
             self.config.allowlist = set([f"(.+):{hs}"])
 
         self.callbacks = botlib.Callbacks(self.async_client, self)

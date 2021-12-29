@@ -8,6 +8,7 @@ class Callbacks:
     ...
 
     """
+
     def __init__(self, async_client, bot):
         self.async_client = async_client
         self.bot = bot
@@ -19,7 +20,7 @@ class Callbacks:
         """
         if self.bot.config.join_on_invite:
             self.async_client.add_event_callback(self.invite_callback,
-                                             InviteMemberEvent)
+                                                 InviteMemberEvent)
 
         for event_listener in self.bot.listener._registry:
             self.async_client.add_event_callback(event_listener[0],
