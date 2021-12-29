@@ -1,4 +1,3 @@
-
 class Match:
     """
     Class with methods to filter events
@@ -6,6 +5,7 @@ class Match:
     ...
 
     """
+
     def __init__(self, room, event, bot) -> None:
         """
         Initializes the simplematrixbotlib.Match class.
@@ -85,6 +85,7 @@ class MessageMatch(Match):
     ...
 
     """
+
     def __init__(self, room, event, bot, prefix="") -> None:
         """
         Initializes the simplematrixbotlib.MessageMatch class.

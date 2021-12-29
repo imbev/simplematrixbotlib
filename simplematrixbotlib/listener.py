@@ -2,12 +2,14 @@ from nio import RoomMessageText
 
 
 class Listener:
+
     def __init__(self, bot):
         self._bot = bot
         self._registry = []
         self._startup_registry = []
 
     def on_custom_event(self, event):
+
         def wrapper(func):
             if [func, event] in self._registry:
                 func()

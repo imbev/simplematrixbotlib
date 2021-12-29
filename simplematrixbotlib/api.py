@@ -22,6 +22,7 @@ class Api:
     creds : simplematrixbotlib.Creds
 
     """
+
     def __init__(self, creds):
         """
         Initializes the simplematrixbotlib.Api class.
@@ -43,44 +44,63 @@ class Api:
             raise ValueError("Missing homeserver")
         if not self.creds.username:
             raise ValueError("Missing Username")
-        if not (self.creds.password or self.creds.login_token or self.creds.access_token):
-            raise ValueError("Missing password, login token, access token. Either password, login token or access token must be provided")
+        if not (self.creds.password or self.creds.login_token
+                or self.creds.access_token):
+            raise ValueError(
+                "Missing password, login token, access token. Either password, login token or access token must be provided"
+            )
 
-        self.async_client = AsyncClient(homeserver=self.creds.homeserver, user=self.creds.username, device_id=self.creds.device_id)
+        self.async_client = AsyncClient(homeserver=self.creds.homeserver,
+                                        user=self.creds.username,
+                                        device_id=self.creds.device_id)
 
         if self.creds.password:
-            resp = await self.async_client.login(password=self.creds.password,  device_name=self.creds.device_name)
+            resp = await self.async_client.login(
+                password=self.creds.password,
+                device_name=self.creds.device_name)
 
         elif self.creds.access_token:
             self.async_client.access_token = self.creds.access_token
 
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}') as response:
-                    device_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['device_id']
-                    user_id = ast.literal_eval((await response.text()).replace(":false,", ":\"false\","))['user_id']
-            
+                async with session.get(
+                        f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}'
+                ) as response:
+                    device_id = ast.literal_eval(
+                        (await
+                         response.text()).replace(":false,",
+                                                  ":\"false\","))['device_id']
+                    user_id = ast.literal_eval(
+                        (await
+                         response.text()).replace(":false,",
+                                                  ":\"false\","))['user_id']
+
             self.async_client.device_id, self.creds.device_id = device_id, device_id
             self.async_client.user_id, self.creds.user_id = user_id, user_id
             resp = None
 
         elif self.creds.login_token:
-            resp = await self.async_client.login(token=self.creds.login_token,  device_name=self.creds.device_name)
-        
+            resp = await self.async_client.login(
+                token=self.creds.login_token,
+                device_name=self.creds.device_name)
+
         if isinstance(resp, nio.responses.LoginError):
             raise Exception(resp)
-    
+
     async def check_valid_homeserver(self, homeserver: str) -> bool:
-        if not (homeserver.startswith('http://') or homeserver.startswith('https://')):
+        if not (homeserver.startswith('http://')
+                or homeserver.startswith('https://')):
             return False
-        
+
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.get(f'{homeserver}/_matrix/client/versions') as response:
+                async with session.get(
+                        f'{homeserver}/_matrix/client/versions') as response:
                     if response.status == 200:
                         return True
             except aiohttp.client_exceptions.ClientConnectorError:
                 return False
-        
+
         return False
 
     async def send_text_message(self, room_id, message, msgtype='m.text'):
@@ -184,7 +204,7 @@ class Api:
                                               "format":
                                               "org.matrix.custom.html",
                                               "formatted_body":
-                                              markdown.markdown(message, extensions=['nl2br'])
+                                              markdown.markdown(
+                                                  message,
+                                                  extensions=['nl2br'])
                                           })
-
-
