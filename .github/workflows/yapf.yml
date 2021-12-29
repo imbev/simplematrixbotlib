@@ -17,14 +17,14 @@ jobs:
       run: |
         python -m pip install toml yapf; yapf --verbose -ir .
     
-    -name: Commit Changes
+    - name: Commit Changes
       run: |
         git config --local user.email "no-reply@example.com"
         git config --local user.name "YAPF Formatter"
         git add *
         git commit -m "YAPF Formatter"
     
-    -name: Push Changes
+    - name: Push Changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.TOKEN }}
