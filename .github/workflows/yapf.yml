@@ -32,7 +32,7 @@ jobs:
 
     - name: Yapf Formatter
       run: |
-        poetry run yapf --verbose -e .venv/* -ir .
+        poetry run yapf --verbose -ir simplematrixbotlib tests examples
     
     - name: Commit Changes
       run: |
