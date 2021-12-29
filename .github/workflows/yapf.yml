@@ -39,7 +39,7 @@ jobs:
         git config --local user.email "no-reply@example.com"
         git config --local user.name "YAPF Formatter"
         git add *
-        git commit -m "YAPF Formatter"
+        git commit -m "YAPF Formatter" || echo Formatting not needed
     
     - name: Push Changes
       uses: ad-m/github-push-action@master
