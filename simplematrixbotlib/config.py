@@ -66,8 +66,8 @@ class Config:
         """
         Returns
         -------
-        set[str]
-            A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs.
+        Set[re.Pattern]
+            A set of regular expressions matching Matrix IDs.
             Can be used in conjunction with blocklist to check if the sender is allowed to issue a command to the bot.
             An empty set implies that everyone is allowed.
         """
@@ -84,7 +84,7 @@ class Config:
         """
         Parameters
         ----------
-        value : set[str]
+        value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to allowlist.
         """
         checked = self._check_set_regex(value)
@@ -96,7 +96,7 @@ class Config:
         """
         Parameters
         ----------
-        value : set[str]
+        value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from allowlist.
         """
         checked = self._check_set_regex(value)
@@ -109,8 +109,8 @@ class Config:
         """
         Returns
         -------
-        set[str]
-            A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs.
+        Set[re.Pattern]
+            A set of regular expressions matching Matrix IDs.
             Can be used in conjunction with allowlist to check if the sender is disallowed to issue a command to the bot.
         """
         return self._blocklist
@@ -126,7 +126,7 @@ class Config:
         """
         Parameters
         ----------
-        value : set[str]
+        value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to blocklist.
         """
         checked = self._check_set_regex(value)
@@ -138,7 +138,7 @@ class Config:
         """
         Parameters
         ----------
-        value : set[str]
+        value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from blocklist.
         """
         checked = self._check_set_regex(value)
