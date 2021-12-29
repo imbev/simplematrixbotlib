@@ -67,7 +67,7 @@ class Config:
         Returns
         -------
         Set[re.Pattern]
-            A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs.
+            A set of regular expressions matching Matrix IDs.
             Can be used in conjunction with blocklist to check if the sender is allowed to issue a command to the bot.
             An empty set implies that everyone is allowed.
         """
@@ -110,7 +110,7 @@ class Config:
         Returns
         -------
         Set[re.Pattern]
-            A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs.
+            A set of regular expressions matching Matrix IDs.
             Can be used in conjunction with allowlist to check if the sender is disallowed to issue a command to the bot.
         """
         return self._blocklist
