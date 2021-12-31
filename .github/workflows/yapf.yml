@@ -25,6 +25,9 @@ jobs:
     
     - name: Checkout repo
       uses: actions/checkout@v2
+      with:
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
 
     - name: Install dependencies
       run: |
@@ -32,3 +35,14 @@ jobs:
 
     - name: YAPF Code Formatter
       run: poetry run python -m yapf --verbose -ir .
+
+    - name: Configure Git
+      run: |
+        git config user.name "YAPF Formatter"
+        git config user.email github-actions@github.com
+      
+    - name: Commit/Push Changes
+      run: |
+        git add *
+        git commit -m "Automated YAPF Formatting" | exit 0
+        git push
