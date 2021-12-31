@@ -538,6 +538,17 @@ toml = "*"
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
+name = "pytest-github-actions-annotate-failures"
+version = "0.1.6"
+description = "pytest plugin to annotate failed tests with a workflow command for GitHub Actions"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pytest = ">=4.0.0"
+
+[[package]]
 name = "python-cryptography-fernet-wrapper"
 version = "1.0.4"
 description = "A wrapper for cryptography.fernet"
@@ -822,7 +833,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4ee4da364b3307967243642259db209c0a11556063e0271014ab72121c6fc9de"
+content-hash = "57bd8bf405f0f550a2f67cddafc35415be0c12914bb5ea6947407753836558d2"
 
 [metadata.files]
 aiofiles = [
@@ -1398,6 +1409,10 @@ pyrsistent = [
 pytest = [
     {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},
     {file = "pytest-6.2.5.tar.gz", hash = "sha256:131b36680866a76e6781d13f101efb86cf674ebb9762eb70d3082b6f29889e89"},
+]
+pytest-github-actions-annotate-failures = [
+    {file = "pytest-github-actions-annotate-failures-0.1.6.tar.gz", hash = "sha256:162e2fe18b8ab24716c4c3a8d88c29aa67126dc75b4e54be54b58e6fa04653c2"},
+    {file = "pytest_github_actions_annotate_failures-0.1.6-py2.py3-none-any.whl", hash = "sha256:5222dfa315c49d705912826335488ac1c75946c4b06782ab9a99379a7ee3af66"},
 ]
 python-cryptography-fernet-wrapper = [
     {file = "python-cryptography-fernet-wrapper-1.0.4.tar.gz", hash = "sha256:74f118afad763ceb1c1eaaba6b06e19cc35e5cffb4008e7154675171fa116a92"},
