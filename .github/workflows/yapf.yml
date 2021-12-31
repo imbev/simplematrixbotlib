@@ -34,7 +34,7 @@ jobs:
         poetry install
 
     - name: YAPF Code Formatter
-      run: poetry run python -m yapf --verbose -ir -e ./.venv/* .
+      run: poetry run python -m yapf --verbose -ir -e .venv/* .
 
     - name: Configure Git
       run: |
