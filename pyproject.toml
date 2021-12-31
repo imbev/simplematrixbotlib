@@ -42,6 +42,7 @@ types-Markdown = "^3.3.9"
 types-aiofiles = "^0.7.0"
 types-toml = "^0.10.1"
 yapf = "^0.32.0"
+pytest-github-actions-annotate-failures = "^0.1.6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
