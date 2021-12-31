@@ -2,8 +2,8 @@ name: YAPF Automated Formatting
 on:
   pull_request:
   push:
-    branches:
-      - master
+    #branches:
+    #  - master
 
 jobs:
   automated-testing:
