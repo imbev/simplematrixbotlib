@@ -1,6 +1,7 @@
 import pytest
 import simplematrixbotlib as botlib
 
+
 def test_check_valid_homeserver():
 
     creds = botlib.Creds("https://example.com", "user", "pass")

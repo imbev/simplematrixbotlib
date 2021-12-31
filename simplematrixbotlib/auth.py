@@ -19,6 +19,7 @@ class Creds:
         The password for the bot to connect with.
 
     """
+
     def __init__(self,
                  homeserver,
                  username=None,
@@ -67,7 +68,8 @@ class Creds:
         elif self.access_token:
             self._key = fw.key_from_pass(self.access_token)
         else:
-            raise ValueError("password or login_token or access_token is required")
+            raise ValueError(
+                "password or login_token or access_token is required")
 
     def session_read_file(self):
         """

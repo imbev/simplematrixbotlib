@@ -3,19 +3,24 @@ import toml
 import re
 from typing import Set, Union
 
+
 @dataclass
 class Config:
     _join_on_invite: bool = True
-    _allowlist: Set[re.Pattern] = field(default_factory=set)  #TODO: default to bot's homeserver
+    _allowlist: Set[re.Pattern] = field(
+        default_factory=set)  #TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self, value: Set[str]) -> Union[Set[re.Pattern], None]:
+    def _check_set_regex(self,
+                         value: Set[str]) -> Union[Set[re.Pattern], None]:
         new_list = set()
         for v in value:
             try:
                 tmp = re.compile(v)
             except re.error:
-                print(f"{v} is not a valid regular expression. Ignoring your list update.")
+                print(
+                    f"{v} is not a valid regular expression. Ignoring your list update."
+                )
                 return None
             new_list.add(tmp)
         return new_list
@@ -35,15 +40,15 @@ class Config:
             self._load_config_dict(config_dict)
 
     def save_toml(self, file_path: str) -> None:
-        tmp = {'simplematrixbotlib':
-                   {'config':
-                        {
-                            'join_on_invite': self._join_on_invite,
-                            'allowlist': [l.pattern for l in self._allowlist],
-                            'blocklist': [l.pattern for l in self._blocklist]
-                        }
-                   }
-              }
+        tmp = {
+            'simplematrixbotlib': {
+                'config': {
+                    'join_on_invite': self._join_on_invite,
+                    'allowlist': [l.pattern for l in self._allowlist],
+                    'blocklist': [l.pattern for l in self._blocklist]
+                }
+            }
+        }
         with open(file_path, 'w') as file:
             toml.dump(tmp, file)
 
