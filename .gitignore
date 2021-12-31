@@ -6,3 +6,4 @@ __pycache__
 simplematrixbotlib/__pycache__
 simplematrixbotlib/*/__pycache__
 dist/
+.mypy_cache/
