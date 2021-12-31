@@ -32,7 +32,6 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-        poetry run pip install pytest-github-actions-annotate-failures
 
     - name: Pytest Test Runner
       run: poetry run python -m pytest -p no:sugar
