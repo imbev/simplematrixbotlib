@@ -1,18 +1,47 @@
-name: YAPF Formatting Check
+name: YAPF Automated Formatting
 on:
-  pull_request:
   push:
     branches:
       - master
 
-
 jobs:
-  formatting-check:
-    name: Formatting Check
+  automated-testing:
+    name: Automated Formatting
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Yapf Formatter
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+        architecture: x64
+      
+    - name: Setup Poetry
       run: |
-        python -m pip install toml yapf; yapf --verbose -ir .
-        
+        curl -sL https://install.python-poetry.org | python
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        poetry config virtualenvs.in-project true
+    
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+          repository: ${{ github.repository }}
+          token: ${{ github.token }}
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: YAPF Code Formatter
+      run: poetry run python -m yapf --verbose -ir simplematrixbotlib tests examples
+
+    - name: Configure Git
+      run: |
+        git config user.name "YAPF Formatter"
+        git config user.email github-actions@github.com
+      
+    - name: Commit/Push Changes
+      run: |
+        git add *
+        git commit -m "Automated YAPF Formatting" | exit 0
+        git push
