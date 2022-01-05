@@ -1,5 +1,4 @@
-from nio import RoomMessageText
-
+from nio import RoomMessageText, UnknownEvent
 
 class Listener:
 
@@ -23,6 +22,12 @@ class Listener:
             func()
         else:
             self._registry.append([func, RoomMessageText])
+    
+    def on_reaction_event(self, func):
+        def new_func(event):
+            if event.type == "m.reaction":
+                func()
+        self.self._registry.append([new_func, UnknownEvent])
 
     def on_startup(self, func):
         if func in self._startup_registry:
