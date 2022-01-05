@@ -24,10 +24,10 @@ class Listener:
             self._registry.append([func, RoomMessageText])
     
     def on_reaction_event(self, func):
-        def new_func(event):
+        async def new_func(room, event):
             if event.type == "m.reaction":
-                func()
-        self.self._registry.append([new_func, UnknownEvent])
+                await func(room, event, event.source['content']['m.relates_to']['key'])
+        self._registry.append([new_func, UnknownEvent])
 
     def on_startup(self, func):
         if func in self._startup_registry:
