@@ -14,6 +14,10 @@
 
 .. literalinclude:: ../examples/rock_paper_scissors.py
 
+## A Reaction Echo Bot
+
+.. literalinclude:: ../examples/echo_reaction.py
+
 ## Echo Bot within a Docker Container
 .. literalinclude:: ../examples/docker-example/Dockerfile
 
