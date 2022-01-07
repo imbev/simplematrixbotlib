@@ -21,7 +21,7 @@ When any message is sent, the function will be called with room as a [Room objec
 ### Using the on_reaction_event decorator
 The on_reaction_event decorator method of the Listener class may be used to execute actions based on reactions that are sent in rooms that the bot is a member of. Example usage of on_reaction_event is shown in the following python code.
 ```python
-bot.listener.on_reaction_event
+@bot.listener.on_reaction_event
 async def example(room, event, reaction):
     print(f"User {event.source['sender']} reacted with {reaction} to message {event.source['content']['m.relates_to']['event_id']}")
 ```
