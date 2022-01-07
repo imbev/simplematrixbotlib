@@ -1,5 +1,6 @@
 from nio import RoomMessageText, UnknownEvent
 
+
 class Listener:
 
     def __init__(self, bot):
@@ -22,11 +23,14 @@ class Listener:
             func()
         else:
             self._registry.append([func, RoomMessageText])
-    
+
     def on_reaction_event(self, func):
+
         async def new_func(room, event):
             if event.type == "m.reaction":
-                await func(room, event, event.source['content']['m.relates_to']['key'])
+                await func(room, event,
+                           event.source['content']['m.relates_to']['key'])
+
         self._registry.append([new_func, UnknownEvent])
 
     def on_startup(self, func):
