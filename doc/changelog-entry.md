@@ -1,5 +1,5 @@
 ## vX.Y.Z
-### YYYY-MM-DD
+### YYYY-MM-DD HASHHASH
 ### Notes:
 None
 ### Additions:
