@@ -32,6 +32,7 @@ class Bot:
         self.api = botlib.Api(self.creds)
         if config:
             self.config = config
+            self._need_allow_homeserver_users = False
         else:
             self._need_allow_homeserver_users = True
             self.config = botlib.Config()
