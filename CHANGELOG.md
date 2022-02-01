@@ -1,4 +1,17 @@
 # Changelog
+## [v2.6.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.1)
+### 2022-01-31 d2a3abe2
+### Notes:
+Fixes a bug.
+### Additions:
+- None
+### Modifications:
+- Resolve issue [#129](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/129): "AttributeError: 'Bot' object has no attribute '_need_allow_homeserver_users'"
+### Removals:
+- None
+### Deprecations:
+- None
+
 ## [v2.6.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.0)
 ### 2022-01-07 46a7be43
 ### Notes:
