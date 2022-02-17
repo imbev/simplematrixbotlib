@@ -14,7 +14,11 @@ class Config:
     @staticmethod
     def _check_set_regex(value: Set[str]):
         """Checks if the patterns in value are valid or throws an error"""
-        [re.compile(v) for v in value]  # Fails for invalid regex
+        for v in value:
+            try:
+                re.compile(v)   # Fails for invalid regex
+            except re.error:
+                raise re.error(f"{v} is not a valid regex.")
 
 
     def _load_config_dict(self, config_dict: dict) -> None:
@@ -71,7 +75,7 @@ class Config:
         return self._allowlist
 
     @allowlist.setter
-    def allowlist(self, value: Set[str]) -> None:
+    def     allowlist(self, value: Set[str]) -> None:
         self._check_set_regex(value)
         self._allowlist = value
 
