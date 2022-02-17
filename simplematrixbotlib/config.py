@@ -1,29 +1,21 @@
 from dataclasses import dataclass, field
 import toml
 import re
-from typing import Set, Union
+from typing import Set
 
 
 @dataclass
 class Config:
     _join_on_invite: bool = True
     _allowlist: Set[re.Pattern] = field(
-        default_factory=set)  #TODO: default to bot's homeserver
+        default_factory=set)  # TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self,
-                         value: Set[str]) -> Union[Set[re.Pattern], None]:
-        new_list = set()
-        for v in value:
-            try:
-                tmp = re.compile(v)
-            except re.error:
-                print(
-                    f"{v} is not a valid regular expression. Ignoring your list update."
-                )
-                return None
-            new_list.add(tmp)
-        return new_list
+    @staticmethod
+    def _check_set_regex(value: Set[str]):
+        """Checks if the patterns in value are valid or throws an error"""
+        [re.compile(v) for v in value]  # Fails for invalid regex
+
 
     def _load_config_dict(self, config_dict: dict) -> None:
         for key, value in config_dict.items():
@@ -80,44 +72,32 @@ class Config:
 
     @allowlist.setter
     def allowlist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return
-        self._allowlist = checked
+        self._check_set_regex(value)
+        self._allowlist = value
 
-    def add_allowlist(self, value: Set[str]) -> bool:
+    def add_allowlist(self, value: Set[str]):
         """
+        Adds all regex to the allowlist if valid, else throws error
+
         Parameters
         ----------
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to allowlist.
-        Returns
-        -------
-        bool
-            A bool indicating if the action was successful
         """
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return False
-        self._allowlist = self._allowlist.union(checked)
-        return True
+        self._check_set_regex(value)
+        self._allowlist = self._allowlist.union(value)
 
     def remove_allowlist(self, value: Set[str]) -> bool:
         """
+        Removes all in the value set from the allowlist or throws an error
+
         Parameters
         ----------
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from allowlist.
-        Returns
-        -------
-        bool
-            A bool indicating if the action was successful
         """
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return False
-        self._allowlist = self._allowlist - checked
-        return True
+        self._check_set_regex(value)
+        self._allowlist = self._allowlist - value
 
     @property
     def blocklist(self) -> Set[re.Pattern]:
@@ -132,10 +112,8 @@ class Config:
 
     @blocklist.setter
     def blocklist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return
-        self._blocklist = checked
+        self._check_set_regex(value)
+        self._blocklist = value
 
     def add_blocklist(self, value: Set[str]) -> None:
         """
@@ -144,10 +122,8 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to blocklist.
         """
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return
-        self._blocklist = self._blocklist.union(checked)
+        self._check_set_regex(value)
+        self._blocklist = self._blocklist.union(value)
 
     def remove_blocklist(self, value: Set[str]) -> None:
         """
@@ -156,7 +132,5 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from blocklist.
         """
-        checked = self._check_set_regex(value)
-        if checked is None:
-            return
-        self._blocklist = self._blocklist - checked
+        self._check_set_regex(value)
+        self._blocklist = self._blocklist - value
