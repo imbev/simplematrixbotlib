@@ -87,7 +87,7 @@ class Config:
         self._check_set_regex(value)
         self._allowlist = self._allowlist.union(value)
 
-    def remove_allowlist(self, value: Set[str]) -> bool:
+    def remove_allowlist(self, value: Set[str]):
         """
         Removes all in the value set from the allowlist or throws an error
 
