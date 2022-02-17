@@ -16,10 +16,9 @@ class Config:
         """Checks if the patterns in value are valid or throws an error"""
         for v in value:
             try:
-                re.compile(v)   # Fails for invalid regex
+                re.compile(v)  # Fails for invalid regex
             except re.error:
                 raise re.error(f"{v} is not a valid regex.")
-
 
     def _load_config_dict(self, config_dict: dict) -> None:
         for key, value in config_dict.items():
@@ -75,7 +74,7 @@ class Config:
         return self._allowlist
 
     @allowlist.setter
-    def     allowlist(self, value: Set[str]) -> None:
+    def allowlist(self, value: Set[str]) -> None:
         self._check_set_regex(value)
         self._allowlist = value
 
