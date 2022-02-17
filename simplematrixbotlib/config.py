@@ -85,29 +85,39 @@ class Config:
             return
         self._allowlist = checked
 
-    def add_allowlist(self, value: Set[str]) -> None:
+    def add_allowlist(self, value: Set[str]) -> bool:
         """
         Parameters
         ----------
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to allowlist.
+        Returns
+        -------
+        bool
+            A bool indicating if the action was successful
         """
         checked = self._check_set_regex(value)
         if checked is None:
-            return
+            return False
         self._allowlist = self._allowlist.union(checked)
+        return True
 
-    def remove_allowlist(self, value: Set[str]) -> None:
+    def remove_allowlist(self, value: Set[str]) -> bool:
         """
         Parameters
         ----------
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from allowlist.
+        Returns
+        -------
+        bool
+            A bool indicating if the action was successful
         """
         checked = self._check_set_regex(value)
         if checked is None:
-            return
+            return False
         self._allowlist = self._allowlist - checked
+        return True
 
     @property
     def blocklist(self) -> Set[re.Pattern]:
