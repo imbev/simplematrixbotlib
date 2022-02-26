@@ -1,3 +1,4 @@
+import json
 import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText)
 from PIL import Image
@@ -6,7 +7,6 @@ import mimetypes
 import os
 import markdown
 import aiohttp
-import ast
 from nio.responses import UploadResponse
 import nio
 
@@ -66,11 +66,11 @@ class Api:
                 async with session.get(
                         f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}'
                 ) as response:
-                    device_id = ast.literal_eval(
+                    device_id = json.loads(
                         (await
                          response.text()).replace(":false,",
                                                   ":\"false\","))['device_id']
-                    user_id = ast.literal_eval(
+                    user_id = json.loads(
                         (await
                          response.text()).replace(":false,",
                                                   ":\"false\","))['user_id']
