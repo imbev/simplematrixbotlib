@@ -1,4 +1,18 @@
 # Changelog
+
+## [v2.6.2](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.2)
+##  2022-02-26 c432a64
+###  Notes:
+Fixes a potential security problem.
+### Additions:
+- None
+### Modifications
+- Resolve issue [#136](https://github.com/i10b/simplematrixbotlib/issues/136): "Replace usage of ast.literal_eval with json.loads"
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.6.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.1)
 ### 2022-01-31 d2a3abe2
 ### Notes:
