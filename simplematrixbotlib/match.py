@@ -110,12 +110,15 @@ class MessageMatch(Match):
         super().__init__(room, event, bot)
         self._prefix = prefix
 
-    def command(self, command=None):
+    def command(self, command=None, case_sensitive=True):
         """
         Parameters
         ----------
         command : str, Optional
             Beginning of messages that are intended to be commands, but after the prefix; e.g. "help".
+
+        case_sensitive : bool, Optional
+            Whether the string should be matched case sensitive.
 
         Returns
         -------
@@ -135,7 +138,7 @@ class MessageMatch(Match):
             return []
 
         if command:
-            return body_without_prefix.split()[0] == command
+            return body_without_prefix.split()[0] == command if case_sensitive else body_without_prefix.split()[0].lower() == command
         else:
             return body_without_prefix.split()[0]
 
