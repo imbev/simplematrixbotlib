@@ -138,7 +138,8 @@ class MessageMatch(Match):
             return []
 
         if command:
-            return body_without_prefix.split()[0] == command if case_sensitive else body_without_prefix.split()[0].lower() == command
+            return (body_without_prefix.split()[0] == command if case_sensitive
+                    else body_without_prefix.split()[0].lower() == command)
         else:
             return body_without_prefix.split()[0]
 
