@@ -34,7 +34,7 @@ def test_command():
 
     assert match.command("Help") == False
     assert match.command("Help", case_sensitive=False) == True
-    assert match2.command("HELP", case_sensitive=False) == True
+    assert match.command("HELP", case_sensitive=False) == True
 
 
 def test_prefix():
