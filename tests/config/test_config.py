@@ -69,3 +69,14 @@ def test_manual_set():
     assert config.blocklist == set(map(re.compile, ['@test:matrix\\.org']))
     config.blocklist = {'*:example\\.org'}
     assert config.blocklist == set(map(re.compile, ['@test:matrix\\.org']))
+
+
+def test_botlib():
+    config = botlib.Config()
+    with pytest.raises(re.error):
+        config._check_set_regex(set(r"[."))
+    # Valid patterns
+    config._check_set_regex(set(r"@testuser:example.org"))
+
+    with pytest.raises(re.error):
+        config.load_toml(os.path.join(sample_config_path, 'config5.toml'))
