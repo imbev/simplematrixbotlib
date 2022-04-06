@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.6.3](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.3)
+##  2022-04-06 5f54f69
+###  Notes:
+- The command matcher now has support for case-insensitive matches.  
+### Additions:
+- Add case insensitive option to command matcher 
+### Modifications
+- Update Pillow Dependency to version 9.0.1
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.6.2](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.2)
 ##  2022-02-26 c432a64
 ###  Notes:
