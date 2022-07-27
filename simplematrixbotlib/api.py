@@ -81,11 +81,15 @@ class Api:
 
         elif self.creds.password:
             resp = await self.async_client.login(password=self.creds.password,  device_name=self.creds.device_name)
+            self.creds.device_id = resp.device_id
+            self.creds.access_token = resp.access_token
 
         elif self.creds.login_token:
             resp = await self.async_client.login(
                 token=self.creds.login_token,
                 device_name=self.creds.device_name)
+            self.creds.device_id = resp.device_id
+            self.creds.access_token = resp.access_token
 
         if isinstance(resp, nio.responses.LoginError):
             raise Exception(resp)
