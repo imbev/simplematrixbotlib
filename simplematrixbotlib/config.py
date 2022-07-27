@@ -7,6 +7,7 @@ from typing import Set, Union
 @dataclass
 class Config:
     _join_on_invite: bool = True
+    _emoji_verify: bool = True
     _allowlist: Set[re.Pattern] = field(
         default_factory=set)  #TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
@@ -65,6 +66,20 @@ class Config:
     @join_on_invite.setter
     def join_on_invite(self, value: bool) -> None:
         self._join_on_invite = value
+
+    @property
+    def emoji_verify(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            Whether emoji verification requests should be handled by the built in callback function
+        """
+        return self._emoji_verify
+
+    @join_on_invite.setter
+    def emoji_verify(self, value: bool) -> None:
+        self._emoji_verify = value
 
     @property
     def allowlist(self) -> Set[re.Pattern]:
