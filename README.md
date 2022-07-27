@@ -10,7 +10,7 @@ Learn how you can contribute [here](CONTRIBUTING.md).
 
 ## Installation
 
-### simplematrixbotlib can be either installed from PyPi or downloaded from github.<br>
+### simplematrixbotlib can be either installed from PyPi or downloaded from github.
 
 Installation from PyPi:
 
@@ -22,6 +22,19 @@ Download from github:
 
 ```
 git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
+```
+
+### install encryption support
+
+The `e2e` extra of `matrix-nio` is required to support encrypted matrix rooms.
+In turn, `matrix-nio[e2e]` requires [`libolm`](https://gitlab.matrix.org/matrix-org/olm) version 3.0.0 or newer.
+You can install it using you distribution's package manager or from source.
+More information is available at [matrix-nio](https://github.com/poljar/matrix-nio#installation).
+
+Finally install e2e support for matrix-nio by running:
+
+```
+python -m pip install matrix-nio[e2e]
 ```
 
 ## Example Usage
