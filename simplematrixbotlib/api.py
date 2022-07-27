@@ -67,9 +67,13 @@ class Api:
             self.async_client.access_token = self.creds.access_token
 
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'https://matrix.org/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}') as response:
-                    r = (await response.text()).replace(":false,", ":\"false\",")
-                    r = ast.literal_eval(r)
+                async with session.get(
+                        f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}'
+                ) as response:
+                    r = json.loads(
+                        (await
+                         response.text()).replace(":false,",
+                                                  ":\"false\","))
                     device_id = r['device_id']
                     user_id = r['user_id']
 
@@ -80,7 +84,9 @@ class Api:
             self.async_client.load_store()
 
         elif self.creds.password:
-            resp = await self.async_client.login(password=self.creds.password,  device_name=self.creds.device_name)
+            resp = await self.async_client.login(
+                password=self.creds.password,
+                device_name=self.creds.device_name)
             self.creds.device_id = resp.device_id
             self.creds.access_token = resp.access_token
 
