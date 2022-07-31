@@ -77,7 +77,7 @@ class Config:
         """
         return self._emoji_verify
 
-    @join_on_invite.setter
+    @emoji_verify.setter
     def emoji_verify(self, value: bool) -> None:
         self._emoji_verify = value
 
