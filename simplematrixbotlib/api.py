@@ -23,7 +23,7 @@ class Api:
 
     """
 
-    def __init__(self, creds):
+    def __init__(self, creds, config):
         """
         Initializes the simplematrixbotlib.Api class.
 
@@ -33,6 +33,7 @@ class Api:
 
         """
         self.creds = creds
+        self.config = config
 
     async def login(self):
         """
@@ -53,8 +54,8 @@ class Api:
         clientConfig = AsyncClientConfig(max_limit_exceeded=0,
                                          max_timeouts=0,
                                          store_sync_tokens=True,
-                                         encryption_enabled=True)
-        STORE_PATH = "./store/"
+                                         encryption_enabled=self.config.encryption_enabled)
+        STORE_PATH = self.config.store_path
         if not os.path.exists(STORE_PATH):
             os.makedirs(STORE_PATH)
         self.async_client = AsyncClient(homeserver=self.creds.homeserver,

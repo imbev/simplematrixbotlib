@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import os.path
 import toml
 import re
 from typing import Set, Union
@@ -7,7 +8,9 @@ from typing import Set, Union
 @dataclass
 class Config:
     _join_on_invite: bool = True
-    _emoji_verify: bool = True
+    _encryption_enabled: bool = False
+    _emoji_verify: bool = True and _encryption_enabled
+    _store_path: str = "./store/"
     _allowlist: Set[re.Pattern] = field(
         default_factory=set)  #TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
@@ -68,6 +71,21 @@ class Config:
         self._join_on_invite = value
 
     @property
+    def encryption_enabled(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            Whether to enable encryption support.
+            Requires encryption-specific dependencies to be met, see install instructions.
+        """
+        return self._encryption_enabled
+
+    @encryption_enabled.setter
+    def encryption_enabled(self, value: bool) -> None:
+        self._encryption_enabled = value
+
+    @property
     def emoji_verify(self) -> bool:
         """
         Returns
@@ -79,7 +97,23 @@ class Config:
 
     @emoji_verify.setter
     def emoji_verify(self, value: bool) -> None:
-        self._emoji_verify = value
+        self._emoji_verify = value and self.encryption_enabled
+
+    @property
+    def store_path(self) -> str:
+        """
+        Returns
+        -------
+        string
+            Where to store crypto-related data including keys
+        """
+        return self._store_path
+
+    @store_path.setter
+    def store_path(self, value: str) -> None:
+        # check if the path exists or can be created, throws an error otherwise
+        os.makedirs(value, mode=0o750, exist_ok=True)
+        self._store_path = value
 
     @property
     def allowlist(self) -> Set[re.Pattern]:
