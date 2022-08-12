@@ -56,6 +56,12 @@ class Bot:
             print(
                 f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})"
             )
+            if self.config.encryption_enabled:
+                key = self.async_client.olm.account.identity_keys['ed25519']
+                print(
+                    f"This bot's public fingerprint (\"Session key\") for one-sided verification is: "
+                    f"{' '.join([key[i:i+4] for i in range(0, len(key), 4)])}"
+                )
 
         self.creds.session_write_file()
 
