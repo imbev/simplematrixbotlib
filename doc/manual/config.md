@@ -75,7 +75,7 @@ Extending the Config class is done by deriving your own Config class from it and
 
 First create your new class, called `MyConfig` for example, based on Config.
 Because Config is a dataclass, you need to add the dataclass decorator to your class as well.
-Then add your new custom field by adding an attribute to your class.
+Then add your new custom field by adding an attribute to your class, and make sure to add a [type annotation so it gets properly picked up as a dataclass field](https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass).
 When creating a simple attribute like that, its name may not start with an underscore `_` in order to make it save and load properly.
 
 ```python
@@ -85,7 +85,7 @@ from dataclasses import dataclass
 
 @dataclass
 class MyConfig(botlib.Config):
-    custom_setting = "My setting"
+    custom_setting: str = "My setting"
 ```
 
 It is possible to add additional logic to your new setting by adding getter and setter methods.

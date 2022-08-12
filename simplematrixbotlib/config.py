@@ -7,9 +7,13 @@ from typing import Set, Union
 def _config_dict_factory(tmp) -> dict:
     return {
         'simplematrixbotlib': {
-            'config': {name[1:]: value for name, value in tmp}
+            'config': {_strip_leading_underscore(name): value for name, value in tmp}
         }
     }
+
+
+def _strip_leading_underscore(tmp: str) -> str:
+    return tmp[1:] if tmp[0] == '_' else tmp
 
 
 @dataclass
@@ -36,7 +40,7 @@ class Config:
     def _load_config_dict(self, config_dict: dict) -> None:
         # TODO: make this into a factory, so defaults can be set based on loaded values?
         # e.g. emoji_verify should default to enabled when encryption_enabled
-        existing_fields = [f.name[1:] for f in fields(self)]
+        existing_fields = [_strip_leading_underscore(f.name) for f in fields(self)]
         for key, value in config_dict.items():
             if key not in existing_fields:
                 continue
