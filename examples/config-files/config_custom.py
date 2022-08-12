@@ -39,8 +39,7 @@ async def get(room, message):
     if match.is_not_from_this_bot() and match.prefix() and match.command(
             "get"):
 
-        await bot.api.send_text_message(room.room_id,
-                                        config.my_value)
+        await bot.api.send_text_message(room.room_id, config.my_value)
 
 
 bot.run()

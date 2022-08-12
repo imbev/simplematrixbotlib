@@ -9,9 +9,11 @@ from dataclasses import dataclass
 sample_config_path = os.path.join(
     pathlib.Path(__file__).parent, 'sample_config_files')
 
+
 @dataclass
 class SimpleConfig(botlib.Config):
     simple_setting: str = "Default"
+
 
 @dataclass
 class UpperConfig(botlib.Config):
@@ -91,8 +93,7 @@ def test_write_toml():
     default_values = ("[simplematrixbotlib.config]\n"
                       "join_on_invite = true\n"
                       "allowlist = []\n"
-                      "blocklist = []\n"
-                     )
+                      "blocklist = []\n")
     assert os.path.isfile(tmp_file)
     with open(tmp_file, 'r') as f:
         assert f.read() == default_values
