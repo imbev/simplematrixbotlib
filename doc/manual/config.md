@@ -1,5 +1,6 @@
 ### How to use the Config class
-The Config class is a class that handles whether certain features are enabled or disabled. The source is located at simplematrixbotlib/config.py
+The Config class is a class that handles whether certain features are enabled or disabled.
+The source is located at simplematrixbotlib/config.py
 
 #### Creating an instance of the Config class
 An instance can be created using the following python code.
@@ -7,9 +8,10 @@ An instance can be created using the following python code.
 config = botlib.Config()
 ```
 
-#### Supported Values
+#### Built-in Values
 
-The following Config values may implement validation logic. They can be interacted with as if they were public member variables:
+The following Config values are may implement validation logic.
+They can be interacted with as if they were public member variables:
 ```python
 config.join_on_invite = True
 print(config.join_on_invite)
@@ -63,3 +65,66 @@ config.save_toml("config.toml")
 | TOML   | `save_toml(file)` |
 
 Example configuration files for each file format can be under the examples section of the documentation. An example of a toml config file can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-config-file-in-toml-format).
+
+#### Extending the Config class with custom settings
+
+The Config class is designed to be easily extensible with any custom field you may need for your specific bot.
+This allows you to simply add your settings to the existing bot config file, right next to the other settings.
+
+Extending the Config class is done by deriving your own Config class from it and adding your new values as well as functions if required.
+
+First create your new class, called `MyConfig` for example, based on Config.
+Because Config is a dataclass, you need to add the dataclass decorator to your class as well.
+Then add your new custom field by adding an attribute to your class.
+When creating a simple attribute like that, its name may not start with an underscore `_` in order to make it save and load properly.
+
+```python
+import simplematrixbotlib as botlib
+from dataclasses import dataclass
+
+
+@dataclass
+class MyConfig(botlib.Config):
+    custom_setting = "My setting"
+```
+
+It is possible to add additional logic to your new setting by adding getter and setter methods.
+Most built-in settings are implemented this way similar to the example below.
+
+Create your custom field by adding a "private" attribute to your class, i.e. its name starts with an underscore `_`.
+Then add a getter method by using the `@property` decorator, and a setter method using the setter decorator `@name-of-your-field-without-underscore.setter`.
+The name for each function is also the name of your field without the leading underscore.
+Your setting can then be accessed publicly by using the name without underscore, similar to the default Config settings.
+The functions for loading and saving your config file will automatically use the getter and setter methods and apply any logic in them.
+
+If you wanted, you could add additional methods, e.g. to implement behavior like that of [`add_allowlist()` etc.](#additional-methods)
+Take a look at the Config class source code if you are unsure how to do this.
+
+```python
+import simplematrixbotlib as botlib
+from dataclasses import dataclass
+
+
+@dataclass
+class MyConfig(botlib.Config):
+    _my_setting: str = "Hello"
+
+    @property
+    def my_setting(self) -> str:
+        return self._my_setting
+
+    @my_setting.setter
+    def my_setting(self, value: str) -> None:
+        # validate(value)
+        self._my_setting = value
+```
+
+Finally, use your custom Config class by instantiating it and passing the instance when creating your Bot instance.
+
+```python
+config = MyConfig()
+config.load_toml('config.toml')
+bot = botlib.Bot(creds, config)
+```
+
+A complete example implementation of a custom Config class can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-using-custom-option-config-file).
