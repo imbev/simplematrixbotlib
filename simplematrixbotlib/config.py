@@ -1,8 +1,22 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, asdict
 import os.path
 import toml
 import re
 from typing import Set, Union
+
+
+def _config_dict_factory(tmp) -> dict:
+    return {
+        'simplematrixbotlib': {
+            'config':
+            {_strip_leading_underscore(name): value
+             for name, value in tmp}
+        }
+    }
+
+
+def _strip_leading_underscore(tmp: str) -> str:
+    return tmp[1:] if tmp[0] == '_' else tmp
 
 
 @dataclass
@@ -12,7 +26,7 @@ class Config:
     _emoji_verify: bool = True and _encryption_enabled
     _store_path: str = "./store/"
     _allowlist: Set[re.Pattern] = field(
-        default_factory=set)  #TODO: default to bot's homeserver
+        default_factory=set)  # TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
     def _check_set_regex(self,
@@ -30,13 +44,15 @@ class Config:
         return new_list
 
     def _load_config_dict(self, config_dict: dict) -> None:
+        # TODO: make this into a factory, so defaults can be set based on loaded values?
+        # e.g. emoji_verify should default to enabled when encryption_enabled
+        existing_fields = [
+            _strip_leading_underscore(f.name) for f in fields(self)
+        ]
         for key, value in config_dict.items():
-            if key == 'join_on_invite':
-                self.join_on_invite = value
-            elif key == 'allowlist':
-                self.allowlist = value
-            elif key == 'blocklist':
-                self.blocklist = value
+            if key not in existing_fields:
+                continue
+            setattr(self, key, value)
 
     def load_toml(self, file_path: str) -> None:
         with open(file_path, 'r') as file:
@@ -44,15 +60,7 @@ class Config:
             self._load_config_dict(config_dict)
 
     def save_toml(self, file_path: str) -> None:
-        tmp = {
-            'simplematrixbotlib': {
-                'config': {
-                    'join_on_invite': self._join_on_invite,
-                    'allowlist': [l.pattern for l in self._allowlist],
-                    'blocklist': [l.pattern for l in self._blocklist]
-                }
-            }
-        }
+        tmp = asdict(self, dict_factory=_config_dict_factory)
         with open(file_path, 'w') as file:
             toml.dump(tmp, file)
 

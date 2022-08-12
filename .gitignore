@@ -7,3 +7,4 @@ simplematrixbotlib/__pycache__
 simplematrixbotlib/*/__pycache__
 dist/
 .mypy_cache/
+/tests/config/sample_config_files/config_tmp.toml

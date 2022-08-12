@@ -38,3 +38,9 @@
 
 ### Bot Config File in TOML format
 .. literalinclude:: ../examples/config-files/config_allowed_interactive.toml
+
+## Bot using Custom Option Config File
+.. literalinclude:: ../examples/config-files/config_custom.py
+
+### Bot Config File in TOML format
+.. literalinclude:: ../examples/config-files/config_custom.toml

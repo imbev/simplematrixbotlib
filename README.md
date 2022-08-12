@@ -1,9 +1,9 @@
 # Simple-Matrix-Bot-Lib
-(Version 2.6.3)
+(Version 2.6.4)
 
 Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
-[View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
+[View on Github](https://github.com/i10b/simplematrixbotlib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
 [View docs on readthedocs.io](https://simple-matrix-bot-lib.readthedocs.io/en/latest/)
 
 Learn how you can contribute [here](CONTRIBUTING.md).
@@ -21,7 +21,7 @@ python -m pip install simplematrixbotlib
 Download from github:
 
 ```
-git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
+git clone --branch master https://github.com/i10b/simplematrixbotlib.git
 ```
 
 ### install encryption support

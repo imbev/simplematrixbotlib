@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.6.4](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.4)
+##  2022-07-24 434de91
+###  Notes:
+- Update dependencies
+### Additions:
+- None
+### Modifications
+- Update matrix-nio Dependency to version 0.19.0
+- Fix test broken by matrix-nio updates
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.6.3](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.3)
 ##  2022-04-06 5f54f69
 ###  Notes:
