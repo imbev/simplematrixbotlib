@@ -38,12 +38,12 @@ The `e2e` extra of `matrix-nio` is required to support encrypted matrix rooms.
 In turn, `matrix-nio[e2e]` requires [`libolm`](https://gitlab.matrix.org/matrix-org/olm) version 3.0.0 or newer.
 You can install it using you distribution's package manager or from source.
 
-[![](https://img.shields.io/static/v1?style=flat-square&label=Ubuntu&message=python3-olm&color=limegreen)](https://ubuntu.pkgs.org/22.04/ubuntu-universe-amd64/libolm-dev_3.2.10~dfsg-6ubuntu1_amd64.deb.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Debian&message=python3-olm&color=limegreen)](https://debian.pkgs.org/11/debian-main-amd64/libolm-dev_3.2.1~dfsg-7_amd64.deb.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Arch%20Linux&message=python3-olm&color=limegreen)](https://archlinux.pkgs.org/rolling/archlinux-community-x86_64/libolm-3.2.12-1-x86_64.pkg.tar.zst.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=CentOS&message=libolm-python3&color=limegreen)](https://centos.pkgs.org/8/epel-x86_64/libolm-devel-3.2.10-1.el8.x86_64.rpm.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Fedora&message=libolm-python3&color=limegreen)](https://fedora.pkgs.org/36/fedora-x86_64/libolm-devel-3.2.10-2.fc36.x86_64.rpm.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=openSUSE&message=olm&color=limegreen)](https://opensuse.pkgs.org/tumbleweed/opensuse-oss-x86_64/libolm3-3.2.12-1.1.x86_64.rpm.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=Ubuntu&message=libolm-dev&color=limegreen)](https://ubuntu.pkgs.org/22.04/ubuntu-universe-amd64/libolm-dev_3.2.10~dfsg-6ubuntu1_amd64.deb.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=Debian&message=libolm-dev&color=limegreen)](https://debian.pkgs.org/11/debian-main-amd64/libolm-dev_3.2.1~dfsg-7_amd64.deb.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=Arch%20Linux&message=libolm&color=limegreen)](https://archlinux.pkgs.org/rolling/archlinux-community-x86_64/libolm-3.2.12-1-x86_64.pkg.tar.zst.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=CentOS&message=libolm-devel&color=limegreen)](https://centos.pkgs.org/8/epel-x86_64/libolm-devel-3.2.10-1.el8.x86_64.rpm.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=Fedora&message=libolm-devel&color=limegreen)](https://fedora.pkgs.org/36/fedora-x86_64/libolm-devel-3.2.10-2.fc36.x86_64.rpm.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=openSUSE&message=libolm3&color=limegreen)](https://opensuse.pkgs.org/tumbleweed/opensuse-oss-x86_64/libolm3-3.2.12-1.1.x86_64.rpm.html)
 
 More information is available at [matrix-nio](https://github.com/poljar/matrix-nio#installation).
 
