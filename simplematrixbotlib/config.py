@@ -43,7 +43,7 @@ class Config:
 
     _join_on_invite: bool = True
     _encryption_enabled: bool = ENCRYPTION_ENABLED
-    _emoji_verify: bool = True and _encryption_enabled
+    _emoji_verify: bool = False  # So users enable it are aware of required interactivity
     _ignore_unverified_devices: bool = True  # True by default in Element
     # TODO: auto-ignore/auto-blacklist devices/users
     # _allowed_unverified_devices etc
@@ -53,9 +53,8 @@ class Config:
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
     def _load_config_dict(self, config_dict: dict) -> None:
-        # TODO: make this into a factory, so defaults can be set based on loaded values?
-        # e.g. emoji_verify should default to enabled when encryption_enabled
-        # even when not explicitly setting emoji_verify = true in config file
+        # TODO: make this into a factory, so defaults for
+        # non-loaded values can be set based on loaded values?
         existing_fields = [
             _strip_leading_underscore(f.name) for f in fields(self)
         ]

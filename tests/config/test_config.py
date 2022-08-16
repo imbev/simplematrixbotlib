@@ -36,7 +36,7 @@ def test_defaults():
     assert config.allowlist == set()
     assert config.blocklist == set()
     assert config.encryption_enabled == ENCRYPTION_ENABLED
-    assert config.emoji_verify == ENCRYPTION_ENABLED
+    assert config.emoji_verify == False
     assert config.ignore_unverified_devices
     assert config.store_path == "./store/" and os.path.isdir(config.store_path)
 
@@ -102,7 +102,7 @@ def test_write_toml():
     default_values = ("[simplematrixbotlib.config]\n"
                       "join_on_invite = true\n"
                       f"encryption_enabled = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
-                      f"emoji_verify = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
+                      "emoji_verify = false\n"
                       "ignore_unverified_devices = true\n"
                       "store_path = \"./store/\"\n"
                       "allowlist = []\n"
