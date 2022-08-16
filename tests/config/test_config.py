@@ -5,6 +5,7 @@ import simplematrixbotlib as botlib
 import os.path
 import re
 from dataclasses import dataclass
+from nio.crypto import ENCRYPTION_ENABLED
 
 sample_config_path = os.path.join(
     pathlib.Path(__file__).parent, 'sample_config_files')
@@ -34,8 +35,8 @@ def test_defaults():
     assert config.join_on_invite
     assert config.allowlist == set()
     assert config.blocklist == set()
-    assert not config.encryption_enabled
-    assert not config.emoji_verify
+    assert config.encryption_enabled == ENCRYPTION_ENABLED
+    assert config.emoji_verify == ENCRYPTION_ENABLED
     assert config.ignore_unverified_devices
     assert config.store_path == "./store/" and os.path.isdir(config.store_path)
 
@@ -100,8 +101,8 @@ def test_write_toml():
 
     default_values = ("[simplematrixbotlib.config]\n"
                       "join_on_invite = true\n"
-                      "encryption_enabled = false\n"
-                      "emoji_verify = false\n"
+                      f"encryption_enabled = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
+                      f"emoji_verify = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
                       "ignore_unverified_devices = true\n"
                       "store_path = \"./store/\"\n"
                       "allowlist = []\n"
@@ -138,7 +139,7 @@ def test_manual_set():
     config.join_on_invite = False
     assert not config.join_on_invite
 
-    assert not config.encryption_enabled
+    config.encryption_enabled = False
     config.emoji_verify = True
     assert not config.emoji_verify
 

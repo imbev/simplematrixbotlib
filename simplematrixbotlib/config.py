@@ -3,6 +3,7 @@ import os.path
 import toml
 import re
 from typing import Set, Union
+from nio.crypto import ENCRYPTION_ENABLED
 
 
 def _config_dict_factory(tmp) -> dict:
@@ -41,7 +42,7 @@ class Config:
     """
 
     _join_on_invite: bool = True
-    _encryption_enabled: bool = False
+    _encryption_enabled: bool = ENCRYPTION_ENABLED
     _emoji_verify: bool = True and _encryption_enabled
     _ignore_unverified_devices: bool = True  # True by default in Element
     # TODO: auto-ignore/auto-blacklist devices/users
@@ -100,7 +101,11 @@ class Config:
 
     @encryption_enabled.setter
     def encryption_enabled(self, value: bool) -> None:
+        # safeguards regarding ENCRYPTION_ENABLED are enforced by nio in ClientConfig
         self._encryption_enabled = value
+        # update dependent values
+        self.emoji_verify = self.emoji_verify
+        self.ignore_unverified_devices = self.ignore_unverified_devices
 
     @property
     def emoji_verify(self) -> bool:
