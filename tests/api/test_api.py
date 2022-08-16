@@ -3,7 +3,6 @@ import simplematrixbotlib as botlib
 
 
 def test_check_valid_homeserver():
-
     creds = botlib.Creds("https://example.com", "user", "pass")
     bot = botlib.Bot(creds)
     with pytest.raises(ValueError):
@@ -19,8 +18,8 @@ def test_check_valid_homeserver():
     try:
         bot.run()
     except Exception as e:
-        #Trying to catch LoginError normally causes an error - TypeError: catching classes that do not inherit from BaseException is not allowed
-        #This is an issue with matrix-nio
+        # Trying to catch LoginError normally causes an error - TypeError: catching classes that do not inherit from BaseException is not allowed
+        # This is an issue with matrix-nio
         if 'LoginError: M_FORBIDDEN Invalid username or password' in str(e):
             pass
         else:

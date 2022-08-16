@@ -1,14 +1,30 @@
 import json
 import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText, AsyncClientConfig)
+from nio.responses import UploadResponse
+import nio
 from PIL import Image
 import aiofiles.os
 import mimetypes
 import os
 import markdown
 import aiohttp
-from nio.responses import UploadResponse
-import nio
+
+async def check_valid_homeserver(homeserver: str) -> bool:
+    if not (homeserver.startswith('http://')
+            or homeserver.startswith('https://')):
+        return False
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    f'{homeserver}/_matrix/client/versions') as response:
+                if response.status == 200:
+                    return True
+        except aiohttp.client_exceptions.ClientConnectorError:
+            return False
+
+    return False
 
 
 class Api:
@@ -34,6 +50,7 @@ class Api:
         """
         self.creds = creds
         self.config = config
+        self.async_client: AsyncClient = None
 
     async def login(self):
         """
@@ -51,18 +68,17 @@ class Api:
                 "Missing password, login token, access token. Either password, login token or access token must be provided"
             )
 
-        clientConfig = AsyncClientConfig(max_limit_exceeded=0,
-                                         max_timeouts=0,
-                                         store_sync_tokens=True,
-                                         encryption_enabled=self.config.encryption_enabled)
-        STORE_PATH = self.config.store_path
-        if not os.path.exists(STORE_PATH):
-            os.makedirs(STORE_PATH)
+        client_config = AsyncClientConfig(max_limit_exceeded=0,
+                                          max_timeouts=0,
+                                          store_sync_tokens=True,
+                                          encryption_enabled=self.config.encryption_enabled)
+        store_path = self.config.store_path
+        os.makedirs(store_path, mode=0o750, exist_ok=True)
         self.async_client = AsyncClient(homeserver=self.creds.homeserver,
                                         user=self.creds.username,
                                         device_id=self.creds.device_id,
-                                        store_path=STORE_PATH,
-                                        config=clientConfig)
+                                        store_path=store_path,
+                                        config=client_config)
 
         if self.creds.access_token:
             self.async_client.access_token = self.creds.access_token
@@ -104,21 +120,6 @@ class Api:
         if self.async_client.should_upload_keys:
             await self.async_client.keys_upload()
 
-    async def check_valid_homeserver(self, homeserver: str) -> bool:
-        if not (homeserver.startswith('http://')
-                or homeserver.startswith('https://')):
-            return False
-
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.get(
-                        f'{homeserver}/_matrix/client/versions') as response:
-                    if response.status == 200:
-                        return True
-            except aiohttp.client_exceptions.ClientConnectorError:
-                return False
-
-        return False
 
     async def send_text_message(self, room_id, message, msgtype='m.text'):
         """

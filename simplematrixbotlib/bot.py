@@ -2,7 +2,7 @@ import asyncio
 import sys
 from typing import Optional
 import simplematrixbotlib as botlib
-from nio import SyncResponse
+from nio import SyncResponse, AsyncClient
 
 
 class Bot:
@@ -37,20 +37,20 @@ class Bot:
             self.config = botlib.Config()
         self.api = botlib.Api(self.creds, self.config)
         self.listener = botlib.Listener(self)
+        self.async_client: AsyncClient = None
 
     async def main(self):
-
         self.creds.session_read_file()
 
-        if not (await self.api.check_valid_homeserver(self.creds.homeserver)):
+        if not (await botlib.api.check_valid_homeserver(self.creds.homeserver)):
             raise ValueError("Invalid Homeserver")
 
         await self.api.login()
 
         self.async_client = self.api.async_client
 
-        resp = await self.async_client.sync(timeout=65536, full_state=False
-                                            )  #Ignore prior messages
+        resp = await self.async_client.sync(timeout=65536,
+                                            full_state=False)  #Ignore prior messages
 
         if isinstance(resp, SyncResponse):
             print(
@@ -86,5 +86,4 @@ class Bot:
         Runs the bot.
 
         """
-
         asyncio.run(self.main())

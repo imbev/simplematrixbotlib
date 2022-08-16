@@ -82,8 +82,12 @@ class Callbacks:
         if not isinstance(event, MegolmEvent):
             return
 
-        print(f"failed to decrypt message: {event.event_id} from {event.sender}")
-        await self.bot.api.send_text_message(room.room_id, "Failed to decrypt your message. Make sure you are sending messages to unverified devices or verify me if possible.", msgtype='m.notice')
+        print(f"failed to decrypt message: {event.event_id} from {event.sender} in {room.room_id}")
+        await self.bot.api.send_text_message(room.room_id,
+                                             "Failed to decrypt your message. "
+                                             "Make sure encryption is enabled in my config and "
+                                             "either enable sending messages to unverified devices or verify me if possible.",
+                                             msgtype='m.notice')
 
     async def emoji_verification(self, event):
         """
@@ -98,11 +102,12 @@ class Callbacks:
 
         """
         try:
-            if isinstance(event, KeyVerificationStart):  # first step
+            if isinstance(event, KeyVerificationStart):  # first step: receive m.key.verification.start
                 if "emoji" not in event.short_authentication_string:
                     print("Other device does not support emoji verification "
                           f"{event.short_authentication_string}.")
                     return
+                # send m.key.verification.accept
                 resp = await self.async_client.accept_key_verification(
                     event.transaction_id)
                 if isinstance(resp, ToDeviceError):
@@ -110,6 +115,7 @@ class Callbacks:
 
                 sas = self.async_client.key_verifications[event.transaction_id]
 
+                # send m.key.verification.key
                 todevice_msg = sas.share_key()
                 resp = await self.async_client.to_device(todevice_msg)
                 if isinstance(resp, ToDeviceError):
@@ -123,7 +129,7 @@ class Callbacks:
                 print(f"Verification has been cancelled by {event.sender} "
                       f"for reason \"{event.reason}\".")
 
-            elif isinstance(event, KeyVerificationKey):  # second step
+            elif isinstance(event, KeyVerificationKey):  # second step: receive m.key.verification.key
                 sas = self.async_client.key_verifications[event.transaction_id]
 
                 print(f"{sas.get_emoji()}")
@@ -132,6 +138,7 @@ class Callbacks:
                 if yn.lower() == "y":
                     print("Match! The verification for this "
                           "device will be accepted.")
+                    # send m.key.verification.mac
                     resp = await self.async_client.confirm_short_auth_string(
                         event.transaction_id)
                     if isinstance(resp, ToDeviceError):
@@ -151,7 +158,7 @@ class Callbacks:
                     if isinstance(resp, ToDeviceError):
                         print(f"cancel_key_verification failed with {resp}")
 
-            elif isinstance(event, KeyVerificationMac):  # third step
+            elif isinstance(event, KeyVerificationMac):  # third step: receive m.key.verification.mac
                 sas = self.async_client.key_verifications[event.transaction_id]
                 try:
                     todevice_msg = sas.get_mac()
@@ -161,6 +168,7 @@ class Callbacks:
                           f"Verification with {event.sender} not concluded. "
                           "Try again?")
                 else:
+                    # send m.key.verification.mac
                     resp = await self.async_client.to_device(todevice_msg)
                     if isinstance(resp, ToDeviceError):
                         print(f"to_device failed with {resp}")
@@ -171,6 +179,8 @@ class Callbacks:
                           f"sas.verified = {sas.verified}\n"
                           f"sas.verified_devices = {sas.verified_devices}\n")
                     print("Emoji verification was successful!")
+                    # TODO: share room keys(?) to formerly blacklisted devices
+                    # Error: ** Unable to decrypt: decryption key withheld **
             else:
                 print(f"Received unexpected event type {type(event)}. "
                       f"Event is {event}. Event will be ignored.")

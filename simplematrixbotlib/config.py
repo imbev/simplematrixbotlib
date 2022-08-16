@@ -19,8 +19,27 @@ def _strip_leading_underscore(tmp: str) -> str:
     return tmp[1:] if tmp[0] == '_' else tmp
 
 
+def _check_set_regex(value: Set[str]) -> Union[Set[re.Pattern], None]:
+    new_list = set()
+    for v in value:
+        try:
+            tmp = re.compile(v)
+        except re.error:
+            print(
+                f"{v} is not a valid regular expression. Ignoring your list update."
+            )
+            return None
+        new_list.add(tmp)
+    return new_list
+
+
 @dataclass
 class Config:
+    """
+    A class to handle built-in user-configurable settings, including support for saving to and loading from a file.
+    Can be inherited from by bot developers to implement custom settings.
+    """
+
     _join_on_invite: bool = True
     _encryption_enabled: bool = False
     _emoji_verify: bool = True and _encryption_enabled
@@ -29,23 +48,10 @@ class Config:
         default_factory=set)  # TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self,
-                         value: Set[str]) -> Union[Set[re.Pattern], None]:
-        new_list = set()
-        for v in value:
-            try:
-                tmp = re.compile(v)
-            except re.error:
-                print(
-                    f"{v} is not a valid regular expression. Ignoring your list update."
-                )
-                return None
-            new_list.add(tmp)
-        return new_list
-
     def _load_config_dict(self, config_dict: dict) -> None:
         # TODO: make this into a factory, so defaults can be set based on loaded values?
         # e.g. emoji_verify should default to enabled when encryption_enabled
+        # even when not explicitly setting emoji_verify = true in config file
         existing_fields = [
             _strip_leading_underscore(f.name) for f in fields(self)
         ]
@@ -137,7 +143,7 @@ class Config:
 
     @allowlist.setter
     def allowlist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = checked
@@ -149,7 +155,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to allowlist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = self._allowlist.union(checked)
@@ -161,7 +167,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from allowlist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = self._allowlist - checked
@@ -179,7 +185,7 @@ class Config:
 
     @blocklist.setter
     def blocklist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = checked
@@ -191,7 +197,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to blocklist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = self._blocklist.union(checked)
@@ -203,7 +209,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from blocklist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = self._blocklist - checked
