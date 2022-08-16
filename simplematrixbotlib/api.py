@@ -102,7 +102,6 @@ class Api:
 
             self.async_client.device_id, self.creds.device_id = device_id, device_id
             self.async_client.user_id, self.creds.user_id = user_id, user_id
-            resp = None
 
             self.async_client.load_store()
 

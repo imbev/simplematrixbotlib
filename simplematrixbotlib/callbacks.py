@@ -1,6 +1,6 @@
 import nio.events.room_events
 import nio.events.to_device
-from nio import InviteMemberEvent, RoomMessageText
+from nio import InviteMemberEvent
 from nio import MegolmEvent, KeyVerificationStart, KeyVerificationCancel, KeyVerificationKey, KeyVerificationMac, ToDeviceError, KeyVerificationEvent
 
 
