@@ -20,6 +20,8 @@ See also: [Additional Methods](#additional-methods)
 
 #### `join_on_invite`
 Boolean: whether the bot accepts all invites automatically.
+
+#### `encryption_enabled`
 Boolean: whether to enable encryption.
 Other settings depend on the value of this setting, e.g. setting encryption to false will also set `emoji_verify` to false.
 Encryption requires additional encryption-specific dependencies to be installed.
