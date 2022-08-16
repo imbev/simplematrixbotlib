@@ -1,5 +1,4 @@
 ### How to use the Match class
-
 The Match class is a class that handles matching/filtering of the content of events. The source is located at simplematrixbotlib/match.py
 
 #### Creating an instance of the Match class

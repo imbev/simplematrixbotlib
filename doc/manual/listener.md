@@ -1,4 +1,3 @@
-### How to use the Listener class
 The Listener class is a class that is used to specify reactions to the events that occur in Matrix rooms. The source is located at simplematrixbotlib/listener.py
 
 ### Accessing a Listener instance

@@ -32,6 +32,6 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/match.md
 
-## Usage of the Api class
+## Usage of Api class
 
 .. mdinclude:: manual/api.md
