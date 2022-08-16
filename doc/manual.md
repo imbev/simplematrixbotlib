@@ -12,6 +12,10 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/import.md
 
+## E2E Encryption
+
+.. mdinclude:: manual/encryption.md
+
 ## Usage of Creds class
 
 .. mdinclude:: manual/creds.md

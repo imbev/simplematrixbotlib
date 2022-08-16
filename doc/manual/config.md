@@ -20,6 +20,24 @@ See also: [Additional Methods](#additional-methods)
 
 #### `join_on_invite`
 Boolean: whether the bot accepts all invites automatically.
+Boolean: whether to enable encryption.
+Other settings depend on the value of this setting, e.g. setting encryption to false will also set `emoji_verify` to false.
+Encryption requires additional encryption-specific dependencies to be installed.
+
+#### `emoji_verify`
+Boolean: whether the bot's built-in emoji verification callback should be enabled.
+Requires encryption to be enabled.
+Learn more at [Interactive SAS verification using Emoji](#interactive-sas-verification-using-emoji).
+
+#### `ignore_unverified_devices`
+Boolean: whether to automatically ignore unverified devices in order to send encrypted messages to them without verifying.
+See [Encryption Configuration Options](#configuration-options) to learn more about the different trust states, including ignoring.
+When encryption is not enabled, messages will always be sent to all devices.
+
+#### `store_path`
+String: path in the filesystem where the crypto-session gets stored.
+Can be relative (`./store/`) or absolute (`/home/example`).
+Needs to be readable and writable by the bot.
 
 #### `allowlist`
 List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are allowed to send commands to the bot.

@@ -12,7 +12,7 @@ Learn how you can contribute [here](CONTRIBUTING.md).
 
 - [x] hands-off approach: get started with just 10 lines of code (see [example](#Example-Usage))
 - [x] end-to-end encryption support
-- [x] device verification support
+- [x] limited verification support (device only)
 - [x] easily extensible config file
 - [x] user access management
 
