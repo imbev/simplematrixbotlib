@@ -1,6 +1,7 @@
 import json
 import asyncio
 from nio import (AsyncClient, SyncResponse, RoomMessageText, AsyncClientConfig)
+from nio.exceptions import OlmUnverifiedDeviceError
 from nio.responses import UploadResponse
 import nio
 from PIL import Image
@@ -9,6 +10,8 @@ import mimetypes
 import os
 import markdown
 import aiohttp
+from typing import List
+
 
 async def check_valid_homeserver(homeserver: str) -> bool:
     if not (homeserver.startswith('http://')
@@ -123,6 +126,31 @@ class Api:
         if self.async_client.should_upload_keys:
             await self.async_client.keys_upload()
 
+    async def _send_room(self, room_id, content, message_type="m.room.message", ignore_unverified_devices=None):
+        try:
+            await self.async_client.room_send(room_id=room_id,
+                                              message_type=message_type,
+                                              content=content,
+                                              ignore_unverified_devices=ignore_unverified_devices or self.config.ignore_unverified_devices)
+        except OlmUnverifiedDeviceError as e:
+            # print(str(e))
+            print("Message could not be sent. "
+                  "Set ignore_unverified_devices = True to allow sending to unverified devices.")
+            print("Automatically blacklisting the following devices:")
+            for user in self.async_client.rooms[room_id].users:
+                unverified: List[str] = list()
+                for device_id, device in self.async_client.olm.device_store[user].items():
+                    if not (self.async_client.olm.is_device_verified(device)
+                            or self.async_client.olm.is_device_blacklisted(device)):
+                        self.async_client.olm.blacklist_device(device)
+                        unverified.append(device_id)
+                if len(unverified) > 0:
+                    print(f"\tUser {user}: {', '.join(unverified)}")
+
+            await self.async_client.room_send(room_id=room_id,
+                                              message_type=message_type,
+                                              content=content,
+                                              ignore_unverified_devices=ignore_unverified_devices or self.config.ignore_unverified_devices)
 
     async def send_text_message(self, room_id, message, msgtype='m.text'):
         """
@@ -140,12 +168,42 @@ class Api:
             The type of message to send: m.text (default), m.notice, etc
 
         """
-        await self.async_client.room_send(room_id=room_id,
-                                          message_type="m.room.message",
-                                          content={
-                                              "msgtype": msgtype,
-                                              "body": message
-                                          })
+        await self._send_room(room_id=room_id,
+                              content={
+                                  "msgtype": msgtype,
+                                  "body": message
+                              })
+
+    async def send_markdown_message(self, room_id, message, msgtype='m.text'):
+        """
+        Send a markdown message in a Matrix room.
+
+        Parameteres
+        -----------
+        room_id : str
+            The room id of the destination of the message.
+
+        message : str
+            The content of the message to be sent.
+
+        msgtype : str, optional
+            The type of message to send: m.text (default), m.notice, etc
+
+        """
+
+        await self._send_room(room_id=room_id,
+                              content={
+                                  "msgtype":
+                                  msgtype,
+                                  "body":
+                                  message,
+                                  "format":
+                                  "org.matrix.custom.html",
+                                  "formatted_body":
+                                  markdown.markdown(
+                                      message,
+                                      extensions=['nl2br'])
+                              })
 
     async def send_image_message(self, room_id, image_filepath):
         """
@@ -192,41 +250,7 @@ class Api:
         }
 
         try:
-            await self.async_client.room_send(room_id,
-                                              message_type="m.room.message",
-                                              content=content)
+            await self._send_room(room_id=room_id,
+                                  content=content)
         except:
             print(f"Failed to send image file {image_filepath}")
-
-    async def send_markdown_message(self, room_id, message, msgtype='m.text'):
-        """
-        Send a markdown message in a Matrix room.
-
-        Parameteres
-        -----------
-        room_id : str
-            The room id of the destination of the message.
-
-        message : str
-            The content of the message to be sent.
-
-        msgtype : str, optional
-            The type of message to send: m.text (default), m.notice, etc
-
-        """
-
-        await self.async_client.room_send(room_id=room_id,
-                                          message_type="m.room.message",
-                                          content={
-                                              "msgtype":
-                                              msgtype,
-                                              "body":
-                                              message,
-                                              "format":
-                                              "org.matrix.custom.html",
-                                              "formatted_body":
-                                              markdown.markdown(
-                                                  message,
-                                                  extensions=['nl2br'])
-                                          },
-                                          ignore_unverified_devices=True)

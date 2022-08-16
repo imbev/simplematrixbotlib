@@ -43,6 +43,9 @@ class Config:
     _join_on_invite: bool = True
     _encryption_enabled: bool = False
     _emoji_verify: bool = True and _encryption_enabled
+    _ignore_unverified_devices: bool = True  # True by default in Element
+    # TODO: auto-ignore/auto-blacklist devices/users
+    # _allowed_unverified_devices etc
     _store_path: str = "./store/"
     _allowlist: Set[re.Pattern] = field(
         default_factory=set)  # TODO: default to bot's homeserver
@@ -128,6 +131,21 @@ class Config:
         # check if the path exists or can be created, throws an error otherwise
         os.makedirs(value, mode=0o750, exist_ok=True)
         self._store_path = value
+
+    @property
+    def ignore_unverified_devices(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            If True, ignore that devices are not verified and send the message to them regardless.
+            If False, distrust unverified devices.
+        """
+        return self._ignore_unverified_devices
+
+    @ignore_unverified_devices.setter
+    def ignore_unverified_devices(self, value: bool) -> None:
+        self._ignore_unverified_devices = value if self.encryption_enabled else True
 
     @property
     def allowlist(self) -> Set[re.Pattern]:
