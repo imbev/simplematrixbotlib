@@ -87,6 +87,9 @@ class Api:
                 async with session.get(
                         f'{self.creds.homeserver}/_matrix/client/r0/account/whoami?access_token={self.creds.access_token}'
                 ) as response:
+                    if isinstance(response, nio.responses.LoginError):
+                        raise Exception(response)
+
                     r = json.loads(
                         (await
                          response.text()).replace(":false,",
@@ -100,22 +103,22 @@ class Api:
 
             self.async_client.load_store()
 
-        elif self.creds.password:
-            resp = await self.async_client.login(
-                password=self.creds.password,
-                device_name=self.creds.device_name)
+        else:
+            if self.creds.password:
+                resp = await self.async_client.login(
+                    password=self.creds.password,
+                    device_name=self.creds.device_name)
+
+            elif self.creds.login_token:
+                resp = await self.async_client.login(
+                    token=self.creds.login_token,
+                    device_name=self.creds.device_name)
+
+            if isinstance(resp, nio.responses.LoginError):
+                raise Exception(resp)
+
             self.creds.device_id = resp.device_id
             self.creds.access_token = resp.access_token
-
-        elif self.creds.login_token:
-            resp = await self.async_client.login(
-                token=self.creds.login_token,
-                device_name=self.creds.device_name)
-            self.creds.device_id = resp.device_id
-            self.creds.access_token = resp.access_token
-
-        if isinstance(resp, nio.responses.LoginError):
-            raise Exception(resp)
 
         if self.async_client.should_upload_keys:
             await self.async_client.keys_upload()
