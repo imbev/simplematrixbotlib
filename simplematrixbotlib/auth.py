@@ -36,7 +36,7 @@ class Creds:
             The homeserver for the bot to connect to. Begins with "https://".
     
         username : str, optional
-            The username for the bot to connect as. This is neccesary if password is used instead of login_token.
+            The username for the bot to connect as. This is necessary if password is used instead of login_token.
     
         password : str, optional
             The password for the bot to connect with. Can be used instead of login_token. One of the password, login_token, or access_token must be provided.
