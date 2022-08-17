@@ -94,6 +94,10 @@ class Creds:
                 self.device_id = decrypted_session_data[0]
                 self.access_token = decrypted_session_data[1]
 
+                if not (self.device_id and self.access_token):
+                    raise ValueError(f"Can't load credentials: device ID {self.device_id} or access token {self.access_token} were not stored. "
+                                     f"Reset your session by deleting {self._session_stored_file} and the crypto store if encryption is enabled.")
+
         else:
             file_exists = False
 
@@ -105,6 +109,9 @@ class Creds:
         Encrypts and writes to file the device_id and access_token.
 
         """
+        if not (self.device_id and self.access_token):
+            raise ValueError(f"Can't save credentials: missing device ID {self.device_id} or access token {self.access_token}")
+
         if self._session_stored_file:
             session_data = str([self.device_id, self.access_token])
 

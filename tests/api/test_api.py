@@ -24,3 +24,9 @@ def test_check_valid_homeserver():
             pass
         else:
             raise e
+
+    creds = botlib.Creds("https://example.com", "user", "pass")
+    with pytest.raises(ValueError):
+        creds.session_write_file()
+
+    # TODO: test loading of broken file?
