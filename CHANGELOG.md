@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.7.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.7.0)
+##  2022-08-20 a340933
+###  Notes:
+- Encryption Support!
+### Additions:
+- Add support for e2e encrypted rooms
+- Add limited verification support (device only)
+- Add support for extendable config
+### Modifications
+- None
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.6.4](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.4)
 ##  2022-07-24 434de91
 ###  Notes:
