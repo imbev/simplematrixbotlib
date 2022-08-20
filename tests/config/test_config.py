@@ -58,7 +58,8 @@ def test_read_toml():
         map(re.compile, ['@test2:example\\.org']))
     assert config.encryption_enabled
     assert config.emoji_verify
-    assert config.store_path == "./session/" and os.path.isdir(config.store_path)
+    assert config.store_path == "./session/" and os.path.isdir(
+        config.store_path)
     assert not config.ignore_unverified_devices
 
     config = botlib.Config()
@@ -99,15 +100,15 @@ def test_write_toml():
     # write all defined values
     config.save_toml(tmp_file)
 
-    default_values = ("[simplematrixbotlib.config]\n"
-                      "join_on_invite = true\n"
-                      f"encryption_enabled = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
-                      "emoji_verify = false\n"
-                      "ignore_unverified_devices = true\n"
-                      "store_path = \"./store/\"\n"
-                      "allowlist = []\n"
-                      "blocklist = []\n"
-                     )
+    default_values = (
+        "[simplematrixbotlib.config]\n"
+        "join_on_invite = true\n"
+        f"encryption_enabled = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
+        "emoji_verify = false\n"
+        "ignore_unverified_devices = true\n"
+        "store_path = \"./store/\"\n"
+        "allowlist = []\n"
+        "blocklist = []\n")
     assert os.path.isfile(tmp_file)
     with open(tmp_file, 'r') as f:
         assert f.read() == default_values

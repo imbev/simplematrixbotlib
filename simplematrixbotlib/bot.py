@@ -43,15 +43,16 @@ class Bot:
     async def main(self):
         self.creds.session_read_file()
 
-        if not (await botlib.api.check_valid_homeserver(self.creds.homeserver)):
+        if not (await botlib.api.check_valid_homeserver(self.creds.homeserver
+                                                        )):
             raise ValueError("Invalid Homeserver")
 
         await self.api.login()
 
         self.async_client = self.api.async_client
 
-        resp = await self.async_client.sync(timeout=65536,
-                                            full_state=False)  #Ignore prior messages
+        resp = await self.async_client.sync(timeout=65536, full_state=False
+                                            )  #Ignore prior messages
 
         if isinstance(resp, SyncResponse):
             print(
@@ -61,8 +62,7 @@ class Bot:
                 key = self.async_client.olm.account.identity_keys['ed25519']
                 print(
                     f"This bot's public fingerprint (\"Session key\") for one-sided verification is: "
-                    f"{' '.join([key[i:i+4] for i in range(0, len(key), 4)])}"
-                )
+                    f"{' '.join([key[i:i+4] for i in range(0, len(key), 4)])}")
 
         self.creds.session_write_file()
 
