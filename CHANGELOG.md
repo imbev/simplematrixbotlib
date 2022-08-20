@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.7.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.7.0)
+## [v2.7.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.7.0)
 ##  2022-08-20 a340933
 ###  Notes:
 - Encryption Support!
@@ -15,7 +15,7 @@
 ### Deprecations
 - None
 
-## [v2.6.4](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.4)
+## [v2.6.4](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.6.4)
 ##  2022-07-24 434de91
 ###  Notes:
 - Update dependencies
@@ -29,7 +29,7 @@
 ### Deprecations
 - None
 
-## [v2.6.3](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.3)
+## [v2.6.3](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.6.3)
 ##  2022-04-06 5f54f69
 ###  Notes:
 - The command matcher now has support for case-insensitive matches.  
@@ -42,7 +42,7 @@
 ### Deprecations
 - None
 
-## [v2.6.2](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.2)
+## [v2.6.2](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.6.2)
 ##  2022-02-26 c432a64
 ###  Notes:
 Fixes a potential security problem.
@@ -55,20 +55,20 @@ Fixes a potential security problem.
 ### Deprecations
 - None
 
-## [v2.6.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.1)
+## [v2.6.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.6.1)
 ### 2022-01-31 d2a3abe2
 ### Notes:
 Fixes a bug.
 ### Additions:
 - None
 ### Modifications:
-- Resolve issue [#129](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/129): "AttributeError: 'Bot' object has no attribute '_need_allow_homeserver_users'"
+- Resolve issue [#129](https://github.com/i10b/simplematrixbotlib/issues/129): "AttributeError: 'Bot' object has no attribute '_need_allow_homeserver_users'"
 ### Removals:
 - None
 ### Deprecations:
 - None
 
-## [v2.6.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.6.0)
+## [v2.6.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.6.0)
 ### 2022-01-07 46a7be43
 ### Notes:
 Example usage is shown below:
@@ -108,19 +108,19 @@ bot.run()
 - None
 ### Deprecations:
 - None
-## [v2.5.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.5.1)
+## [v2.5.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.5.1)
 ### 2021-12-19 c0e39efa
 ### Notes:
 None
 ### Additions:
 - None
 ### Modifications:
-- Fixed [#101](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/issues/101) 'Api' object has no attribute 'async_client' 
+- Fixed [#101](https://github.com/i10b/simplematrixbotlib/issues/101) 'Api' object has no attribute 'async_client'
 ### Removals:
 - None
 ### Deprecations:
 - None
-## [v2.5.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.5.0)
+## [v2.5.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.5.0)
 ### 2021-12-17 f636926c
 ### Notes:
 Version 2.5.0 adds improvements to the config feature. A thank you to HarHarLinks for their contributions to version 2.5.0!
@@ -134,7 +134,7 @@ Version 2.5.0 adds improvements to the config feature. A thank you to HarHarLink
 - None
 ### Deprecations:
 - None
-## [v2.4.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.4.1)
+## [v2.4.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.4.1)
 ### 2021-12-03 e5d6cbd7
 ### Notes:
 Example usage is shown below:
@@ -164,7 +164,7 @@ A thank you to HarHarLinks for their contributions to version 2.4.1!
 - None
 ### Deprecations:
 - None
-## [v2.4.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.4.0)
+## [v2.4.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.4.0)
 ### 2021-11-25 ad463210
 ### Notes:
 Version 2.4.0 provides several new features and a fix. A thank you to HarHarLinks for their contributions to version 2.4.0!
@@ -198,7 +198,7 @@ bot.run()
 - None
 ### Deprecations:
 - None
-## [v2.3.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.3.0)
+## [v2.3.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.3.0)
 ### 2021-11-18 cda56a46
 ### Notes:
 Version 2.3.0 adds support for additional configuration via config files and other methods. Currently, there is only one setting that can be changed, however many existing and future features will be able to be enabled or disabled via this config.
@@ -244,7 +244,7 @@ join_on_invite = false
 - None
 ### Deprecations:
 - None
-## [v2.2.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.2.0)
+## [v2.2.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.2.0)
 ### 2021-11-08 96b120e9
 In addition to username/access_token, it is possible to authenticate using username/password and login(SSO) token.
 Example usage is shown below:
@@ -291,7 +291,7 @@ bot.run()
 - None
 ### Deprecations:
 - None
-## [v2.1.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.1.0)
+## [v2.1.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.1.0)
 ### 2021-08-27 29b70539
 ### Notes:
 Example usage is shown below:
@@ -309,7 +309,7 @@ bot = botlib.Bot(creds)
 async def hello_world_md(room, message):
     match = botlib.MessageMatch(room, message, bot)
 
-    markdown_message = "# Hello World from [simplematrixbotlib](https://github.com/KrazyKirby99999/simple-matrix-bot-lib)!"
+    markdown_message = "# Hello World from [simplematrixbotlib](https://github.com/i10b/simplematrixbotlib)!"
     if match.is_not_from_this_bot():
 
         await bot.api.send_markdown_message(
@@ -327,7 +327,7 @@ bot.run()
 - None
 ### Deprecations:
 - None
-## [v2.0.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v2.0.0)
+## [v2.0.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.0.0)
 ### 2021-08-24 bdd767bb
 ### Notes:
 The second major version of the simplematrixbotlib package has been released.
@@ -376,7 +376,7 @@ bot.run()
 - `Bot.add_startup_action`
 ### Deprecations:
 - None
-## [v1.6.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.6.1)
+## [v1.6.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.6.1)
 ### 2021-08-07 3ef235e4
 ### Notes:
 Final release of v1
@@ -388,7 +388,7 @@ Final release of v1
 - None
 ### Deprecations:
 - None
-## [v1.6.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.6.0)
+## [v1.6.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.6.0)
 ### 2021-08-01 1e2d5f9
 ### Notes:
 None
@@ -400,7 +400,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.5.3](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.5.3)
+## [v1.5.3](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.5.3)
 ### 2021-07-31 adcf81dc
 ### Notes:
 None
@@ -412,7 +412,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.5.2](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.5.2)
+## [v1.5.2](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.5.2)
 ### 2021-07-10 f5051ceb
 ### Notes:
 None
@@ -424,7 +424,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.5.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.5.1)
+## [v1.5.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.5.1)
 ### 2021-06-15 4f5cb8f1
 ### Notes:
 No changes to functionality or API
@@ -436,7 +436,7 @@ No changes to functionality or API
 - None
 ### Deprecations:
 - None
-## [v1.5.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.5.0)
+## [v1.5.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.5.0)
 ### 2021-06-14 039ceef4
 ### Notes:
 None
@@ -448,7 +448,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.4.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.4.0)
+## [v1.4.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.4.0)
 ### 2021-06-14 8da3a618
 ### Notes:
 None
@@ -461,7 +461,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.3.3](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.3.3)
+## [v1.3.3](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.3.3)
 ### 2021-06-11 9e382067
 ### Notes:
 None
@@ -474,7 +474,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.3.2](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.3.2)
+## [v1.3.2](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.3.2)
 ### 2021-06-08 7db56306
 ### Notes:
 None
@@ -486,7 +486,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.3.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.3.1)
+## [v1.3.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.3.1)
 ### 2021-06-07 aef4748a
 ### Notes:
 None
@@ -498,7 +498,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.3.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.3.0)
+## [v1.3.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.3.0)
 ### 2021-06-07 08cf8897
 ### Notes:
 None
@@ -510,7 +510,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.2.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.2.0)
+## [v1.2.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.2.0)
 ### 2021-06-06 94786fd7
 ### Notes:
 None
@@ -523,7 +523,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.1.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.1.0)
+## [v1.1.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.1.0)
 ### 2021-06-05 6f74ce1b
 ### Notes:
 None
@@ -536,7 +536,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.0.1](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.0.1)
+## [v1.0.1](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.0.1)
 ### 2021-06-04 6640e325
 ### Notes:
 None
@@ -548,7 +548,7 @@ None
 - None
 ### Deprecations:
 - None
-## [v1.0.0](https://github.com/KrazyKirby99999/simple-matrix-bot-lib/releases/tag/v1.0.0)
+## [v1.0.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v1.0.0)
 ### 2021-06-04 1197bda4
 ### Notes:
 Initial Release
