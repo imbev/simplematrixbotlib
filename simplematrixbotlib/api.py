@@ -104,14 +104,14 @@ class Api:
                 raise ValueError("Given Matrix ID (username) does not match the access token. "
                                  "This error prevents you from accidentally using the wrong account. "
                                  "Resolve this by providing the correct username with your credentials, "
-                                 f"or reset your session by deleting {self.bot.creds._session_stored_file}"
-                                 f"{' and ' + self.bot.config.store_path if self.config.encryption_enabled else ''}.")
+                                 f"or reset your session by deleting {self.creds._session_stored_file}"
+                                 f"{' and ' + self.config.store_path if self.config.encryption_enabled else ''}.")
             elif device_id != self.creds.device_id:
                 if self.config.encryption_enabled:
                     raise ValueError("Given device ID (session ID) does not match the access token. "
                                      "This is critical, because it may break your verification status unintentionally. "
                                      "Fix this by providing the correct credentials matching the stored session "
-                                     f"{self.bot.creds._session_stored_file}.")
+                                     f"{self.creds._session_stored_file}.")
                 else:
                     print("Loaded device ID (session ID) does not match the access token. "
                           "Recovering automatically...")
