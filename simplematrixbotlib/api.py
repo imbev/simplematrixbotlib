@@ -11,6 +11,7 @@ import os
 import markdown
 import aiohttp
 from typing import List, Tuple
+import re
 
 
 async def check_valid_homeserver(homeserver: str) -> bool:
@@ -31,11 +32,16 @@ async def check_valid_homeserver(homeserver: str) -> bool:
 
 
 def split_mxid(mxid: str) -> Tuple[str, str]:
-    s = mxid.split(':')
-    if len(s) != 2 or s[0][0] != '@':
+    # s = mxid.split(':')
+    # if len(s) != 2 or s[0][0] != '@':
+    #     return None, None
+    # s[0] = s[0][1:]
+    match = re.match(
+        r'@(?P<localpart>.*):(?P<hostname>(?P<ipv4>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(?P<ipv6>\[[\da-fA-F:.]{2,45}\])|(?P<dns>[a-zA-Z\d\-.]{1,255}))(?P<port>:\d{1,5})?',
+        mxid)
+    if match is None:
         return None, None
-    s[0] = s[0][1:]
-    return s
+    return match.group('localpart'), match.group('hostname')
 
 
 class Api:
@@ -129,7 +135,8 @@ class Api:
                     self.creds.device_id, self.async_client.device_id = (user_id, user_id)
                     self.creds.session_write_file()
 
-            self.async_client.load_store()
+            if self.config.encryption_enabled:
+                self.async_client.load_store()
 
         else:
             if self.creds.password:
