@@ -110,14 +110,12 @@ class Api:
                 if self.config.encryption_enabled:
                     raise ValueError("Given device ID (session ID) does not match the access token. "
                                      "This is critical, because it may break your verification status unintentionally. "
-                                     "Fix this by providing the correct username with your credentials.")
+                                     "Fix this by providing the correct credentials matching the stored session "
+                                     f"{self.bot.creds._session_stored_file}.")
                 else:
                     print("Loaded device ID (session ID) does not match the access token. "
                           "Recovering automatically...")
                     self.creds.session_write_file()
-
-            assert (self.async_client.device_id, self.creds.device_id) == (device_id, device_id)
-            assert (self.async_client.user_id, self.creds.username) == (user_id, user_id)
 
             self.async_client.load_store()
 
