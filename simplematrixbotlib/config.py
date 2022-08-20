@@ -43,7 +43,7 @@ class Config:
 
     _join_on_invite: bool = True
     _encryption_enabled: bool = ENCRYPTION_ENABLED
-    _emoji_verify: bool = False  # So users enable it are aware of required interactivity
+    _emoji_verify: bool = False  # So users who enable it are aware of required interactivity
     _ignore_unverified_devices: bool = True  # True by default in Element
     # TODO: auto-ignore/auto-blacklist devices/users
     # _allowed_unverified_devices etc

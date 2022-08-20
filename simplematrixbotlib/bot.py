@@ -38,6 +38,7 @@ class Bot:
         self.api = botlib.Api(self.creds, self.config)
         self.listener = botlib.Listener(self)
         self.async_client: AsyncClient = None
+        self.callbacks: botlib.Callbacks = None
 
     async def main(self):
         self.creds.session_read_file()
