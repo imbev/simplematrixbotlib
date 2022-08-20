@@ -1,7 +1,7 @@
 ### Requirements
 
 End-to-end encryption support requires some additional dependencies to be installed, namely the `e2e` extra of `matrix-nio`.
-In turn, `matrix-nio[e2e]` requires [`libolm`](https://gitlab.matrix.org/matrix-org/olm) version 3.0.0 or newer.
+In turn, `matrix-nio[e2e]` requires [libolm](https://gitlab.matrix.org/matrix-org/olm) version 3.0.0 or newer.
 You can install it using you distribution's package manager or from source.
 
 [![](https://img.shields.io/static/v1?style=flat-square&label=Ubuntu&message=libolm-dev&color=limegreen)](https://ubuntu.pkgs.org/22.04/ubuntu-universe-amd64/libolm-dev_3.2.10~dfsg-6ubuntu1_amd64.deb.html)
@@ -9,7 +9,7 @@ You can install it using you distribution's package manager or from source.
 [![](https://img.shields.io/static/v1?style=flat-square&label=Arch%20Linux&message=libolm&color=limegreen)](https://archlinux.pkgs.org/rolling/archlinux-community-x86_64/libolm-3.2.12-1-x86_64.pkg.tar.zst.html)
 [![](https://img.shields.io/static/v1?style=flat-square&label=CentOS&message=libolm-devel&color=limegreen)](https://centos.pkgs.org/8/epel-x86_64/libolm-devel-3.2.10-1.el8.x86_64.rpm.html)
 [![](https://img.shields.io/static/v1?style=flat-square&label=Fedora&message=libolm-devel&color=limegreen)](https://fedora.pkgs.org/36/fedora-x86_64/libolm-devel-3.2.10-2.fc36.x86_64.rpm.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=openSUSE&message=olm-devel&color=limegreen)](https://opensuse.pkgs.org/tumbleweed/opensuse-oss-x86_64/libolm3-3.2.12-1.1.x86_64.rpm.html)
+[![](https://img.shields.io/static/v1?style=flat-square&label=openSUSE&message=olm-devel&color=limegreen)](https://opensuse.pkgs.org/tumbleweed/opensuse-oss-x86_64/olm-devel-3.2.12-1.1.x86_64.rpm.html)
 
 More information is available at [matrix-nio](https://github.com/poljar/matrix-nio#installation).
 
