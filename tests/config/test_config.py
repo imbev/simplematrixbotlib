@@ -5,6 +5,7 @@ import simplematrixbotlib as botlib
 import os.path
 import re
 from dataclasses import dataclass
+from nio.crypto import ENCRYPTION_ENABLED
 
 sample_config_path = os.path.join(
     pathlib.Path(__file__).parent, 'sample_config_files')
@@ -34,6 +35,10 @@ def test_defaults():
     assert config.join_on_invite
     assert config.allowlist == set()
     assert config.blocklist == set()
+    assert config.encryption_enabled == ENCRYPTION_ENABLED
+    assert config.emoji_verify == False
+    assert config.ignore_unverified_devices
+    assert config.store_path == "./store/" and os.path.isdir(config.store_path)
 
     config = SimpleConfig()
     assert config.simple_setting == "Default"
@@ -51,6 +56,10 @@ def test_read_toml():
         map(re.compile, ['.*:example\\.org', '@test:matrix\\.org']))
     assert set(config.blocklist) == set(
         map(re.compile, ['@test2:example\\.org']))
+    assert config.encryption_enabled
+    assert config.emoji_verify
+    assert config.store_path == "./session/" and os.path.isdir(config.store_path)
+    assert not config.ignore_unverified_devices
 
     config = botlib.Config()
     # load defaults
@@ -92,8 +101,13 @@ def test_write_toml():
 
     default_values = ("[simplematrixbotlib.config]\n"
                       "join_on_invite = true\n"
+                      f"encryption_enabled = {'true' if ENCRYPTION_ENABLED else 'false'}\n"
+                      "emoji_verify = false\n"
+                      "ignore_unverified_devices = true\n"
+                      "store_path = \"./store/\"\n"
                       "allowlist = []\n"
-                      "blocklist = []\n")
+                      "blocklist = []\n"
+                     )
     assert os.path.isfile(tmp_file)
     with open(tmp_file, 'r') as f:
         assert f.read() == default_values
@@ -124,6 +138,16 @@ def test_manual_set():
 
     config.join_on_invite = False
     assert not config.join_on_invite
+
+    config.encryption_enabled = False
+    config.emoji_verify = True
+    assert not config.emoji_verify
+
+    config.ignore_unverified_devices = False
+    assert config.ignore_unverified_devices
+    config.encryption_enabled = True
+    config.ignore_unverified_devices = False
+    assert not config.ignore_unverified_devices
 
     config = botlib.Config()
     config.allowlist = {'.*:example\\.org'}

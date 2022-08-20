@@ -1,14 +1,13 @@
-### How to use the Config class
 The Config class is a class that handles whether certain features are enabled or disabled.
 The source is located at simplematrixbotlib/config.py
 
-#### Creating an instance of the Config class
+### Creating an instance of the Config class
 An instance can be created using the following python code.
 ```python
 config = botlib.Config()
 ```
 
-#### Built-in Values
+### Built-in Values
 
 The following Config values are may implement validation logic.
 They can be interacted with as if they were public member variables:
@@ -19,22 +18,46 @@ print(config.join_on_invite)
 
 See also: [Additional Methods](#additional-methods)
 
-##### `join_on_invite`
+#### `join_on_invite`
 Boolean: whether the bot accepts all invites automatically.
 
-##### `allowlist`
+#### `encryption_enabled`
+Boolean: whether to enable encryption.
+Other settings depend on the value of this setting, e.g. setting encryption to false will also set `emoji_verify` to false.
+Encryption requires additional encryption-specific dependencies to be installed.
+
+#### `emoji_verify`
+Boolean: whether the bot's built-in emoji verification callback should be enabled.
+Requires encryption to be enabled.
+Learn more at [Interactive SAS verification using Emoji](#interactive-sas-verification-using-emoji).
+
+#### `ignore_unverified_devices`
+Boolean: whether to automatically ignore unverified devices in order to send encrypted messages to them without verifying.
+See [Encryption Configuration Options](#configuration-options) to learn more about the different trust states, including ignoring.
+When encryption is not enabled, messages will always be sent to all devices.
+
+#### `store_path`
+String: path in the filesystem where the crypto-session gets stored.
+Can be relative (`./store/`) or absolute (`/home/example`).
+Needs to be readable and writable by the bot.
+
+#### `allowlist`
 List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are allowed to send commands to the bot.
 Defaults to allow everyone on the bot's homeserver.
-If the list is non-empty, user IDs that are not on it are blocked. Thus to allow anybody, set it to `[]`. You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly. **IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
+If the list is non-empty, user IDs that are not on it are blocked.
+Thus to allow anybody, set it to `[]`.
+You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+**IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
 
-##### `blocklist`
+#### `blocklist`
 List of strings: [Regular expressions](https://docs.python.org/3/library/re.html) of matrix user IDs who are not allowed to send commands to the bot.
 Defaults to empty, blocking nobody.
 Blocks user IDs on it if non-empty, even overriding the `allowlist`.
-For example: this way it is possible to allow all users from a homesever, but block single ones.
-You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly. **IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
+For example: this way it is possible to allow all users from a homeserver, but block single ones.
+You can check using `Match.is_from_allowed_user` if the sender of a command is allowed to use the bot and act accordingly.
+**IMPORTANT**: This only applies to `Match.is_from_allowed_user`!
 
-#### Additional methods
+### Additional methods
 Configuration settings can additionally be manipulated in special ways using the following methods.
 
 | Method                   | Description                                                                            |
@@ -44,7 +67,7 @@ Configuration settings can additionally be manipulated in special ways using the
 | `add_blocklist(list)`    | Merge this list into the list of users who are disallowed to interact with the bot.    |
 | `remove_blocklist(list)` | Subtract this list from the list of users who are disallowed to interact with the bot. |
 
-#### Loading and saving config values
+### Loading and saving config values
 Configuration settings can be set to values read from a file using the following python code.
 ```python
 config.load_toml("config.toml")
@@ -66,7 +89,7 @@ config.save_toml("config.toml")
 
 Example configuration files for each file format can be under the examples section of the documentation. An example of a toml config file can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-config-file-in-toml-format).
 
-#### Extending the Config class with custom settings
+### Extending the Config class with custom settings
 
 The Config class is designed to be easily extensible with any custom field you may need for your specific bot.
 This allows you to simply add your settings to the existing bot config file, right next to the other settings.

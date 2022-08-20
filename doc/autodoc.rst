@@ -18,7 +18,7 @@ Bot
     :undoc-members:
 
 Listener
----
+--------
 
 .. autoclass:: simplematrixbotlib.Listener
     :members:
@@ -35,5 +35,13 @@ Api
 -----
 
 .. autoclass:: simplematrixbotlib.Api
+    :members:
+    :undoc-members:
+
+
+Config
+-----
+
+.. autoclass:: simplematrixbotlib.Config
     :members:
     :undoc-members:

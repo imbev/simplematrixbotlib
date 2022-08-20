@@ -2,7 +2,7 @@ import asyncio
 import sys
 from typing import Optional
 import simplematrixbotlib as botlib
-from nio import SyncResponse
+from nio import SyncResponse, AsyncClient
 
 
 class Bot:
@@ -29,41 +29,46 @@ class Bot:
         """
 
         self.creds = creds
-        self.api = botlib.Api(self.creds)
         if config:
             self.config = config
             self._need_allow_homeserver_users = False
         else:
             self._need_allow_homeserver_users = True
             self.config = botlib.Config()
+        self.api = botlib.Api(self.creds, self.config)
         self.listener = botlib.Listener(self)
+        self.async_client: AsyncClient = None
+        self.callbacks: botlib.Callbacks = None
 
     async def main(self):
-
         self.creds.session_read_file()
 
-        if not (await self.api.check_valid_homeserver(self.creds.homeserver)):
+        if not (await botlib.api.check_valid_homeserver(self.creds.homeserver)):
             raise ValueError("Invalid Homeserver")
 
         await self.api.login()
 
         self.async_client = self.api.async_client
 
-        resp = await self.async_client.sync(timeout=65536, full_state=False
-                                            )  #Ignore prior messages
+        resp = await self.async_client.sync(timeout=65536,
+                                            full_state=False)  #Ignore prior messages
 
         if isinstance(resp, SyncResponse):
             print(
                 f"Connected to {self.async_client.homeserver} as {self.async_client.user_id} ({self.async_client.device_id})"
             )
+            if self.config.encryption_enabled:
+                key = self.async_client.olm.account.identity_keys['ed25519']
+                print(
+                    f"This bot's public fingerprint (\"Session key\") for one-sided verification is: "
+                    f"{' '.join([key[i:i+4] for i in range(0, len(key), 4)])}"
+                )
 
         self.creds.session_write_file()
 
         if self._need_allow_homeserver_users:
             # allow (only) users from our own homeserver by default
-            hs: str = self.api.async_client.user_id[self.api.async_client.
-                                                    user_id.index(":") +
-                                                    1:].replace('.', '\\.')
+            _, hs = botlib.api.split_mxid(self.api.async_client.user_id)
             self.config.allowlist = set([f"(.+):{hs}"])
 
         self.callbacks = botlib.Callbacks(self.async_client, self)
@@ -80,5 +85,4 @@ class Bot:
         Runs the bot.
 
         """
-
         asyncio.run(self.main())

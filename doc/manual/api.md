@@ -1,4 +1,3 @@
-### How to use the Api class
 The Api class is a class that is used to simplify interaction with the matrix-nio library that Simple-Matrix-Bot-Lib is built upon. The source is located at simplematrixbotlib/api.py
 
 ### Accessing an Api instance

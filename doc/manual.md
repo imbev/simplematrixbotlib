@@ -12,6 +12,10 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/import.md
 
+## E2E Encryption
+
+.. mdinclude:: manual/encryption.md
+
 ## Usage of Creds class
 
 .. mdinclude:: manual/creds.md
@@ -32,6 +36,6 @@ This is a manual for simplematrixbotlib that includes documentation, examples, a
 
 .. mdinclude:: manual/match.md
 
-## Usage of the Api class
+## Usage of Api class
 
 .. mdinclude:: manual/api.md

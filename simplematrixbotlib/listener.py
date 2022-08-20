@@ -9,7 +9,6 @@ class Listener:
         self._startup_registry = []
 
     def on_custom_event(self, event):
-
         def wrapper(func):
             if [func, event] in self._registry:
                 func()
@@ -25,7 +24,6 @@ class Listener:
             self._registry.append([func, RoomMessageText])
 
     def on_reaction_event(self, func):
-
         async def new_func(room, event):
             if event.type == "m.reaction":
                 await func(room, event,

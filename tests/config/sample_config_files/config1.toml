@@ -2,3 +2,7 @@
 join_on_invite = false
 allowlist = [".*:example\\.org", "@test:matrix\\.org"]
 blocklist = ["@test2:example\\.org"]
+encryption_enabled = true
+emoji_verify = true
+store_path = "./session/"
+ignore_unverified_devices = false

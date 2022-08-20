@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field, fields, asdict
+import os.path
 import toml
 import re
 from typing import Set, Union
+from nio.crypto import ENCRYPTION_ENABLED
 
 
 def _config_dict_factory(tmp) -> dict:
@@ -18,30 +20,41 @@ def _strip_leading_underscore(tmp: str) -> str:
     return tmp[1:] if tmp[0] == '_' else tmp
 
 
+def _check_set_regex(value: Set[str]) -> Union[Set[re.Pattern], None]:
+    new_list = set()
+    for v in value:
+        try:
+            tmp = re.compile(v)
+        except re.error:
+            print(
+                f"{v} is not a valid regular expression. Ignoring your list update."
+            )
+            return None
+        new_list.add(tmp)
+    return new_list
+
+
 @dataclass
 class Config:
+    """
+    A class to handle built-in user-configurable settings, including support for saving to and loading from a file.
+    Can be inherited from by bot developers to implement custom settings.
+    """
+
     _join_on_invite: bool = True
+    _encryption_enabled: bool = ENCRYPTION_ENABLED
+    _emoji_verify: bool = False  # So users who enable it are aware of required interactivity
+    _ignore_unverified_devices: bool = True  # True by default in Element
+    # TODO: auto-ignore/auto-blacklist devices/users
+    # _allowed_unverified_devices etc
+    _store_path: str = "./store/"
     _allowlist: Set[re.Pattern] = field(
         default_factory=set)  # TODO: default to bot's homeserver
     _blocklist: Set[re.Pattern] = field(default_factory=set)
 
-    def _check_set_regex(self,
-                         value: Set[str]) -> Union[Set[re.Pattern], None]:
-        new_list = set()
-        for v in value:
-            try:
-                tmp = re.compile(v)
-            except re.error:
-                print(
-                    f"{v} is not a valid regular expression. Ignoring your list update."
-                )
-                return None
-            new_list.add(tmp)
-        return new_list
-
     def _load_config_dict(self, config_dict: dict) -> None:
-        # TODO: make this into a factory, so defaults can be set based on loaded values?
-        # e.g. emoji_verify should default to enabled when encryption_enabled
+        # TODO: make this into a factory, so defaults for
+        # non-loaded values can be set based on loaded values?
         existing_fields = [
             _strip_leading_underscore(f.name) for f in fields(self)
         ]
@@ -75,6 +88,70 @@ class Config:
         self._join_on_invite = value
 
     @property
+    def encryption_enabled(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            Whether to enable encryption support.
+            Requires encryption-specific dependencies to be met, see install instructions.
+        """
+        return self._encryption_enabled
+
+    @encryption_enabled.setter
+    def encryption_enabled(self, value: bool) -> None:
+        # safeguards regarding ENCRYPTION_ENABLED are enforced by nio in ClientConfig
+        self._encryption_enabled = value
+        # update dependent values
+        self.emoji_verify = self.emoji_verify
+        self.ignore_unverified_devices = self.ignore_unverified_devices
+
+    @property
+    def emoji_verify(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            Whether emoji verification requests should be handled by the built in callback function
+        """
+        return self._emoji_verify
+
+    @emoji_verify.setter
+    def emoji_verify(self, value: bool) -> None:
+        self._emoji_verify = value and self.encryption_enabled
+
+    @property
+    def store_path(self) -> str:
+        """
+        Returns
+        -------
+        string
+            Where to store crypto-related data including keys
+        """
+        return self._store_path
+
+    @store_path.setter
+    def store_path(self, value: str) -> None:
+        # check if the path exists or can be created, throws an error otherwise
+        os.makedirs(value, mode=0o750, exist_ok=True)
+        self._store_path = value
+
+    @property
+    def ignore_unverified_devices(self) -> bool:
+        """
+        Returns
+        -------
+        boolean
+            If True, ignore that devices are not verified and send the message to them regardless.
+            If False, distrust unverified devices.
+        """
+        return self._ignore_unverified_devices
+
+    @ignore_unverified_devices.setter
+    def ignore_unverified_devices(self, value: bool) -> None:
+        self._ignore_unverified_devices = value if self.encryption_enabled else True
+
+    @property
     def allowlist(self) -> Set[re.Pattern]:
         """
         Returns
@@ -88,7 +165,7 @@ class Config:
 
     @allowlist.setter
     def allowlist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = checked
@@ -100,7 +177,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to allowlist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = self._allowlist.union(checked)
@@ -112,7 +189,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from allowlist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._allowlist = self._allowlist - checked
@@ -130,7 +207,7 @@ class Config:
 
     @blocklist.setter
     def blocklist(self, value: Set[str]) -> None:
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = checked
@@ -142,7 +219,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be added to blocklist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = self._blocklist.union(checked)
@@ -154,7 +231,7 @@ class Config:
         value : Set[str]
             A set of strings which represent Matrix IDs or a regular expression matching Matrix IDs to be removed from blocklist.
         """
-        checked = self._check_set_regex(value)
+        checked = _check_set_regex(value)
         if checked is None:
             return
         self._blocklist = self._blocklist - checked
