@@ -11,10 +11,11 @@ Learn how you can contribute [here](CONTRIBUTING.md).
 ## Features
 
 - [x] hands-off approach: get started with just 10 lines of code (see [example](#Example-Usage))
-- [x] end-to-end encryption support
-- [x] limited verification support (device only)
-- [x] easily extensible config file
-- [x] user access management
+- [x] [end-to-end encryption support](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#e2e-encryption)
+- [x] limited [verification support](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#verification) (device only)
+- [x] easily [extensible config file](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#extending-the-config-class-with-custom-settings)
+- [x] [user access management](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#allowlist)
+- [x] access the matrix-nio library to use advanced features
 
 ## Installation
 
@@ -26,34 +27,15 @@ Installation from PyPi:
 python -m pip install simplematrixbotlib
 ```
 
+[Read the docs](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#e2e-encryption) to learn how to install E2E encryption support.
+
 Download from github:
 
 ```
 git clone --branch master https://github.com/i10b/simplematrixbotlib.git
 ```
 
-### install encryption support
 
-The `e2e` extra of `matrix-nio` is required to support encrypted matrix rooms.
-In turn, `matrix-nio[e2e]` requires [`libolm`](https://gitlab.matrix.org/matrix-org/olm) version 3.0.0 or newer.
-You can install it using you distribution's package manager or from source.
-
-[![](https://img.shields.io/static/v1?style=flat-square&label=Ubuntu&message=libolm-dev&color=limegreen)](https://ubuntu.pkgs.org/22.04/ubuntu-universe-amd64/libolm-dev_3.2.10~dfsg-6ubuntu1_amd64.deb.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Debian&message=libolm-dev&color=limegreen)](https://debian.pkgs.org/11/debian-main-amd64/libolm-dev_3.2.1~dfsg-7_amd64.deb.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Arch%20Linux&message=libolm&color=limegreen)](https://archlinux.pkgs.org/rolling/archlinux-community-x86_64/libolm-3.2.12-1-x86_64.pkg.tar.zst.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=CentOS&message=libolm-devel&color=limegreen)](https://centos.pkgs.org/8/epel-x86_64/libolm-devel-3.2.10-1.el8.x86_64.rpm.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=Fedora&message=libolm-devel&color=limegreen)](https://fedora.pkgs.org/36/fedora-x86_64/libolm-devel-3.2.10-2.fc36.x86_64.rpm.html)
-[![](https://img.shields.io/static/v1?style=flat-square&label=openSUSE&message=olm-devel&color=limegreen)](https://opensuse.pkgs.org/tumbleweed/opensuse-oss-x86_64/olm-devel-3.2.12-1.1.x86_64.rpm.html)
-
-More information is available at [matrix-nio](https://github.com/poljar/matrix-nio#installation).
-
-Finally, install e2e support for matrix-nio by running:
-
-```
-python -m pip install matrix-nio[e2e]
-```
-
-If there are issues installing the e2e extra with pip from PyPI, additional packages may be required to build python-olm on your distribution, for example python3-devel on openSUSE.
 
 ## Example Usage
 
