@@ -20,6 +20,7 @@ See also: [Additional Methods](#additional-methods)
 
 #### `join_on_invite`
 Boolean: whether the bot accepts all invites automatically.
+When `allowlist` or `blocklist` are set, the bot will reject invites from any user that is not allowed.
 
 #### `encryption_enabled`
 Boolean: whether to enable encryption.

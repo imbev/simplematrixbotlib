@@ -2,6 +2,7 @@ import nio.events.room_events
 import nio.events.to_device
 from nio import InviteMemberEvent
 from nio import MegolmEvent, KeyVerificationStart, KeyVerificationCancel, KeyVerificationKey, KeyVerificationMac, ToDeviceError, KeyVerificationEvent
+from simplematrixbotlib.match import Match
 
 
 class Callbacks:
@@ -59,8 +60,13 @@ class Callbacks:
             return
 
         try:
-            await self.async_client.join(room.room_id)
-            print(f"Joined {room.room_id}")
+            match = Match(room, event, self.bot)
+            if match.is_from_allowed_user():
+                await self.async_client.join(room.room_id)
+                print(f"Joined {room.room_id}")
+            else:
+                await self.async_client.room_leave(room.room_id)
+                print(f"Rejected invite from user {event.sender} (user not allowed)")
         except Exception as e:
             print(f"Error joining {room.room_id}: {e}")
             tries += 1
