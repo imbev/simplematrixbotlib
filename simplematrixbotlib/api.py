@@ -10,7 +10,7 @@ import mimetypes
 import os
 import markdown
 import aiohttp
-from typing import List
+from typing import List, Tuple
 
 
 async def check_valid_homeserver(homeserver: str) -> bool:
@@ -28,6 +28,14 @@ async def check_valid_homeserver(homeserver: str) -> bool:
             return False
 
     return False
+
+
+def split_mxid(mxid: str) -> Tuple[str, str]:
+    s = mxid.split(':')
+    if len(s) != 2 or s[0][0] != '@':
+        return None, None
+    s[0] = s[0][1:]
+    return s
 
 
 class Api:
@@ -98,23 +106,27 @@ class Api:
                          response.text()).replace(":false,",
                                                   ":\"false\","))
                     device_id = r['device_id']
-                    user_id = r['user_id']
+                    self.async_client.user_id, user_id = (r['user_id'], r['user_id'])
 
-            if user_id != self.creds.username:
-                raise ValueError("Given Matrix ID (username) does not match the access token. "
+            if self.creds.username == split_mxid(user_id)[0]:
+                # save full MXID
+                self.creds.username = user_id
+            elif user_id != self.creds.username:
+                raise ValueError(f"Given Matrix ID (username) '{user_id}' does not match the access token. "
                                  "This error prevents you from accidentally using the wrong account. "
                                  "Resolve this by providing the correct username with your credentials, "
                                  f"or reset your session by deleting {self.creds._session_stored_file}"
                                  f"{' and ' + self.config.store_path if self.config.encryption_enabled else ''}.")
             elif device_id != self.creds.device_id:
                 if self.config.encryption_enabled:
-                    raise ValueError("Given device ID (session ID) does not match the access token. "
+                    raise ValueError(f"Given device ID (session ID) '{device_id}' does not match the access token. "
                                      "This is critical, because it may break your verification status unintentionally. "
                                      "Fix this by providing the correct credentials matching the stored session "
                                      f"{self.creds._session_stored_file}.")
                 else:
                     print("Loaded device ID (session ID) does not match the access token. "
                           "Recovering automatically...")
+                    self.creds.device_id, self.async_client.device_id = (user_id, user_id)
                     self.creds.session_write_file()
 
             self.async_client.load_store()

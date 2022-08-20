@@ -67,9 +67,7 @@ class Bot:
 
         if self._need_allow_homeserver_users:
             # allow (only) users from our own homeserver by default
-            hs: str = self.api.async_client.user_id[self.api.async_client.
-                                                    user_id.index(":") +
-                                                    1:].replace('.', '\\.')
+            _, hs = botlib.api.split_mxid(self.api.async_client.user_id)
             self.config.allowlist = set([f"(.+):{hs}"])
 
         self.callbacks = botlib.Callbacks(self.async_client, self)

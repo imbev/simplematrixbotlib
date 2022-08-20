@@ -82,7 +82,7 @@ class Callbacks:
         if not isinstance(event, MegolmEvent):
             return
 
-        print(f"Failed to decrypt message: {event.event_id} from {event.sender} in {room.room_id}."
+        print(f"Failed to decrypt message: {event.event_id} from {event.sender} in {room.room_id}. "
               "If this error persists despite verification, reset the crypto session by deleting "
               f"{self.bot.config.store_path} and {self.bot.creds._session_stored_file}. "
               "You will have to verify any verified devices anew.")
