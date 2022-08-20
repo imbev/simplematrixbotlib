@@ -10,7 +10,7 @@ import mimetypes
 import os
 import markdown
 import aiohttp
-from typing import List, Tuple
+from typing import List, Tuple, Union
 import re
 
 
@@ -31,7 +31,7 @@ async def check_valid_homeserver(homeserver: str) -> bool:
     return False
 
 
-def split_mxid(mxid: str) -> Tuple[str, str]:
+def split_mxid(mxid: str) -> Union[Tuple[str, str], Tuple[None, None]]:
     # s = mxid.split(':')
     # if len(s) != 2 or s[0][0] != '@':
     #     return None, None
