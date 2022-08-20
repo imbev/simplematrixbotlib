@@ -3,19 +3,18 @@
 # Examples
 
 ## A Basic Echo Bot
-
 .. literalinclude:: ../examples/echo.py
 
-## A "High-Five" Bot
+## An Echo Bot with Encryption and Verification Support
+.. literalinclude:: ../examples/echo_e2ee.py
 
+## A "High-Five" Bot
 .. literalinclude:: ../examples/high_fives.py
 
 ## A Rock Paper Scissors Bot
-
 .. literalinclude:: ../examples/rock_paper_scissors.py
 
 ## A Reaction Echo Bot
-
 .. literalinclude:: ../examples/echo_reaction.py
 
 ## Echo Bot within a Docker Container
