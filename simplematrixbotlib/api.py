@@ -307,3 +307,48 @@ class Api:
             await self._send_room(room_id=room_id, content=content)
         except:
             print(f"Failed to send image file {image_filepath}")
+
+    async def send_video_message(self, room_id, video_filepath):
+        """
+        Send a video message in a Matrix room.
+
+        Parameters
+        ----------
+        room_id : str
+            The room id of the destination of the message.
+
+        video_filepath : str
+            The path to the video on your machine.
+        """
+
+        mime_type = mimetypes.guess_type(video_filepath)[0]
+
+        file_stat = await aiofiles.os.stat(video_filepath)
+        async with aiofiles.open(video_filepath, "r+b") as file:
+            resp, maybe_keys = await self.async_client.upload(
+                file,
+                content_type=mime_type,
+                filename=os.path.basename(video_filepath),
+                filesize=file_stat.st_size)
+
+        if isinstance(resp, UploadResponse):
+            pass # Successful upload
+        else:
+            print(f"Failed Upload Response: {resp}")
+
+        content = {
+            "body": os.path.basename(video_filepath),
+            "info": {
+                "size": file_stat.st_size,
+                "mimetype": mime_type,
+                "thumbnail_info": None
+            },
+            "msgtype": "m.video",
+            "url": resp.content_uri
+        }
+        
+        try:
+            await self._send_room(room_id=room_id, content=content)
+        except:
+            print(f"Failed to send video file {video_filepath}")
+
