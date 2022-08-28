@@ -45,7 +45,7 @@ async def example(room, message):
             room_id=room.room_id, 
             video_filepath=example_video)
 ```
-Both arguments are required. The room_id argument is the id of the destination room. The video_filepath argument is a string that is the path to the image file that is to be sent as a message.
+Both arguments are required. The room_id argument is the id of the destination room. The video_filepath argument is a string that is the path to the video file that is to be sent as a message.
 
 
 ### Using the send_markdown_message method
