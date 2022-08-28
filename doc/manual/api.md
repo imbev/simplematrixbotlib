@@ -39,7 +39,7 @@ The send_video_message method of the Api class can be used to send video message
 ```python
 async def example(room, message):
     match = botlib.MessageMatch(room, message, bot)
-    example_image="./videos/example.mp4"
+    example_video="./videos/example.mp4"
     if match.is_not_from_this_bot():
         await bot.api.send_video_message(
             room_id=room.room_id, 
