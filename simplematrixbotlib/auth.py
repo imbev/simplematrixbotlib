@@ -111,6 +111,11 @@ class Creds:
         """
         Encrypts and writes to file the device_id and access_token.
         """
+
+        if not self._session_stored_file:
+            print('device_id and access_token will not be saved')
+            return
+
         if not (self.device_id and self.access_token):
             raise ValueError(
                 f"Can't save credentials: missing device ID '{self.device_id}' or access token '{self.access_token}'"
@@ -120,13 +125,9 @@ class Creds:
                 f"Can't save credentials: empty device ID '{self.device_id}' or access token '{self.access_token}'"
             )
 
-        if self._session_stored_file:
-            session_data = str([self.device_id, self.access_token])
+        session_data = str([self.device_id, self.access_token])
 
-            encrypted_session_data = fw.encrypt(session_data, self._key)
+        encrypted_session_data = fw.encrypt(session_data, self._key)
 
-            with open(self._session_stored_file, 'w') as f:
-                f.write(str(encrypted_session_data))
-
-        else:
-            print('device_id and access_token will not be saved')
+        with open(self._session_stored_file, 'w') as f:
+            f.write(str(encrypted_session_data))
