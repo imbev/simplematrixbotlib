@@ -1,6 +1,9 @@
 import pytest
 import simplematrixbotlib as botlib
 
+def test_temp():
+    # test woodpecker ci, will be removed
+    assert False
 
 def test_check_valid_homeserver():
     creds = botlib.Creds("https://example.com", "user", "pass")
