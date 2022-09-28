@@ -11,6 +11,6 @@ See [Encryption](#requirements) to lean how to install E2E encryption support.
 ### Installing from Git Repo
 Run the following command in your terminal or cmd prompt to download the repository to your machine.
 ```
-git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
+git clone --branch master https://codeberg.org/imbev/simplematrixbotlib.git
 ```
 The package is located under (current directory)/simple-matrix-bot-lib as simplematrixbotlib.

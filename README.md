@@ -3,7 +3,7 @@
 
 Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
-[View on Github](https://github.com/i10b/simplematrixbotlib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
+[View Codeberg Repo](https://codeberg.org/imbev/simplematrixbotlib) ([Github Mirror](https://github.com/i10b/simplematrixbotlib)) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
 [View docs on readthedocs.io](https://simple-matrix-bot-lib.readthedocs.io/en/latest/)
 
 Learn how you can contribute [here](CONTRIBUTING.md).
@@ -29,10 +29,10 @@ python -m pip install simplematrixbotlib
 
 [Read the docs](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#e2e-encryption) to learn how to install E2E encryption support.
 
-Download from github:
+Download from git repository:
 
 ```
-git clone --branch master https://github.com/i10b/simplematrixbotlib.git
+git clone --branch master https://codeberg.org/imbev/simplematrixbotlib.git
 ```
 
 
