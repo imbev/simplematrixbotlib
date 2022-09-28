@@ -1,0 +1,17 @@
+pipeline:
+  testing:
+    image: python:3.8-slim
+    commands:
+      - echo "install dependencies"
+      - python3 -m pip install poetry
+      - python3 -m poetry install
+
+      - echo "run pytest"
+      - python3 -m poetry run python -m pytest -p no:sugar
+
+      - echo "run mypy"
+      - python3 -m poetry run mypy simplematrixbotlib --ignore-missing-imports
+
+      - echo "run bandit"
+      - python3 -m poetry run python -m bandit -r simplematrixbotlib
+
