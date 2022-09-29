@@ -105,4 +105,4 @@ async def echo(room, message):
 bot.run()
 ```
 
-Other examples can be found [here](examples/README.md).
+Other examples can be found [here](examples.md).
