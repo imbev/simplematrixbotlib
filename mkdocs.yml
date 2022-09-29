@@ -9,16 +9,16 @@ plugins:
 nav:
     - Getting Started: 
       - Quickstart: quickstart.md
+      - Setup: manual/setup.md
       - Examples: examples.md
     - Reference:
       - Api: manual/api.md
       - Bot: manual/bot.md
       - Config: manual/config.md
       - Creds: manual/creds.md
-      - Encryption: manual/encryption.md
-      - Setup: manual/setup.md
       - Listener: manual/listener.md
       - Match: manual/match.md
+      - Encryption: manual/encryption.md
     - Source Code: 
       - Codeberg: https://codeberg.org/imbev/simplematrixbotlib
       - Github (Mirror): https://github.com/i10b/simplematrixbotlib
