@@ -1,3 +1,5 @@
+# Encryption
+
 ### Requirements
 
 End-to-end encryption support requires some additional dependencies to be installed, namely the `e2e` extra of `matrix-nio`.

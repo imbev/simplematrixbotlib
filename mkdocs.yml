@@ -1,0 +1,24 @@
+site_name: simplematrixbotlib
+site_description: Documentation for simplematrixbotlib, a Python 3 library for quickly building Matrix bots. It is based on the matrix-nio Python library.
+site_url: https://simplematrixbotlib.readthedocs.io
+
+theme: readthedocs
+plugins:
+  - codeinclude
+
+nav:
+    - Getting Started: 
+      - Quickstart: quickstart.md
+      - Examples: examples.md
+    - Reference:
+      - Api: manual/api.md
+      - Bot: manual/bot.md
+      - Config: manual/config.md
+      - Creds: manual/creds.md
+      - Encryption: manual/encryption.md
+      - Setup: manual/setup.md
+      - Listener: manual/listener.md
+      - Match: manual/match.md
+    - Source Code: 
+      - Codeberg: https://codeberg.org/imbev/simplematrixbotlib
+      - Github (Mirror): https://github.com/i10b/simplematrixbotlib

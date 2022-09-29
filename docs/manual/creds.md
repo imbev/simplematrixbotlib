@@ -1,3 +1,5 @@
+# Creds Class
+
 The Creds class is a class that handles login credentials. The source is located at simplematrixbotlib/auth.py.
 
 ### Creating an instance of the Creds class

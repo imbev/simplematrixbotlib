@@ -1,3 +1,5 @@
+# Config Class
+
 The Config class is a class that handles whether certain features are enabled or disabled.
 The source is located at simplematrixbotlib/config.py
 
