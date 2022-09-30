@@ -1,9 +1,5 @@
 # Quickstart
 
-[View on Codeberg](https://codeberg.org/imbev/simplematrixbotlib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/)
-
-
-
 ### Install the simplematrixbotlib package
 Installation from pip:
 ```
