@@ -1,3 +1,5 @@
+# Listener Class
+
 The Listener class is a class that is used to specify reactions to the events that occur in Matrix rooms. The source is located at simplematrixbotlib/listener.py
 
 ### Accessing a Listener instance
@@ -64,7 +66,7 @@ async def example(room, event):
 ```
 The on_custom_event method is almost identical to the on_message_event method. on_custom_event takes an argument that allows the developer to specify the event type for the Bot to respond to. Information on events can be found in the [matrix-nio docs](https://matrix-nio.readthedocs.io/en/latest/nio.html#module-nio.events).
 
-#### Using the on_startup decorator
+### Using the on_startup decorator
 The on_startup method of the Listener class may be used to execute actions upon the starting of the Bot. Example usage of the on_startup method is show in the following python code.
 ```python
 @bot.listener.on_startup

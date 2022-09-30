@@ -1,3 +1,5 @@
+# Bot Class
+
 The Bot class is a class that handles most of the functionality of a bot created with Simple-Matrix-Bot-Lib. The source is located at simplematrixbotlib/bot.py.
 
 ### Creating an instance of the Bot class

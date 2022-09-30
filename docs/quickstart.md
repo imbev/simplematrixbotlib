@@ -1,39 +1,36 @@
-.. _quickstart:
-
 # Quickstart
 
-[View on Github](https://github.com/KrazyKirby99999/simple-matrix-bot-lib) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/)
-
 ### Install the simplematrixbotlib package
-Simple-Matrix-Bot-Lib's package is simplematrixbotlib. It can be installed from pip or downloaded from github.<br>
 Installation from pip:
 ```
-python -m pip install simplematrixbotlib
+python3 -m pip install simplematrixbotlib
 ```
-Download from github:
+Download git repository:
 ```
-git clone --branch master https://github.com/KrazyKirby99999/simple-matrix-bot-lib.git
+git clone https://codeberg.org/imbev/simplematrixbotlib.git
 ```
 
 ### Obtain Matrix login credentials
-Go to https://app.element.io/#/register
+1. Go to [Element Web](https://app.element.io/#/register)
 
-If you are already using element web, then you may want to use a private session in your browser.
+2. If you are already using element web, then you may want to use a private session in your browser.
 
-Change the homeserver if you prefer, and enter a new username, password, and/or email into the respective fields.
+3. Change the homeserver if you prefer, and enter a new username, password, and/or email into the respective fields.
 
-Save the homeserver, username, and password at a safe location, then complete the captcha.
+4. Save the homeserver, username, and password at a safe location, then complete the captcha.
 
 Your bot's login credentials should resemble the following:
 
+```txt
 homeserver: https://example.com
 
 username: example_bot
 
 password: secretpassword
+```
 
 ### Create the bot
-(Finished example code will be provided in full at the bottom)
+(The example source code will be provided in full at the bottom)
 
 Begin by importing the package.
 ```python
@@ -104,4 +101,4 @@ async def echo(room, message):
 bot.run()
 ```
 
-Other examples can be found [here](examples.html).
+Other examples can be found [here](examples.md).

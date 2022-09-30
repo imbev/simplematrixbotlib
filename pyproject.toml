@@ -6,7 +6,7 @@ authors = ["krazykirby99999 <krazykirby99999@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/KrazyKirby99999/simple-matrix-bot-lib"
-documentation = "https://simple-matrix-bot-lib.readthedocs.io/en/latest/"
+documentation = "https://simplematrixbotlib.readthedocs.io"
 keywords = [
     "simple",
     "matrix",
@@ -43,6 +43,11 @@ types-aiofiles = "^0.7.0"
 types-toml = "^0.10.1"
 yapf = "^0.32.0"
 pytest-github-actions-annotate-failures = "^0.1.6"
+
+[tool.poetry.group.dev.dependencies]
+mkdocs = "^1.4.0"
+mkdocs-codeinclude-plugin = "^0.2.0"
+Jinja2 = "3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
