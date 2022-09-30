@@ -4,17 +4,17 @@
 Simple-Matrix-Bot-Lib is a Python bot library for the Matrix ecosystem built on [matrix-nio](https://github.com/poljar/matrix-nio).
 
 [View Codeberg Repo](https://codeberg.org/imbev/simplematrixbotlib) ([Github Mirror](https://github.com/i10b/simplematrixbotlib)) or [View on PyPi](https://pypi.org/project/simplematrixbotlib/) or
-[View docs on readthedocs.io](https://simple-matrix-bot-lib.readthedocs.io/en/latest/)
+[View docs on readthedocs.io](https://simplematrixbotlib.readthedocs.io)
 
 Learn how you can contribute [here](CONTRIBUTING.md).
 
 ## Features
 
 - [x] hands-off approach: get started with just 10 lines of code (see [example](#Example-Usage))
-- [x] [end-to-end encryption support](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#e2e-encryption)
-- [x] limited [verification support](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#verification) (device only)
-- [x] easily [extensible config file](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#extending-the-config-class-with-custom-settings)
-- [x] [user access management](https://simple-matrix-bot-lib.readthedocs.io/en/latest/manual.html#allowlist)
+- [x] [end-to-end encryption support](https://simplematrixbotlib.readthedocs.io/en/latest/manual/encryption)
+- [x] limited [verification support](https://simplematrixbotlib.readthedocs.io/en/latest/manual/encryption#verification) (device only)
+- [x] easily [extensible config file](https://simplematrixbotlib.readthedocs.io/en/latest/manual/config/#extending-the-config-class-with-custom-settings)
+- [x] [user access management](https://simplematrixbotlib.readthedocs.io/en/latest/manual/config#allowlist)
 - [x] access the matrix-nio library to use advanced features
 
 ## Installation

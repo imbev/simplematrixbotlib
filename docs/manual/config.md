@@ -89,7 +89,7 @@ config.save_toml("config.toml")
 |--------|-------------------|
 | TOML   | `save_toml(file)` |
 
-Example configuration files for each file format can be under the examples section of the documentation. An example of a toml config file can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-config-file-in-toml-format).
+Example configuration files for each file format can be under the examples section of the documentation. An example of a toml config file can be found [here](https://simplematrixbotlib.readthedocs.io/en/latest/examples/#bot-config-file-in-toml-format_2).
 
 ### Extending the Config class with custom settings
 
@@ -152,4 +152,4 @@ config.load_toml('config.toml')
 bot = botlib.Bot(creds, config)
 ```
 
-A complete example implementation of a custom Config class can be found [here](https://simple-matrix-bot-lib.readthedocs.io/en/latest/examples.html#bot-using-custom-option-config-file).
+A complete example implementation of a custom Config class can be found [here](https://simplematrixbotlib.readthedocs.io/en/latest/examples/#bot-using-custom-option-config-file).
