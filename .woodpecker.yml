@@ -1,7 +1,7 @@
 pipeline:
   testing:
-    image: python:3.8-slim
+    image: python:3.8-alpine
     commands:
-      - apt install make
+      - apk add --update make
       - make setup
       - make test
