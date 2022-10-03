@@ -1,9 +1,7 @@
 pipeline:
   testing:
-    image: python:3.8-alpine
-    environment:
-      - PYTHON_BIN=python3
+    image: python:3.8
     commands:
-      - apk add --update make
+      - apt update && apt install make
       - make setup
       - make test
