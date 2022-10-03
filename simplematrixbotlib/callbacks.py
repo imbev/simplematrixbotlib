@@ -34,7 +34,7 @@ class Callbacks:
 
         for event_listener in self.bot.listener._registry:
             if issubclass(event_listener[1],
-                            nio.events.to_device.ToDeviceEvent):
+                          nio.events.to_device.ToDeviceEvent):
                 self.async_client.add_to_device_callback(
                     event_listener[0], event_listener[1])
             else:
