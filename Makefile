@@ -1,47 +1,33 @@
 .DEFAULT_GOAL = help
-.PHONY: help prep build upload clean-windows clean-linux
+.PHONY: help setup test build publish
+
+PYTHON_BIN ?= "/usr/bin/env python3"
 
 help:
 	@echo --HELP--
 	@echo make help - display this message
-	@echo make prep - install poetry and run "poetry install"
-	@echo make test - run "poetry run pytest"
-	@echo make build - run "poetry build"
-	@echo make upload - run "poetry publish"
-	@echo make clean-windows - clean project of unwanted files and dirs on windows
-	@echo make clean-linux - clean project of unwanted files and dirs on linux
+	@echo make setup - install dependencies
+	@echo make test - run tests
+	@echo make build - build package
+	@echo make publish - upload package to pypi
 
-prep:
-	@echo --PREP--
-	pip install poetry
-	poetry install
+	@echo "(python binary: "\"${PYTHON_BIN}\"")"
+
+setup:
+	@echo --SETUP--
+	${PYTHON_BIN} -m pip install poetry
+	${PYTHON_BIN} -m poetry install
 
 test:
 	@echo --TEST--
-	poetry run pytest
+	${PYTHON_BIN} -m poetry run python -m pytest -p no:sugar
+	${PYTHON_BIN} -m poetry run mypy simplematrixbotlib --ignore-missing-imports
+	${PYTHON_BIN} -m poetry run python -m bandit -r simplematrixbotlib
 
 build:
 	@echo --BUILD--
-	poetry build
+	${PYTHON_BIN} -m poetry build
 
-upload:
-	@echo --UPLOAD--
-	poetry publish
-
-clean-windows:
-	@echo --CLEAN-WINDOWS--
-	if exist build rmdir /S /Q build
-	if exist dist rmdir /S /Q dist
-	if exist simplematrixbotlib.egg-info rmdir /S /Q simplematrixbotlib.egg-info
-	if exist simplematrixbotlib\__pycache__ rmdir /S /Q simplematrixbotlib\__pycache__
-	if exist "doc/_build" rmdir /S /Q "doc/_build"
-	if exist tests\__pycache__ rmdir /S /Q tests\__pycache__
-
-clean-linux:
-	@echo --CLEAN-LINUX--
-	rm -r -f build
-	rm -r -f dist
-	rm -r -f simplematrixbotlib.egg-info
-	rm -r -f simplematrixbotlib/__pycache__
-	rm -r -f doc/_build
-	rm -r -f tests/__pycache__
+publish:
+	@echo --PUBLISH--
+	${PYTHON_BIN} -m poetry publish
