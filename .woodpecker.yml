@@ -1,6 +1,8 @@
 pipeline:
   testing:
     image: python:3.8
+    environment:
+      - PYTHON_BIN=python3
     commands:
       - apt update && apt install make
       - make setup
