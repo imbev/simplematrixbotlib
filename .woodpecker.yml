@@ -2,5 +2,6 @@ pipeline:
   testing:
     image: python:3.8-slim
     commands:
+      - apt install make
       - make setup
       - make test
