@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.7.2](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.7.2)
+##  2022-10-13 2b0474dc49
+###  Notes:
+- Encryption Support!
+### Additions:
+- None
+### Modifications
+- Fixes a bug that prevented custom event listeners from functioning properly
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.7.0](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.7.0)
 ##  2022-08-20 a340933
 ###  Notes:
