@@ -126,8 +126,8 @@ class Api:
                     f"or reset your session by deleting {self.creds._session_stored_file}"
                     f"{' and ' + self.config.store_path if self.config.encryption_enabled else ''}."
                 )
-            elif device_id != self.creds.device_id:
-                if self.config.encryption_enabled:
+            if device_id != self.creds.device_id:
+                if self.config.encryption_enabled and self.creds.device_id:
                     raise ValueError(
                         f"Given device ID (session ID) '{device_id}' does not match the access token. "
                         "This is critical, because it may break your verification status unintentionally. "
