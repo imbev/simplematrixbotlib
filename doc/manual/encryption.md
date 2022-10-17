@@ -16,7 +16,7 @@ More information is available at [matrix-nio](https://github.com/poljar/matrix-n
 Finally, install e2e support for matrix-nio by running:
 
 ```
-python -m pip install matrix-nio[e2e]
+python -m pip install "matrix-nio[e2e]"
 ```
 
 If there are issues installing the e2e extra with pip from PyPI, additional packages may be required to build python-olm on your distribution, for example python3-devel on openSUSE.
