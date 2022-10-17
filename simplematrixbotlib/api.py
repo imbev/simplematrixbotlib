@@ -127,12 +127,19 @@ class Api:
                     f"{' and ' + self.config.store_path if self.config.encryption_enabled else ''}."
                 )
             if device_id != self.creds.device_id:
-                if self.config.encryption_enabled and self.creds.device_id:
-                    raise ValueError(
-                        f"Given device ID (session ID) '{device_id}' does not match the access token. "
-                        "This is critical, because it may break your verification status unintentionally. "
-                        "Fix this by providing the correct credentials matching the stored session "
-                        f"{self.creds._session_stored_file}.")
+                if self.config.encryption_enabled:
+                    if self.creds.device_id is not None:
+                        raise ValueError(
+                            f"Given device ID (session ID) '{device_id}' does not match the access token. "
+                            "This is critical, because it may break your verification status unintentionally. "
+                            "Fix this by providing the correct credentials matching the stored session "
+                            f"{self.creds._session_stored_file}.")
+                    else:
+                        print(
+                            "First run with access token. "
+                            "Saving device ID (session ID)...")
+                        self.creds.device_id, self.async_client.device_id = (user_id, user_id)
+                        self.creds.session_write_file()
                 else:
                     print(
                         "Loaded device ID (session ID) does not match the access token. "
