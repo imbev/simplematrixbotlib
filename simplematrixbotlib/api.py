@@ -138,7 +138,7 @@ class Api:
                         "Loaded device ID (session ID) does not match the access token. "
                         "Recovering automatically...")
                     self.creds.device_id, self.async_client.device_id = (
-                        user_id, user_id)
+                        device_id, device_id)
                     self.creds.session_write_file()
 
             if self.config.encryption_enabled:
