@@ -11,10 +11,10 @@ class Creds:
     ----------
     homeserver : str
         The homeserver for the bot to connect to. Begins with "https://".
-    
+
     username : str
         The username for the bot to connect as.
-    
+
     password : str
         The password for the bot to connect with.
 
@@ -34,10 +34,10 @@ class Creds:
         ----------
         homeserver : str
             The homeserver for the bot to connect to. Begins with "https://".
-    
+
         username : str, optional
             The username for the bot to connect as. This is necessary if password is used instead of login_token.
-    
+
         password : str, optional
             The password for the bot to connect with. Can be used instead of login_token. One of the password, login_token, or access_token must be provided.
 
@@ -46,10 +46,10 @@ class Creds:
 
         access_token : str, optional
             The access_token for the bot to connect with. Can be used instead of password. One of the password, login_token, or access_token must be provided.
-        
+
         session_stored_file : str, optional
             Location for the bot to read and write device_id and access_token. The data within this file is encrypted and decrypted with the password parameter using the cryptography package. If set to None, session data will not be saved to file.
-        
+
         """
 
         self.homeserver = homeserver
@@ -110,8 +110,12 @@ class Creds:
     def session_write_file(self):
         """
         Encrypts and writes to file the device_id and access_token.
-
         """
+
+        if not self._session_stored_file:
+            print('device_id and access_token will not be saved')
+            return
+
         if not (self.device_id and self.access_token):
             raise ValueError(
                 f"Can't save credentials: missing device ID '{self.device_id}' or access token '{self.access_token}'"
@@ -121,13 +125,9 @@ class Creds:
                 f"Can't save credentials: empty device ID '{self.device_id}' or access token '{self.access_token}'"
             )
 
-        if self._session_stored_file:
-            session_data = str([self.device_id, self.access_token])
+        session_data = str([self.device_id, self.access_token])
 
-            encrypted_session_data = fw.encrypt(session_data, self._key)
+        encrypted_session_data = fw.encrypt(session_data, self._key)
 
-            with open(self._session_stored_file, 'w') as f:
-                f.write(str(encrypted_session_data))
-
-        else:
-            print('device_id and access_token will not be saved')
+        with open(self._session_stored_file, 'w') as f:
+            f.write(str(encrypted_session_data))
