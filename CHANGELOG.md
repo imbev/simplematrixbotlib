@@ -1,7 +1,20 @@
 # Changelog
 
+## [v2.7.4](https://codeberg.org/imbev/simplematrixbotlib/src/tag/v2.7.4)
+##  2022-10-17 8b70b10b01
+###  Notes:
+- Fix bug
+### Additions:
+- None
+### Modifications
+- Fixes a bug that caused an error on session save if session saving is disabled.
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.7.3](https://codeberg.org/imbev/simplematrixbotlib/src/tag/v2.7.3)
-##  2022-10-13 2b0474dc49
+##  2022-10-17 2b0474dc49
 ###  Notes:
 - Allow using E2EE with access token
 ### Additions:
