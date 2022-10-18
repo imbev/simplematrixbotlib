@@ -111,9 +111,16 @@ class Api:
                     r = json.loads(
                         (await
                          response.text()).replace(":false,", ":\"false\","))
-                    device_id = r['device_id']
-                    self.async_client.user_id, user_id = (r['user_id'],
+                    try:
+                        device_id = r['device_id']
+                        self.async_client.user_id, user_id = (r['user_id'],
                                                           r['user_id'])
+                    except KeyError:
+                        if r['errcode'] == "M_UNKNOWN_TOKEN":
+                            raise ValueError("The provided bot access token is not know. Did you log out of this "
+                                             "session? Try with a new access token.")
+                        else:
+                            raise KeyError
 
             if self.creds.username == split_mxid(user_id)[0]:
                 # save full MXID
