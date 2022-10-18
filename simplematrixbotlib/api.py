@@ -154,8 +154,8 @@ class Api:
                     self.creds.device_id, self.async_client.device_id = (device_id, device_id)
                     self.creds.session_write_file()
 
-        if self.config.encryption_enabled:
-                self.async_client.load_store()
+            if self.config.encryption_enabled:
+                    self.async_client.load_store()
 
         else:
             if self.creds.password:
