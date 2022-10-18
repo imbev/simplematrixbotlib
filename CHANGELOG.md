@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.7.3](https://codeberg.org/imbev/simplematrixbotlib/src/tag/v2.7.3)
+##  2022-10-13 2b0474dc49
+###  Notes:
+- Allow using E2EE with access token
+### Additions:
+- None
+### Modifications
+- Fixes a bug that prevented e2ee usage when access token
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.7.2](https://github.com/i10b/simplematrixbotlib/releases/tag/v2.7.2)
 ##  2022-10-13 2b0474dc49
 ###  Notes:
