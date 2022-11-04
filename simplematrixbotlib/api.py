@@ -117,7 +117,7 @@ class Api:
                                                           r['user_id'])
                     except KeyError:
                         if r['errcode'] == "M_UNKNOWN_TOKEN":
-                            raise ValueError("The provided bot access token is not know. Did you log out of this "
+                            raise ValueError("The provided bot access token is unknown. Did you log out of this "
                                              "session? Try with a new access token.")
                         else:
                             raise KeyError
