@@ -147,7 +147,7 @@ class Api:
                     self.creds.device_id, self.async_client.device_id = (device_id, device_id)
                     self.creds.session_write_file()
 
-        if self.config.encryption_enabled:
+            if self.config.encryption_enabled:
                 self.async_client.load_store()
 
         else:
@@ -186,7 +186,7 @@ class Api:
                 message_type=message_type,
                 content=content,
                 ignore_unverified_devices=ignore_unverified_devices
-                or self.config.ignore_unverified_devices)
+                                          or self.config.ignore_unverified_devices)
         except OlmUnverifiedDeviceError as e:
             # print(str(e))
             print(
@@ -197,10 +197,10 @@ class Api:
             for user in self.async_client.rooms[room_id].users:
                 unverified: List[str] = list()
                 for device_id, device in self.async_client.olm.device_store[
-                        user].items():
+                    user].items():
                     if not (self.async_client.olm.is_device_verified(device) or
                             self.async_client.olm.is_device_blacklisted(device)
-                            ):
+                    ):
                         self.async_client.olm.blacklist_device(device)
                         unverified.append(device_id)
                 if len(unverified) > 0:
@@ -211,7 +211,7 @@ class Api:
                 message_type=message_type,
                 content=content,
                 ignore_unverified_devices=ignore_unverified_devices
-                or self.config.ignore_unverified_devices)
+                                          or self.config.ignore_unverified_devices)
 
     async def send_text_message(self, room_id, message, msgtype='m.text'):
         """
@@ -255,14 +255,14 @@ class Api:
         await self._send_room(room_id=room_id,
                               content={
                                   "msgtype":
-                                  msgtype,
+                                      msgtype,
                                   "body":
-                                  message,
+                                      message,
                                   "format":
-                                  "org.matrix.custom.html",
+                                      "org.matrix.custom.html",
                                   "formatted_body":
-                                  markdown.markdown(message,
-                                                    extensions=['nl2br'])
+                                      markdown.markdown(message,
+                                                        extensions=['nl2br'])
                               })
 
     async def send_image_message(self, room_id, image_filepath):
@@ -291,7 +291,7 @@ class Api:
                 filename=os.path.basename(image_filepath),
                 filesize=file_stat.st_size)
         if isinstance(resp, UploadResponse):
-            pass  #Successful upload
+            pass  # Successful upload
         else:
             print(f"Failed Upload Response: {resp}")
 
