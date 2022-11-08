@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "simplematrixbotlib"
-version = "2.7.4"
+version = "2.8.0"
 description = "An easy to use bot library for the Matrix ecosystem written in Python."
-authors = ["krazykirby99999 <krazykirby99999@gmail.com>"]
+authors = ["imbev <imbev@protonmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/KrazyKirby99999/simple-matrix-bot-lib"
+repository = "https://codeberg.org/imbev/simplematrixbotlib"
 documentation = "https://simple-matrix-bot-lib.readthedocs.io/en/latest/"
 keywords = [
     "simple",
