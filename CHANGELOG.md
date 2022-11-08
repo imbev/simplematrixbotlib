@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.8.0](https://codeberg.org/imbev/simplematrixbotlib/src/tag/v2.8.0)
+##  2022-11-08 9fcf053105
+###  Notes:
+- Improvements :)
+### Additions:
+- Add method for sending video messages
+### Modifications
+- Misc improvements to device id handling
+### Removals:
+- None
+### Deprecations
+- None
+
 ## [v2.7.4](https://codeberg.org/imbev/simplematrixbotlib/src/tag/v2.7.4)
 ##  2022-10-17 8b70b10b01
 ###  Notes:
