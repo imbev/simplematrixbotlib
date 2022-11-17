@@ -91,11 +91,13 @@ class Api:
             store_sync_tokens=True,
             encryption_enabled=self.config.encryption_enabled)
         store_path = self.config.store_path
+        proxy = self.config.proxy or os.environ.get('https_proxy',os.environ.get('HTTPS_PROXY'))
         os.makedirs(store_path, mode=0o750, exist_ok=True)
         self.async_client = AsyncClient(homeserver=self.creds.homeserver,
                                         user=self.creds.username,
                                         device_id=self.creds.device_id,
                                         store_path=store_path,
+                                        proxy=proxy,
                                         config=client_config)
 
         if self.creds.access_token:
