@@ -6,7 +6,7 @@ Run the following command in your terminal or cmd prompt to install simplematrix
 python -m pip install simplematrixbotlib
 ```
 
-See [Encryption](#requirements) to lean how to install E2E encryption support.
+See [Encryption](#requirements) to learn how to install E2E encryption support.
 
 ### Installing from Git Repo
 Run the following command in your terminal or cmd prompt to download the repository to your machine.
