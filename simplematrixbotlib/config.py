@@ -44,6 +44,7 @@ class Config:
     _join_on_invite: bool = True
     _encryption_enabled: bool = ENCRYPTION_ENABLED
     _emoji_verify: bool = False  # So users who enable it are aware of required interactivity
+    _proxy: str = None  # So users who enable it are aware of required interactivity
     _ignore_unverified_devices: bool = True  # True by default in Element
     # TODO: auto-ignore/auto-blacklist devices/users
     # _allowed_unverified_devices etc
@@ -119,6 +120,20 @@ class Config:
     @emoji_verify.setter
     def emoji_verify(self, value: bool) -> None:
         self._emoji_verify = value and self.encryption_enabled
+
+    @property
+    def proxy(self) -> str:
+        """
+        Returns
+        -------
+        string
+            Whether a proxy, and which should be used to communicate.
+        """
+        return self._proxy
+
+    @proxy.setter
+    def proxy(self, value: str) -> None:
+        self._proxy = value 
 
     @property
     def store_path(self) -> str:
