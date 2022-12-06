@@ -22,7 +22,7 @@ async def check_valid_homeserver(homeserver: str) -> bool:
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(
-                    f'{homeserver}/_matrix/client/versions') as response:
+                    f'{homeserver}/_matrix/client/versions',proxy=os.environ.get('https_proxy')) as response:
                 if response.status == 200:
                     return True
         except aiohttp.client_exceptions.ClientConnectorError:
