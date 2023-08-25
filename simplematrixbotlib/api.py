@@ -343,6 +343,7 @@ class Api:
             pass  # Successful upload
         else:
             print(f"Failed Upload Response: {resp}")
+            return
 
         content = {
             "body": os.path.basename(video_filepath),
