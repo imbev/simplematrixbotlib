@@ -263,7 +263,9 @@ class Api:
                                   "org.matrix.custom.html",
                                   "formatted_body":
                                   markdown.markdown(message,
-                                                    extensions=['nl2br'])
+                                                    extensions=[
+                                                        'nl2br',
+                                                        'fenced_code'])
                               })
 
     async def send_image_message(self, room_id, image_filepath):
